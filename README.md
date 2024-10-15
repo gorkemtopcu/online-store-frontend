@@ -2,7 +2,15 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### How to name a branch ###
+* <type>/<initials>/<issue>-#<issue-number>
+* For instance => feature/ms/project-init-#1 
+	* type: feature
+	* branch owner name: Michael Scott
+	* issue: project-init
+	* issue number: 1
+
+### What is this repository for? ###
 
 In the project directory, you can run:
 
