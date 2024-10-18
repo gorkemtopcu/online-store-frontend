@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLayout from './MainLayout'; 
 import NotFoundPage from './product/NotFoundPage'; 
-import ProductList from './components/ProductList';
+import ProductList from './product/ProductList';
 
 function App() {
   return (
