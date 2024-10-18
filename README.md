@@ -10,6 +10,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 	* issue: project-init
 	* issue number: 1
 
+### Folder Structure ###
+Visit provided link and see "Advanced Structure": https://blog.webdevsimplified.com/2022-07/react-folder-structure/
+
+### Which Component Library Should I use? ###
+"shadcn" is not exactly a library but enables you to copy and paste the provided code of the component. Which makes it a lot flexible.
+Visit here: https://ui.shadcn.com/
+
+
 ### What is this repository for? ###
 
 In the project directory, you can run:
