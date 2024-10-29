@@ -1,37 +1,62 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainLayout from './MainLayout';
-import NotFoundPage from './pages/not_found_page';
-import CreateProductForm from './pages/create_product_page';
-import { productMockService } from './services/product_mock_service';
-import InventoryManagementPage from './pages/inventory_management_page';
-
-
+import categories from './categories';
 
 function App() {
-  const [products, setProducts] = useState([]);
+  const [activeCategory, setActiveCategory] = useState(null);
 
-  useEffect(() => {
-    // Generate and set products to state
-    const generatedProducts = productMockService.generateProducts(10);
-    setProducts(generatedProducts);
-    
-    // Print products to the console
-    console.log('Generated Products:', generatedProducts);
-  }, []);
-
+  const handleCategoryClick = (categoryName) => {
+    setActiveCategory((prevCategory) => 
+      prevCategory === categoryName ? null : categoryName
+    );
+  };
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route path="product/create" element={<CreateProductForm />} />
-          <Route path="product/edit" element={<InventoryManagementPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
-    </Router>
+    <div className="container">
+      <header className="navbar">
+        
+        <nav>
+          {categories.map((category) => (
+            <span 
+              key={category.name} 
+              className="nav-link"
+              onClick={() => handleCategoryClick(category.name)}
+            >
+              {category.name}
+            </span>
+          ))}
+        </nav>
+        <div className="right-section">
+          <button className="search-button">SEARCH</button>
+          <span>LOG IN</span>
+          <span>HELP</span>
+          <span>SHOPPING BAG (0)</span>
+        </div>
+      </header>
+
+      <div className="sidebar">
+        <h3>Categories</h3>
+        {categories.map((category) => (
+          <div key={category.name}>
+            <div 
+              className="category" 
+              onClick={() => handleCategoryClick(category.name)}
+            >
+              {category.name}
+            </div>
+            {activeCategory === category.name && (
+              <ul className="subcategory-list">
+                {category.subcategories.map((subcategory) => (
+                  <li key={subcategory}>{subcategory}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
+
+      
+    </div>
   );
 }
 
