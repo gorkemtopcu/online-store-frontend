@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -71,3 +72,18 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+# cs308-online-store-frontend
+
+### Branching
+
+Newly opened branches should be named as follows:
+
+```sh
+If its a feature branch : "feature/<author name letters>/<feature name>-#<issue number>"
+If its a bugfix branch : "bugfix/<author name letters>/<bugfix name>-#<issue number>"
+
+Example: feature/mk/add-home-view-#1
+Example: bugfix/mk/fix-home-view-localization-#1
+```
+>>>>>>> b6092c06ae4e5d30effeb9f402dee59827ec1aa9

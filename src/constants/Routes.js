@@ -1,6 +1,7 @@
 import {
     BarChartOutlined,
 } from '@ant-design/icons';
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';  
 
 const Routes = [
@@ -23,6 +24,30 @@ const Routes = [
      },
     ],
   },
+=======
+import React from 'react';
+
+const Routes = [
+    {
+        key: 'dashboard',
+        icon: <BarChartOutlined />,
+        label: 'Reports',
+        children: [
+            {
+                key: 'product',
+                label: 'Product',
+            },
+            {
+                key: 'product/sell',
+                label: 'Sell',
+            },
+            {
+                key: 'product/buy',
+                label: 'Buy',
+            },
+        ],
+    },
+>>>>>>> b6092c06ae4e5d30effeb9f402dee59827ec1aa9
 ];
 
 export default Routes;
