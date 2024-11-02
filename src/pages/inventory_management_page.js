@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { productMockService } from '../services/product_mock_service';
 import { Table, Button, Card, message } from 'antd';
 import ProductHeader from 'components/ProductHeader';
-import EditProductModal from '../components/EditProductModal';
+import EditProductModal from '../features/inventory_management/components/EditProductModal';
 
 const InventoryManagementPage = () => {
     const [products, setProducts] = useState([]);
