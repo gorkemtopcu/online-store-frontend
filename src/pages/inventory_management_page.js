@@ -24,7 +24,7 @@ const InventoryManagementPage = () => {
 
         fetchProducts();
     }, []);
-
+    // todo: discuss moving handlers into another layer
     // Delete product by ID
     const handleDelete = (id) => {
         setProducts(products.filter(product => product.id !== id));
@@ -61,7 +61,7 @@ const InventoryManagementPage = () => {
         setEditingProduct(null);
         message.success('Product updated successfully');
     };
-
+    // todo: dummy colums to be replaced with actual columns
     const columns = [
         {
             title: 'Product Name',
