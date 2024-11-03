@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Upload } from 'antd';
-import ProductHeader from 'components/ProductHeader';
+import ProductHeader from 'components/headers/ProductHeader';
 import { UploadOutlined } from '@ant-design/icons';
 
 const CreateProductPage = () => {
