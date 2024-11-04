@@ -42,8 +42,8 @@ const Routes = [
                 label: 'Sell',
             },
             {
-                key: 'product/buy',
-                label: 'Buy',
+                key: 'product/edit',
+                label: 'Edit',
             },
         ],
     },
