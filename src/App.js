@@ -5,6 +5,7 @@ import MainLayout from './MainLayout';
 import NotFoundPage from './pages/not_found_page';
 import ProductList from './product/ProductList';
 import { productMockService } from './services/product_mock_service';
+import InventoryManagementPage from './pages/inventory_management_page';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -20,6 +21,8 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route path="product" element={<ProductList products={products} />} />
+          <Route path="product/create" element={<CreateProductForm />} />
+          <Route path="product/edit" element={<InventoryManagementPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
