@@ -1,4 +1,4 @@
-/*import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 
 const generateRandomProduct = (id) => ({
   id,
@@ -15,4 +15,4 @@ const generateProducts = (count) => {
 
 export const productMockService = {
   generateProducts,
-}*/
+}
