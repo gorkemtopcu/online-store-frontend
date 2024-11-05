@@ -4,16 +4,18 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLayout from './MainLayout';
 import NotFoundPage from './pages/not_found_page';
 import ProductList from './product/ProductList';
-import { productMockService } from './services/product_mock_service';
+//import { productMockService } from './services/product_mock_service';
 import InventoryManagementPage from './pages/inventory_management_page';
+import CreateProductForm from './components/forms/CreateProductForm';
+
 
 function App() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const generatedProducts = productMockService.generateProducts(10);
-    setProducts(generatedProducts);
-    console.log('Generated Products:', generatedProducts);
+    //const generatedProducts = productMockService.generateProducts(10);
+    //setProducts(generatedProducts);
+    //console.log('Generated Products:', generatedProducts);
   }, []);
 
   return (
