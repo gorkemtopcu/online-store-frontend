@@ -5,7 +5,7 @@ const generateRandomProduct = (id) => ({
   brand: faker.company.name(),
   name: faker.commerce.productName(),
   image: faker.image.urlPicsumPhotos({width: 400, height: 400}),
-  price: faker.commerce.price({ min: 10, max: 200, dec: 2, symbol: "$" }),
+  price: parseFloat(faker.commerce.price({ min: 10, max: 200, dec: 2 })), 
   stock: faker.number.int({ min: 0, max: 100 }),
 });
 
