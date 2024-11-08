@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
-import { Outlet } from "react-router-dom";
 import { Layout, Menu, Button, theme } from 'antd';
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Routes from './constants/Routes';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import LoginButton from 'components/buttons/LoginButton';
 
 const { Header, Sider, Content } = Layout;
 
 const MainLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
+    const {token: { colorBgContainer }} = theme.useToken();
     const navigate = useNavigate();
     return (
         <Layout style={{ minHeight: '100vh' }}>
@@ -47,20 +45,29 @@ const MainLayout = () => {
                     items={Routes}
                 />
             </Sider>
-            <Layout style={{ marginLeft: collapsed ? 80 : 250 }}>
-            <Header className="d-flex justify-content-between ps-2 pe-5" style={{ padding: 0, background: colorBgContainer }}>
-                <Button
-                    type="text"
-                    icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                    onClick={() => setCollapsed(!collapsed)}
+            <Layout style={{ marginLeft: collapsed ? 80 : 275 }}>
+                <Header
+                    className="d-flex"
                     style={{
-                    fontSize: '16px',
-                    width: 64,
-                    height: 64,
+                        padding: 0,
+                        background: colorBgContainer,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
                     }}
-                />
-                <div className="header-right" style={{ display: 'flex', alignItems: 'center', maxHeight: '60px', padding: '0', borderRadius: '0' }}>
-                </div>
+                >
+                    <Button
+                        type="text"
+                        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                        onClick={() => setCollapsed(!collapsed)}
+                        style={{
+                            fontSize: '16px',
+                            width: 64,
+                            height: 64,
+                        }}
+                    />
+                    <div style={{ flex: 1 }} /> {}
+                    <LoginButton />
                 </Header>
                 <Content
                     style={{
@@ -68,8 +75,7 @@ const MainLayout = () => {
                         padding: 24,
                         background: colorBgContainer,
                         minHeight: 280, 
-                    }}
-                >
+                    }} >
                     <Outlet />
                 </Content>
             </Layout>
