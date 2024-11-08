@@ -6,6 +6,9 @@ import NotFoundPage from './pages/not_found_page';
 import ProductList from './product/ProductList';
 import { productMockService } from './services/product_mock_service';
 import InventoryManagementPage from './pages/inventory_management_page';
+import CreateProductForm from './pages/create_product_page';
+
+
 
 function App() {
   const [products, setProducts] = useState([]);
