@@ -14,10 +14,14 @@ function App() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    // Generate and set products to state
     const generatedProducts = productMockService.generateProducts(10);
     setProducts(generatedProducts);
+    
+    // Print products to the console
     console.log('Generated Products:', generatedProducts);
   }, []);
+
 
   return (
     <Router>
