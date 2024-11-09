@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { productMockService } from '../services/product_mock_service';
+import { productMockService } from '../../services/product_mock_service';
 import { Table, Button, Card, message } from 'antd';
 import ProductHeader from 'components/headers/ProductHeader';
-import EditProductModal from 'features/inventory_management';
+import EditProductModal from 'features/admin/inventory_management';
 
 const InventoryManagementPage = () => {
     const [products, setProducts] = useState([]);
@@ -61,7 +61,7 @@ const InventoryManagementPage = () => {
         setEditingProduct(null);
         message.success('Product updated successfully');
     };
-    // todo: dummy colums to be replaced with actual columns
+    // todo: dummy columns to be replaced with actual columns
     const columns = [
         {
             title: 'Product Name',

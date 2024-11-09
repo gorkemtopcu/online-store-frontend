@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AdminLayout from './pages/MainLayout';
-import NotFoundPage from './pages/not_found_page';
-import CreateProductForm from './pages/create_product_page';
+import AdminLayout from './layouts/admin_layout';
+import CreateProductForm from './pages/admin/create_product_page';
 import { productMockService } from './services/product_mock_service';
-import InventoryManagementPage from './pages/inventory_management_page';
+import InventoryManagementPage from './pages/admin/inventory_management_page';
 import ProductList from './product/ProductList';
-import UserLayout from 'pages/user_layout';
+import UserLayout from 'layouts/user_layout';
+import { AdminRoutePaths, CustomerRoutePaths } from 'constants/route_paths';
+import NotFoundPage from 'pages/common/not_found_page';
 
 
 
@@ -28,17 +29,17 @@ function App() {
     <Router>
     <Routes>
       {/* Admin routes */}
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route path="product/create" element={<CreateProductForm />} />
-        <Route path="product/edit" element={<InventoryManagementPage />} />
+      <Route path={AdminRoutePaths.ADMIN} element={<AdminLayout />}>
+        <Route path={AdminRoutePaths.CREATE_PRODUCT} element={<CreateProductForm />} />
+        <Route path={AdminRoutePaths.EDIT_PRODUCT} element={<InventoryManagementPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
       
       {/* User routes */}
-      <Route path="/" element={<UserLayout />}>
-        <Route path="/collection" element={<ProductList products={products} />} />
-        <Route path="/about" element={<h1>About</h1>} />
-        <Route path="/contact" element={<h1>Contact</h1>} />
+      <Route path={CustomerRoutePaths.HOME} element={<UserLayout />}>
+        <Route path={CustomerRoutePaths.COLLECTION} element={<ProductList products={products} />} />
+        <Route path={CustomerRoutePaths.ABOUT} element={<h1>About</h1>} />
+        <Route path={CustomerRoutePaths.CONTACT} element={<h1>Contact</h1>} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
