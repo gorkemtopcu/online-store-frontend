@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Layout, Menu, Button, theme } from 'antd';
 import { Outlet, useNavigate } from "react-router-dom";
-import Routes from './constants/Routes';
+import AdminRoutes from '../constants/AdminRoutes';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import LoginButton from 'components/buttons/LoginButton';
 
 const { Header, Sider, Content } = Layout;
 
-const MainLayout = () => {
+const AdminLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const {token: { colorBgContainer }} = theme.useToken();
     const navigate = useNavigate();
@@ -42,7 +42,7 @@ const MainLayout = () => {
                         navigate(key);
                         console.log(key);
                     }}
-                    items={Routes}
+                    items={AdminRoutes}
                 />
             </Sider>
             <Layout style={{ marginLeft: collapsed ? 80 : 275 }}>
@@ -83,4 +83,4 @@ const MainLayout = () => {
     );
 };
 
-export default MainLayout;
+export default AdminLayout;
