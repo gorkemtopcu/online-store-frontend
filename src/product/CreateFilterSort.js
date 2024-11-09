@@ -3,11 +3,13 @@ const createFilterSort = (products, { searchTerm = '', sortOption = '', mainCate
     .filter(product => {
       // Arama işlemi
       const matchesSearchTerm =
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchTerm.toLowerCase());
+        (product.name && product.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase()));
 
       // Ana ve alt kategori ayrımı
-      const [productMainCategory, productSubCategory] = product.category.split(' - ');
+      const [productMainCategory, productSubCategory] = product.category
+        ? product.category.split(' - ')
+        : ['', ''];
 
       // Ana kategoriye göre filtreleme
       const matchesMainCategory = mainCategory ? productMainCategory === mainCategory : true;

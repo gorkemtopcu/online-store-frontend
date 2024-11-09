@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import CreateFilterSort from './CreateFilterSort';
+import React, { useState, useEffect } from 'react'; 
+import createFilterSort from './CreateFilterSort';
 import categories from './categories';
 
-const ProductList = ({ products: initialProducts = [] }) => { // products prop
+const ProductList = ({ products: initialProducts = [] }) => {
   const [products, setProducts] = useState(initialProducts);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOption, setSortOption] = useState('');
   const [mainCategory, setMainCategory] = useState('');
   const [subCategory, setSubCategory] = useState('');
-  const [isLoading, setIsLoading] = useState(!initialProducts.length); // Eğer initialProducts varsa isLoading false
+  const [isLoading, setIsLoading] = useState(!initialProducts.length);
+
   useEffect(() => {
     if (!initialProducts.length) { 
       fetch('/dummy.txt')
@@ -25,8 +26,7 @@ const ProductList = ({ products: initialProducts = [] }) => { // products prop
     }
   }, [initialProducts]);
 
-  // Filtrelenmiş ve sıralanmış ürünleri almak için createFilterSort
-  const filteredSortedProducts = CreateFilterSort(products, { searchTerm, sortOption, mainCategory, subCategory });
+  const filteredSortedProducts = createFilterSort(products, { searchTerm, sortOption, mainCategory, subCategory });
 
   return (
     <div>
@@ -49,7 +49,6 @@ const ProductList = ({ products: initialProducts = [] }) => { // products prop
             <option value="priceHighLow">Price: High to Low</option>
           </select>
 
-          {/* Ana kategori seçeneği */}
           <select onChange={(e) => setMainCategory(e.target.value)} value={mainCategory}>
             <option value="">All Main Categories</option>
             {categories.map(category => (
@@ -59,11 +58,10 @@ const ProductList = ({ products: initialProducts = [] }) => { // products prop
             ))}
           </select>
 
-          {/* Alt kategori seçeneği */}
           <select
             onChange={(e) => setSubCategory(e.target.value)}
             value={subCategory}
-            disabled={!mainCategory} // Ana kategori seçilmediyse devre dışı bırak
+            disabled={!mainCategory}
           >
             <option value="">All Subcategories</option>
             {mainCategory &&
@@ -82,16 +80,15 @@ const ProductList = ({ products: initialProducts = [] }) => { // products prop
                 <div key={product.id} className="product-card">
                   <h2>{product.name}</h2>
                   <p>ID: {product.id}</p>
-                  <p>Name: {product.name}</p>
-                  <p>Model: {product.model}</p>
-                  <p>Serial Number: {product.serialNumber}</p>
-                  <p>{product.description}</p>
+                  <p>Brand: {product.brand}</p>
+                  <img src={product.image} alt={product.name} width={100} height={100} />
+                  <p>Description: {product.description}</p>
                   <p>Price: {product.price} USD</p>
-                  <p>In Stock: {product.quantityInStocks}</p>
+                  <p>In Stock: {product.stock}</p>
+                  <p>Popularity: {product.popularity}</p>
                   <p>Warranty: {product.warrantyStatus}</p>
-                  <p>Distributor: {product.distributor}</p>
-                  <button disabled={product.quantityInStocks === 0}>
-                    {product.quantityInStocks > 0 ? 'Add to Cart' : 'Out of Stock'}
+                  <button disabled={product.stock === 0}>
+                    {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
                   </button>
                 </div>
               ))
