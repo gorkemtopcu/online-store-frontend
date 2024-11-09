@@ -35,8 +35,12 @@ function App() {
       </Route>
       
       {/* User routes */}
-      <Route path="/" element={<UserLayout />} />
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path="/" element={<UserLayout />}>
+        <Route path="/collection" element={<ProductList products={products} />} />
+        <Route path="/about" element={<h1>About</h1>} />
+        <Route path="/contact" element={<h1>Contact</h1>} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
     </Routes>
   </Router>
   );
