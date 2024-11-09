@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
-import categories from './categories';
+import categories from './data/categories';
+import db from './services/firebaseConfig';
 
 function App() {
   const [activeCategory, setActiveCategory] = useState(null);
