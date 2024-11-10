@@ -49,6 +49,9 @@ const ProductDetails = () => {
                             <Button type="primary">Add to Cart</Button>
                             <Button type="default">Add to Wishlist</Button>
                         </div>
+
+                        {/* TODO: Implement comment, rating, stock, size etc. */}                                              
+                        
                     </Col>
                 </Row>
             </Card>
