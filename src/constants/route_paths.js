@@ -3,6 +3,8 @@ const CustomerRoutePaths = {
     COLLECTION: '/collection',
     ABOUT: '/about',
     CONTACT: '/contact',
+    WISHLIST: '/wishlist',
+    DETAILS: '/product',
 };
 
 const AdminRoutePaths = {
