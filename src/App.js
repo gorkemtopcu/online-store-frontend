@@ -9,6 +9,7 @@ import CreateProductView from "features/admin/create_product/view/create_product
 import NotFoundView from "features/common/not_found/view/not_found_view";
 import HomeView from "features/customer/home/view/home_view";
 import CollectionView from "features/customer/collection/view/collection_view";
+import WishlistView from "features/customer/wishlist/wishlist_view";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           />
           <Route path={CustomerRoutePaths.ABOUT} element={<h1>About</h1>} />
           <Route path={CustomerRoutePaths.CONTACT} element={<h1>Contact</h1>} />
+          <Route path={CustomerRoutePaths.WISHLIST} element={<WishlistView />} />
           <Route path="*" element={<NotFoundView />} />
         </Route>
       </Routes>
