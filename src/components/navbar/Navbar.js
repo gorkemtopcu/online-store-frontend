@@ -41,10 +41,12 @@ const Navbar = () => {
                     <SearchOutlined className="w-5 h-5 cursor-pointer" />
                     <div className="group relative">
                         <UserOutlined className="w-5 h-5 cursor-pointer" />
-                        <div className="hidden group-hover:block absolute right-0 pt-4">
+                        <div className="hidden group-hover:block absolute right-0 pt-4 z-50">
                             <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
                                 <p className="cursor-pointer hover:text-black">Profile</p>
                                 <p className="cursor-pointer hover:text-black">Orders</p>
+                                <p className="cursor-pointer hover:text-black">
+                                    <Link to="/wishlist">Wishlist</Link>    </p>
                                 <p className="cursor-pointer hover:text-black">Logout</p>
                             </div>
                         </div>
