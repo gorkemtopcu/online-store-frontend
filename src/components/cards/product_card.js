@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Card, Spin } from "antd";
+import { Card, Spin, Button } from "antd";
 const { Meta } = Card;
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, showButtons, onAddToCart, onRemoveFromWishlist }) => {
   const [loading, setLoading] = useState(true);
 
   const handleImageLoad = () => {
@@ -30,6 +30,18 @@ const ProductCard = ({ product }) => {
       }
     >
       <Meta title={product.name} description={`$${product.price}`} />
+      
+      {/* Conditionally render buttons if showButtons is true */}
+      {showButtons && (
+        <div className="flex justify-between mt-4">
+          <Button type="primary" onClick={() => onAddToCart(product)}>
+            Add to Cart
+          </Button>
+          <Button type="default" onClick={() => onRemoveFromWishlist(product.id)}>
+            Remove from Wishlist
+          </Button>
+        </div>
+      )}
     </Card>
   );
 };
