@@ -1,0 +1,140 @@
+/* Overlay styling */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+}
+
+.overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Side menu styling */
+.sidemenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Light, soft transparent background */
+    color: #333; /* Softer text color */
+    padding: 20px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.sidemenu.open {
+    transform: translateX(0);
+}
+
+.sidemenu-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #5a5a5a; /* Soft, muted title color */
+}
+
+/* Close button styling */
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    color: #333;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: #007BFF; /* Subtle blue hover */
+}
+
+/* Category styling */
+.category-title {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #555;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.category-title:hover {
+    background-color: rgba(200, 200, 200, 0.2);
+}
+
+/* Side menu icon styles */
+.side-menu-icon {
+    position: fixed; /* Keeps it fixed in one position */
+    top: 20px;       /* Distance from the top of the page */
+    left: 20px;      /* Distance from the left side of the page */
+    z-index: 1000;   /* Ensure it's above other elements */
+    cursor: pointer;
+    width: 36px;     /* Adjust width as needed */
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.8); /* Optional background for visibility */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.side-menu-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: #333; /* Icon color */
+}
+
+.side-menu-icon:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Subcategory list styling */
+.subcategory-list {
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition: max-height 0.3s ease;
+}
+
+.subcategory {
+    font-size: 16px;
+    color: #666;
+    padding: 5px 0;
+}
+
+.subcategory:hover {
+    color: #007BFF;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Scrollbar customization */
+.sidemenu::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidemenu::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+.sidemenu::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.5);
+}

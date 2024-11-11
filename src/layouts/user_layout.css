@@ -1,0 +1,23 @@
+/* UserLayout.css */
+
+.menu-toggle-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333; /* Adjust color as needed */
+}
+
+.menu-toggle-button:hover {
+    color: #555;
+}
+
+/* Optional styling for content to account for the sidebar */
+.content-container {
+    margin-left: 60px; /* Adjust this if you want space on the left */
+    padding-top: 20px;
+}
