@@ -1,48 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AdminLayout from './pages/MainLayout';
-import NotFoundPage from './pages/not_found_page';
-import ProductList from './product/ProductList';
-import { productMockService } from './services/product_mock_service';
-import InventoryManagementPage from './pages/inventory_management_page';
-import CreateProductForm from './pages/create_product_page';
-import UserLayout from 'pages/user_layout';
-
-
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AdminLayout from "./layouts/admin_layout";
+import UserLayout from "layouts/user_layout";
+import { AdminRoutePaths, CustomerRoutePaths } from "constants/route_paths";
+import React from "react";
+import InventoryManagementView from "features/admin/inventory_management/view/inventory_management_view";
+import CreateProductView from "features/admin/create_product/view/create_product_view";
+import NotFoundView from "features/common/not_found/view/not_found_view";
+import HomeView from "features/customer/home/view/home_view";
+import CollectionView from "features/customer/collection/view/collection_view";
+import WishlistView from "features/customer/wishlist/wishlist_view";
+import ProductDetails from "product/ProductDetails";
 
 function App() {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    // Generate and set products to state
-    const generatedProducts = productMockService.generateProducts(10);
-    setProducts(generatedProducts);
-    
-    // Print products to the console
-    console.log('Generated Products:', generatedProducts);
-  }, []);
-
-
   return (
     <Router>
-    <Routes>
-      {/* Admin routes */}
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route path="product/create" element={<CreateProductForm />} />
-        <Route path="product/edit" element={<InventoryManagementPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-      
-      {/* User routes */}
-      <Route path="/" element={<UserLayout />}>
-        <Route path="/collection" element={<ProductList products={products} />} />
-        <Route path="/about" element={<h1>About</h1>} />
-        <Route path="/contact" element={<h1>Contact</h1>} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </Routes>
-  </Router>
+      <Routes>
+        {/* Admin routes */}
+        <Route path={AdminRoutePaths.ADMIN} element={<AdminLayout />}>
+          <Route
+            path={AdminRoutePaths.CREATE_PRODUCT}
+            element={<CreateProductView />}
+          />
+          <Route
+            path={AdminRoutePaths.EDIT_PRODUCT}
+            element={<InventoryManagementView />}
+          />
+          <Route path="*" element={<NotFoundView />} />
+        </Route>
+
+        {/* User routes */}
+        <Route path={CustomerRoutePaths.HOME} element={<UserLayout />}>
+          <Route path={CustomerRoutePaths.HOME} element={<HomeView />} />
+          <Route
+            path={CustomerRoutePaths.COLLECTION}
+            element={<CollectionView />}
+          />
+          <Route path={CustomerRoutePaths.ABOUT} element={<h1>About</h1>} />
+          <Route path={CustomerRoutePaths.CONTACT} element={<h1>Contact</h1>} />
+          <Route path={CustomerRoutePaths.WISHLIST} element={<WishlistView />} />
+          <Route path={CustomerRoutePaths.DETAILS} element={<ProductDetails />} />
+          <Route path="*" element={<NotFoundView />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 

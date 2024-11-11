@@ -1,5 +1,6 @@
 import React from 'react';
 import { BarChartOutlined, EditOutlined } from '@ant-design/icons';
+import { AdminRoutePaths } from './route_paths';
 
 const AdminRoutes = [
     {
@@ -8,13 +9,13 @@ const AdminRoutes = [
         label: 'Product',
         children: [
             {
-                key: 'product/create',
+                key: AdminRoutePaths.CREATE_PRODUCT,
                 label: 'Create',
                 icon: <EditOutlined />,
 
             },
             {
-                key: 'product/Edit',
+                key: AdminRoutePaths.EDIT_PRODUCT,
                 label: 'Edit',
                 icon: <EditOutlined />,
 
