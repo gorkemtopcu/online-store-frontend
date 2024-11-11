@@ -1,0 +1,27 @@
+import React from 'react';
+import { BarChartOutlined, EditOutlined } from '@ant-design/icons';
+import { AdminRoutePaths } from './route_paths';
+
+const AdminRoutes = [
+    {
+        key: 'dashboard',
+        icon: <BarChartOutlined />,
+        label: 'Product',
+        children: [
+            {
+                key: AdminRoutePaths.CREATE_PRODUCT,
+                label: 'Create',
+                icon: <EditOutlined />,
+
+            },
+            {
+                key: AdminRoutePaths.EDIT_PRODUCT,
+                label: 'Edit',
+                icon: <EditOutlined />,
+
+            },
+        ],
+    },
+];
+
+export default AdminRoutes;

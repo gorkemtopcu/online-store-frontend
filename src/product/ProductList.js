@@ -1,32 +1,27 @@
-import React, { useState, useEffect } from 'react'; 
-import createFilterSort from './CreateFilterSort';
-import categories from './categories';
+import React, { useState } from "react";
 
-const ProductList = ({ products: initialProducts = [] }) => {
-  const [products, setProducts] = useState(initialProducts);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortOption, setSortOption] = useState('');
-  const [mainCategory, setMainCategory] = useState('');
-  const [subCategory, setSubCategory] = useState('');
-  const [isLoading, setIsLoading] = useState(!initialProducts.length);
+const ProductList = ({ products }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOption, setSortOption] = useState("");
 
-  useEffect(() => {
-    if (!initialProducts.length) { 
-      fetch('/dummy.txt')
-        .then(response => response.text())
-        .then(text => {
-          const data = JSON.parse(text);
-          setProducts(data);
-          setIsLoading(false);
-        })
-        .catch(error => {
-          console.error('Error fetching products:', error);
-          setIsLoading(false);
-        });
-    }
-  }, [initialProducts]);
-
-  const filteredSortedProducts = createFilterSort(products, { searchTerm, sortOption, mainCategory, subCategory });
+  const filteredProducts = products
+    .filter(
+      (product) =>
+        (product.name &&
+          product.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (product.description &&
+          product.description.toLowerCase().includes(searchTerm.toLowerCase()))
+    )
+    .sort((a, b) => {
+      // for sorting prices
+      if (sortOption === "price") {
+        return a.price - b.price;
+      } else if (sortOption === "popularity") {
+        // and also sorting popularity
+        return b.popularity - a.popularity;
+      }
+      return 0;
+    });
 
   return (
     <div>
@@ -74,30 +69,33 @@ const ProductList = ({ products: initialProducts = [] }) => {
                 ))}
           </select>
 
-          <div className="product-grid">
-            {filteredSortedProducts.length > 0 ? (
-              filteredSortedProducts.map(product => (
-                <div key={product.id} className="product-card">
-                  <h2>{product.name}</h2>
-                  <p>ID: {product.id}</p>
-                  <p>Brand: {product.brand}</p>
-                  <img src={product.image} alt={product.name} width={100} height={100} />
-                  <p>Description: {product.description}</p>
-                  <p>Price: {product.price} USD</p>
-                  <p>In Stock: {product.stock}</p>
-                  <p>Popularity: {product.popularity}</p>
-                  <p>Warranty: {product.warrantyStatus}</p>
-                  <button disabled={product.stock === 0}>
-                    {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
-                  </button>
-                </div>
-              ))
-            ) : (
-              <p>No products found</p>
-            )}
-          </div>
-        </>
-      )}
+      <div className="product-grid">
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <div key={product.id} className="product-card">
+              <h2>{product.name}</h2>
+              <p>ID: {product.id}</p>
+              <p>Brand: {product.brand}</p>
+              <p>{product.description}</p>
+              <img
+                src={product.image}
+                alt={product.name}
+                width={100}
+                height={100}
+              />
+              <p>Price: {product.price} USD</p>
+              <p>In Stock: {product.stock}</p>
+              <p>Popularity: {product.popularity}</p>
+              <p>Warranty: {product.warrantyStatus}</p>
+              <button disabled={product.stock === 0}>
+                {product.stock > 0 ? "Add to Cart" : "Out of Stock"}
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>No products found</p>
+        )}
+      </div>
     </div>
   );
 };
