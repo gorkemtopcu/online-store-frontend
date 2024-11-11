@@ -1,33 +1,69 @@
-const createFilterSort = (products, { searchTerm = '', sortOption = '', mainCategory = '', subCategory = '' }) => {
-  return products
-    .filter(product => {
-      // Arama işlemi
-      const matchesSearchTerm =
-        (product.name && product.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase()));
+import React, { useState } from 'react';
+import categories from 'product/categories'; 
 
-      // Ana ve alt kategori ayrımı
-      const [productMainCategory, productSubCategory] = product.category
-        ? product.category.split(' - ')
-        : ['', ''];
+const CreateFilterSort = ({ onFilterSort }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOption, setSortOption] = useState('');
+  const [mainCategory, setMainCategory] = useState('');
+  const [subCategory, setSubCategory] = useState('');
 
-      // Ana kategoriye göre filtreleme
-      const matchesMainCategory = mainCategory ? productMainCategory === mainCategory : true;
+  // Ana kategori seçildiğinde alt kategorileri sıfırlama
+  const handleMainCategoryChange = (e) => {
+    const selectedMainCategory = e.target.value;
+    setMainCategory(selectedMainCategory);
+    setSubCategory('');
+  };
 
-      // Alt kategoriye göre filtreleme
-      const matchesSubCategory = subCategory ? productSubCategory === subCategory : true;
+  // Arama ve filtreleme işlemi
+  const handleFilterSort = () => {
+    onFilterSort({ searchTerm, sortOption, mainCategory, subCategory });
+  };
 
-      return matchesSearchTerm && matchesMainCategory && matchesSubCategory;
-    })
-    .sort((a, b) => {
-      // Fiyata göre sıralama
-      if (sortOption === 'priceLowHigh') {
-        return a.price - b.price;
-      } else if (sortOption === 'priceHighLow') {
-        return b.price - a.price;
-      }
-      return 0;
-    });
+  return (
+    <div className="product-filter-bar">
+      {/* Arama çubuğu */}
+      <input
+        type="text"
+        placeholder="Search products..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+
+      {/* Ana kategori seçimi */}
+      <select value={mainCategory} onChange={handleMainCategoryChange}>
+        <option value="">Select Category</option>
+        {categories.map((category) => (
+          <option key={category.name} value={category.name}>
+            {category.name}
+          </option>
+        ))}
+      </select>
+
+      {/* Alt kategori seçimi */}
+      {mainCategory && (
+        <select value={subCategory} onChange={(e) => setSubCategory(e.target.value)}>
+          <option value="">Select Subcategory</option>
+          {categories
+            .find((category) => category.name === mainCategory)
+            ?.subcategories.map((subcategory) => (
+              <option key={subcategory} value={subcategory}>
+                {subcategory}
+              </option>
+            ))}
+        </select>
+      )}
+
+      {/* Sıralama seçimi */}
+      <select value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
+        <option value="">Sort By</option>
+        <option value="priceLowHigh">Price: Low to High</option>
+        <option value="priceHighLow">Price: High to Low</option>
+      </select>
+
+      {/* Filtreleme ve sıralama işlemi */}
+      <button onClick={handleFilterSort}>Apply Filters</button>
+    </div>
+  );
 };
 
-export default createFilterSort;
+export default CreateFilterSort;
