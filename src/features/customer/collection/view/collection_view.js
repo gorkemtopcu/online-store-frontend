@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CollectionProducts from "features/customer/collection/view/components/collection_products";
-import ProductSearchFilter from "product/ProductSearchFilter";
+import ProductSearchFilter from "features/customer/collection/view/components/ProductSearchFilter";
 import { productMockService } from "services/product_mock_service";
 
 const CollectionView = () => {

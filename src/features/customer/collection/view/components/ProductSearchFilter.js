@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import categories from "./categories"; // Kategorilerin bulunduğu dosya yolunu belirtin
+import categories from "../../../../../constants/categories"; 
 
 const ProductSearchFilter = ({ onSearch, onSort, onCategoryFilter }) => {
   const [searchTerm, setSearchTerm] = useState("");

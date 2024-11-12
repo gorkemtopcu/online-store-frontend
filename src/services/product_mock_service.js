@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import categories from "product/categories"; // Kategorilerin tanımlı olduğu dosya yolunu belirtin
+import categories from "constants/categories"; // Kategorilerin tanımlı olduğu dosya yolunu belirtin
 
 const generateRandomProduct = (id) => {
   // Rastgele bir kategori seç

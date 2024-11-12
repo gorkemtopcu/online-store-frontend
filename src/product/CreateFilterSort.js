@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import categories from 'product/categories'; 
+import categories from 'constants/categories'; 
 
 const CreateFilterSort = ({ onFilterSort }) => {
   const [searchTerm, setSearchTerm] = useState('');
