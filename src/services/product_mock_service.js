@@ -1,16 +1,26 @@
 import { faker } from "@faker-js/faker";
+import categories from "constants/categories"; // Kategorilerin tanımlı olduğu dosya yolunu belirtin
 
-const generateRandomProduct = (id) => ({
-  id,
-  brand: faker.company.name(),
-  name: faker.commerce.productName(),
-  image: faker.image.urlPicsumPhotos({ width: 512, height: 512 }),
-  description: faker.commerce.productDescription(),
-  price: parseFloat(faker.commerce.price({ min: 10, max: 200, dec: 2 })),
-  stock: faker.number.int({ min: 0, max: 100 }),
-  popularity: faker.number.int({ min: 1, max: 100 }), // New field for popularity
-  warrantyStatus: faker.datatype.boolean() ? "Under Warranty" : "No Warranty", // New field for warranty status
-});
+const generateRandomProduct = (id) => {
+  // Rastgele bir kategori seç
+  const category = faker.helpers.arrayElement(categories);
+  // Rastgele bir alt kategori seç
+  const subcategory = faker.helpers.arrayElement(category.subcategories);
+
+  return {
+    id,
+    brand: faker.company.name(),
+    name: faker.commerce.productName(),
+    image: faker.image.urlPicsumPhotos({ width: 512, height: 512 }),
+    description: faker.commerce.productDescription(),
+    price: parseFloat(faker.commerce.price({ min: 10, max: 200, dec: 2 })),
+    stock: faker.number.int({ min: 0, max: 100 }),
+    popularity: faker.number.int({ min: 1, max: 100 }),
+    warrantyStatus: faker.datatype.boolean() ? "Under Warranty" : "No Warranty",
+    category: category.name, // Kategori adı
+    subcategory: subcategory, // Alt kategori adı
+  };
+};
 
 const generateProducts = (count) => {
   return Array.from({ length: count }, (_, id) =>

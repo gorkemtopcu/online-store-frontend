@@ -12,6 +12,7 @@ import CollectionView from "features/customer/collection/view/collection_view";
 import WishlistView from "features/customer/wishlist/wishlist_view";
 import ProductDetails from "product/ProductDetails";
 
+
 function App() {
   return (
     <Router>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CollectionProducts from "features/customer/collection/view/components/collection_products";
-import ProductSearchFilter from "product/ProductSearchFilter";
+import ProductSearchFilter from "features/customer/collection/view/components/ProductSearchFilter";
 import { productMockService } from "services/product_mock_service";
 
 const CollectionView = () => {
@@ -35,9 +35,22 @@ const CollectionView = () => {
     setFilteredProducts(sorted);
   };
 
+  const handleCategoryFilter = ({ mainCategory, subCategory }) => {
+    const filtered = collectionProducts.filter((product) => {
+      const matchesMainCategory = mainCategory ? product.category === mainCategory : true;
+      const matchesSubCategory = subCategory ? product.subcategory === subCategory : true;
+      return matchesMainCategory && matchesSubCategory;
+    });
+    setFilteredProducts(filtered);
+  };
+
   return (
     <div>
-      <ProductSearchFilter onSearch={handleSearch} onSort={handleSort} />
+      <ProductSearchFilter
+        onSearch={handleSearch}
+        onSort={handleSort}
+        onCategoryFilter={handleCategoryFilter}
+      />
       <CollectionProducts products={filteredProducts} />
     </div>
   );
