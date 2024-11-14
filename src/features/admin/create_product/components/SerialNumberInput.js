@@ -3,13 +3,13 @@ import React from "react";
 import { Form, Input } from "antd";
 import StringConstants from "constants/StringConstants";
 
-const SerialNumberInput = ({ value, onChange }) => (
+const SerialNumberInput = () => (
   <Form.Item
     label={StringConstants.SERIAL_NUMBER}
     name="serialNumber"
     rules={[{ required: true, message: "Please input the serial number!" }]}
   >
-    <Input value={value} onChange={onChange} />
+    <Input />
   </Form.Item>
 );
 

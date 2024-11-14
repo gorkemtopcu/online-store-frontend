@@ -4,7 +4,7 @@ import { Form, Upload, Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import StringConstants from "constants/StringConstants";
 
-const ProductImageUpload = ({ onChange }) => (
+const ProductImageUpload = () => (
   <Form.Item
     label={StringConstants.PRODUCT_IMAGE}
     name="productImage"
@@ -15,7 +15,6 @@ const ProductImageUpload = ({ onChange }) => (
     <Upload
       listType="picture"
       beforeUpload={() => false} // Prevents auto-upload
-      onChange={onChange}
       multiple={true}
       accept=".png,.jpeg,.jpg"
     >

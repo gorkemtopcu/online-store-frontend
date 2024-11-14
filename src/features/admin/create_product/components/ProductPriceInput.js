@@ -3,13 +3,13 @@ import React from "react";
 import { Form, Input } from "antd";
 import StringConstants from "constants/StringConstants";
 
-const ProductPriceInput = ({ value, onChange }) => (
+const ProductPriceInput = () => (
   <Form.Item
     label={StringConstants.PRODUCT_PRICE}
     name="productPrice"
     rules={[{ required: true, message: "Please input the product price!" }]}
   >
-    <Input type="number" value={value} onChange={onChange} />
+    <Input type="number" />
   </Form.Item>
 );
 

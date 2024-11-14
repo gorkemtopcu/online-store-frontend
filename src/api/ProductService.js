@@ -16,7 +16,14 @@ const ProductService = {
         } catch (error) {
             console.error('Error fetching data:', error);
         }
-    }
+    },
+    addProduct: async (product) => {
+        try {
+            return await axios.post(ServiceConstants.PRODUCTS, product);
+        } catch (error) {
+            console.error('Error adding product:', error);
+        }
+    },
 };
 
 export default ProductService;

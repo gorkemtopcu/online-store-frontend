@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button } from "antd";
+import { Form, Button, message } from "antd";
 import ProductHeader from "components/headers/ProductHeader";
 import StringConstants from "constants/StringConstants";
 
@@ -12,25 +12,46 @@ import StockQuantityInput from "../components/StockQuantityInput";
 import SerialNumberInput from "../components/SerialNumberInput";
 import ProductImageUpload from "../components/ProductImageUpload";
 import WarrantyStatusInput from "../components/WarrantyStatusInput";
+import ProductService from "api/ProductService";
 
 const CreateProductPage = () => {
-  const [productName, setProductName] = useState("");
-  const [productDescription, setProductDescription] = useState("");
-  const [productPrice, setProductPrice] = useState("");
-  const [distributorInformation, setDistributorInformation] = useState("");
-  const [modelNumber, setModelNumber] = useState("");
-  const [stockQuantity, setStockQuantity] = useState("");
-  const [serialNumber, setSerialNumber] = useState("");
-  const [warrantyStatus, setWarrantyStatus] = useState("");
-  const [productImage, setProductImage] = useState(null);
+  const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
 
-  const onFinish = (values) => {
-    console.log("Received values:", values);
-  };
+  const onFinish = async (values) => {
+    setLoading(true);
 
-  const handleImageChange = (info) => {
-    if (info.file.status === "done") {
-      setProductImage(info.file.originFileObj);
+    // Create FormData payload
+    const formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("model", values.modelNumber);
+    formData.append("serialNumber", values.serialNumber);
+    formData.append("description", values.productDescription);
+    formData.append("quantityInStock", values.quantityInStock);
+    formData.append("price", values.productPrice);
+    formData.append("warrantyStatus", values.warrantyStatus);
+    formData.append("distributorInformation", values.distributorInformation);
+
+    // Append images to FormData if they exist
+    if (values.productImage) {
+      values.productImage.forEach((file) => {
+        formData.append("images", file.originFileObj);
+      });
+    }
+
+    try {
+      // Call the ProductService to add the product with FormData
+      const response = await ProductService.addProduct(formData); // Adjust ProductService to accept FormData
+      message.success("Product created successfully!");
+      console.log("Response:", response);
+
+      // Reset form fields after success
+      form.resetFields();
+    } catch (error) {
+      message.error("Error creating product. Please try again.");
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,22 +60,22 @@ const CreateProductPage = () => {
       <div style={{ width: "100%", maxWidth: "500px" }}>
         <ProductHeader title={StringConstants.CREATE_PRODUCT} />
         <Form
+          form={form}
           name="create_product"
-          initialValues={{ remember: true }}
           onFinish={onFinish}
           layout="vertical"
         >
-          <ProductNameInput value={productName} onChange={(e) => setProductName(e.target.value)} />
-          <ProductDescriptionInput value={productDescription} onChange={(e) => setProductDescription(e.target.value)} />
-          <ProductPriceInput value={productPrice} onChange={(e) => setProductPrice(e.target.value)} />
-          <DistributorInformationInput value={distributorInformation} onChange={(e) => setDistributorInformation(e.target.value)} />
-          <ModelNumberInput value={modelNumber} onChange={(e) => setModelNumber(e.target.value)} />
-          <StockQuantityInput value={stockQuantity} onChange={(e) => setStockQuantity(e.target.value)} />
-          <SerialNumberInput value={serialNumber} onChange={(e) => setSerialNumber(e.target.value)} />
-          <WarrantyStatusInput value={warrantyStatus} onChange={(e) => setWarrantyStatus(e.target.value)} />
-          <ProductImageUpload onChange={handleImageChange} />
+          <ProductNameInput />
+          <ProductDescriptionInput />
+          <ProductPriceInput />
+          <DistributorInformationInput />
+          <ModelNumberInput />
+          <StockQuantityInput />
+          <SerialNumberInput />
+          <WarrantyStatusInput />
+          <ProductImageUpload />
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+            <Button type="primary" htmlType="submit" style={{ width: "100%" }} loading={loading}>
               {StringConstants.SUBMIT}
             </Button>
           </Form.Item>
