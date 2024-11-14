@@ -1,13 +1,27 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Upload } from "antd";
+import { Form, Button } from "antd";
 import ProductHeader from "components/headers/ProductHeader";
-import { UploadOutlined } from "@ant-design/icons";
+import StringConstants from "constants/StringConstants";
+
+import ProductNameInput from "../components/ProductNameInput";
+import ProductDescriptionInput from "../components/ProductDescriptionInput";
+import ProductPriceInput from "../components/ProductPriceInput";
+import DistributorInformationInput from "../components/DistributorInformationInput";
+import ModelNumberInput from "../components/ModelNumberInput";
+import StockQuantityInput from "../components/StockQuantityInput";
+import SerialNumberInput from "../components/SerialNumberInput";
+import ProductImageUpload from "../components/ProductImageUpload";
+import WarrantyStatusInput from "../components/WarrantyStatusInput";
 
 const CreateProductPage = () => {
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [productPrice, setProductPrice] = useState("");
-  // eslint-disable-next-line no-unused-vars
+  const [distributorInformation, setDistributorInformation] = useState("");
+  const [modelNumber, setModelNumber] = useState("");
+  const [stockQuantity, setStockQuantity] = useState("");
+  const [serialNumber, setSerialNumber] = useState("");
+  const [warrantyStatus, setWarrantyStatus] = useState("");
   const [productImage, setProductImage] = useState(null);
 
   const onFinish = (values) => {
@@ -21,81 +35,27 @@ const CreateProductPage = () => {
   };
 
   return (
-    <div
-      style={{ display: "flex", justifyContent: "flex-start", padding: "20px" }}
-    >
+    <div style={{ display: "flex", justifyContent: "flex-start", padding: "20px" }}>
       <div style={{ width: "100%", maxWidth: "500px" }}>
-        <ProductHeader title="Create Product" />
+        <ProductHeader title={StringConstants.CREATE_PRODUCT} />
         <Form
           name="create_product"
           initialValues={{ remember: true }}
           onFinish={onFinish}
           layout="vertical"
         >
-          <Form.Item
-            label="Product Name"
-            name="productName"
-            rules={[
-              { required: true, message: "Please input the product name!" },
-            ]}
-          >
-            <Input
-              value={productName}
-              onChange={(e) => setProductName(e.target.value)}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Product Description"
-            name="productDescription"
-            rules={[
-              {
-                required: true,
-                message: "Please input the product description!",
-              },
-            ]}
-          >
-            <Input
-              value={productDescription}
-              onChange={(e) => setProductDescription(e.target.value)}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Product Price"
-            name="productPrice"
-            rules={[
-              { required: true, message: "Please input the product price!" },
-            ]}
-          >
-            <Input
-              type="number"
-              value={productPrice}
-              onChange={(e) => setProductPrice(e.target.value)}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Product Image"
-            name="productImage"
-            valuePropName="fileList"
-            getValueFromEvent={(e) => e.fileList}
-            rules={[
-              { required: true, message: "Please upload a product image!" },
-            ]}
-          >
-            <Upload
-              listType="picture"
-              beforeUpload={() => false} // Prevents auto-upload
-              onChange={handleImageChange}
-            >
-              <Button icon={<UploadOutlined />}>Upload Image</Button>
-            </Upload>
-          </Form.Item>
-
+          <ProductNameInput value={productName} onChange={(e) => setProductName(e.target.value)} />
+          <ProductDescriptionInput value={productDescription} onChange={(e) => setProductDescription(e.target.value)} />
+          <ProductPriceInput value={productPrice} onChange={(e) => setProductPrice(e.target.value)} />
+          <DistributorInformationInput value={distributorInformation} onChange={(e) => setDistributorInformation(e.target.value)} />
+          <ModelNumberInput value={modelNumber} onChange={(e) => setModelNumber(e.target.value)} />
+          <StockQuantityInput value={stockQuantity} onChange={(e) => setStockQuantity(e.target.value)} />
+          <SerialNumberInput value={serialNumber} onChange={(e) => setSerialNumber(e.target.value)} />
+          <WarrantyStatusInput value={warrantyStatus} onChange={(e) => setWarrantyStatus(e.target.value)} />
+          <ProductImageUpload onChange={handleImageChange} />
           <Form.Item>
             <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
-              Submit
+              {StringConstants.SUBMIT}
             </Button>
           </Form.Item>
         </Form>

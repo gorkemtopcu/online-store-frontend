@@ -37,7 +37,7 @@ const ProductDetails = () => {
                     <Col xs={24} md={10}>
                         <img
                             alt={product.name}
-                            src={product.imageURL}
+                            src={product.imageURL[0]} // Display the first image in the array
                             style={{
                                 width: '100%',
                                 borderRadius: '8px',
