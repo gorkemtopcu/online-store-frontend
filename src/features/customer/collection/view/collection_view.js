@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from "react";
 import CollectionProducts from "features/customer/collection/view/components/collection_products";
 import ProductSearchFilter from "features/customer/collection/view/components/ProductSearchFilter";
-import { productMockService } from "services/product_mock_service";
+import ProductService from "api/ProductService";
 
 const CollectionView = () => {
   const [collectionProducts, setCollectionProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    const generatedProducts = productMockService.generateProducts(52);
-    setCollectionProducts(generatedProducts);
-    setFilteredProducts(generatedProducts);
+    // Fetch products from ProductService instead of using mock data
+    const fetchProducts = async () => {
+      try {
+        const response = await ProductService.getAll();
+        if (response && response.data) {
+          console.log("Fetched products:", response.data);
+          setCollectionProducts(response.data);
+          setFilteredProducts(response.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
   const handleSearch = (term) => {

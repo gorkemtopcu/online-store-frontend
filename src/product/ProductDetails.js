@@ -1,14 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Button, Row, Col } from 'antd';
 import { productMockService } from 'services/product_mock_service';
+import { useParams } from 'react-router-dom';
+import ProductService from 'api/ProductService';
+
 
 const ProductDetails = () => {
+    const { id } = useParams(); // Get the product ID from the URL
     const [product, setProduct] = useState(null);
 
     useEffect(() => {
-        const productsData = productMockService.generateProducts(1); // Generate 1 mock product
-        setProduct(productsData[0]); // Set the first product as product state
-    }, []);
+        // Define an asynchronous function to fetch the product
+        const fetchProduct = async () => {
+            try {
+                const productData = await ProductService.getById(id); // Wait for the product data to be fetched
+                setProduct(productData.data); // Set the product state with the resolved data
+            } catch (error) {
+                console.error("Error fetching product:", error);
+            }
+        };
+
+        fetchProduct(); // Call the async function
+    }, [id]);
+
 
     if (!product) {
         return <p>Loading product details...</p>;
@@ -23,7 +37,7 @@ const ProductDetails = () => {
                     <Col xs={24} md={10}>
                         <img
                             alt={product.name}
-                            src={product.image}
+                            src={product.imageURL[0]} // Display the first image in the array
                             style={{
                                 width: '100%',
                                 borderRadius: '8px',
@@ -39,9 +53,8 @@ const ProductDetails = () => {
                         <p><strong>Description:</strong> {product.description}</p>
                         
                         
-                        <p><strong>Popularity:</strong> {product.popularity}/100</p>
                         <p><strong>Warranty Status:</strong> {product.warrantyStatus} <br /><br /></p>
-                        <p><strong>Stock:</strong> {product.stock} available</p>
+                        <p><strong>Stock:</strong> {product.quantityInStock} available</p>
                         
                         <p className="text-xl"><strong>${product.price}</strong> </p>
 
