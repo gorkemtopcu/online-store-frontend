@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { productMockService } from "../../../../services/product_mock_service";
+import { productMockService } from "../../../../services/mock/product_mock_service";
 import { Table, Button, Card, message } from "antd";
 import ProductHeader from "components/headers/ProductHeader";
 import EditProductModal from "./components/EditProductModal";
