@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import categories from "../../../../../constants/categories"; 
+import categories from "../../../../../constants/categories";
 
 const ProductSearchFilter = ({ onSearch, onSort, onCategoryFilter }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -8,9 +8,11 @@ const ProductSearchFilter = ({ onSearch, onSort, onCategoryFilter }) => {
   const [subCategory, setSubCategory] = useState("");
 
   const handleSearchChange = (e) => {
-    const term = e.target.value;
+    const term = e.target.value; 
     setSearchTerm(term);
-    onSearch(term); // Arama terimi her değiştiğinde `onSearch`'i çağır
+    if (onSearch) {
+      onSearch(term); 
+    }
   };
 
   const handleSortChange = (e) => {
@@ -31,15 +33,15 @@ const ProductSearchFilter = ({ onSearch, onSort, onCategoryFilter }) => {
 
   return (
     <div className="product-search-filter">
-      {/* Arama Çubuğu */}
+      {/* Search Input */}
       <input
         type="text"
         placeholder="Search products..."
         value={searchTerm}
-        onChange={handleSearchChange} // Her değişiklikte arama yapar
+        onChange={handleSearchChange}
       />
 
-      {/* Ana Kategori Seçimi */}
+      {/* Main Category Selection */}
       <select value={mainCategory} onChange={handleMainCategoryChange}>
         <option value="">Select Category</option>
         {categories.map((category) => (
@@ -49,7 +51,7 @@ const ProductSearchFilter = ({ onSearch, onSort, onCategoryFilter }) => {
         ))}
       </select>
 
-      {/* Alt Kategori Seçimi */}
+      {/* Subcategory Selection */}
       {mainCategory && (
         <select value={subCategory} onChange={(e) => setSubCategory(e.target.value)}>
           <option value="">Select Subcategory</option>
@@ -63,14 +65,14 @@ const ProductSearchFilter = ({ onSearch, onSort, onCategoryFilter }) => {
         </select>
       )}
 
-      {/* Sıralama Seçimi */}
+      {/* Sorting Selection */}
       <select value={sortOption} onChange={handleSortChange}>
         <option value="">Sort By</option>
         <option value="price">Price</option>
         <option value="popularity">Popularity</option>
       </select>
 
-      {/* Filtreleri Uygula */}
+      {/* Apply Filters */}
       <button onClick={applyCategoryFilter}>Apply Filters</button>
     </div>
   );
