@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CollectionProducts from "features/customer/collection/view/components/collection_products";
 import ProductSearchFilter from "features/customer/collection/view/components/ProductSearchFilter";
-import ProductService from "api/ProductService";
+import ProductService from "services/ProductService";
 
 const CollectionView = () => {
   const [collectionProducts, setCollectionProducts] = useState([]);
@@ -49,8 +49,12 @@ const CollectionView = () => {
 
   const handleCategoryFilter = ({ mainCategory, subCategory }) => {
     const filtered = collectionProducts.filter((product) => {
-      const matchesMainCategory = mainCategory ? product.category === mainCategory : true;
-      const matchesSubCategory = subCategory ? product.subcategory === subCategory : true;
+      const matchesMainCategory = mainCategory
+        ? product.category === mainCategory
+        : true;
+      const matchesSubCategory = subCategory
+        ? product.subcategory === subCategory
+        : true;
       return matchesMainCategory && matchesSubCategory;
     });
     setFilteredProducts(filtered);

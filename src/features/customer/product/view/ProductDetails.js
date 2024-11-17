@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Row, Col } from "antd";
 import { useParams } from "react-router-dom";
-import ProductService from "api/ProductService";
+import ProductService from "services/ProductService";
 
 const ProductDetails = () => {
   const { id } = useParams(); // Get the product ID from the URL

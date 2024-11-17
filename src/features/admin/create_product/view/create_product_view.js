@@ -12,7 +12,7 @@ import StockQuantityInput from "../components/StockQuantityInput";
 import SerialNumberInput from "../components/SerialNumberInput";
 import ProductImageUpload from "../components/ProductImageUpload";
 import WarrantyStatusInput from "../components/WarrantyStatusInput";
-import ProductService from "api/ProductService";
+import ProductService from "services/ProductService";
 
 const CreateProductPage = () => {
   const [form] = Form.useForm();
@@ -56,7 +56,9 @@ const CreateProductPage = () => {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "flex-start", padding: "20px" }}>
+    <div
+      style={{ display: "flex", justifyContent: "flex-start", padding: "20px" }}
+    >
       <div style={{ width: "100%", maxWidth: "500px" }}>
         <ProductHeader title={StringConstants.CREATE_PRODUCT} />
         <Form
@@ -75,7 +77,12 @@ const CreateProductPage = () => {
           <WarrantyStatusInput />
           <ProductImageUpload />
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: "100%" }} loading={loading}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ width: "100%" }}
+              loading={loading}
+            >
               {StringConstants.SUBMIT}
             </Button>
           </Form.Item>
