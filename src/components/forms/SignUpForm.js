@@ -1,9 +1,10 @@
 import React from "react";
-import { Form, Input, Button, Select, Spin } from "antd";
+import { Form, Input, Button, Select } from "antd";
 import StringConstants from "constants/StringConstants";
 import Validators from "utils/Validators";
 import UserRoles from "constants/UserRoles";
 import useUserStore from "context/UserStore";
+import LoadingButton from "components/buttons/LoadingButton";
 
 const SignUpForm = ({ onSubmit }) => {
   const [form] = Form.useForm();
@@ -76,9 +77,13 @@ const SignUpForm = ({ onSubmit }) => {
       </Form.Item>
 
       <Form.Item style={{ marginBottom: "8px" }}>
-        <Button type="primary" htmlType="submit" block>
-          {isLoading ? <Spin /> : StringConstants.SIGN_UP}
-        </Button>
+        {isLoading ? (
+          <LoadingButton />
+        ) : (
+          <Button type="primary" htmlType="submit" block>
+            {StringConstants.SIGN_UP}
+          </Button>
+        )}
       </Form.Item>
     </Form>
   );

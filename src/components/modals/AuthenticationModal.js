@@ -7,7 +7,7 @@ import useUserStore from "context/UserStore";
 
 const AuthenticationModal = ({ isOpen, onClose }) => {
   const [isLoginMode, setIsLoginMode] = useState(true);
-  const { isLoading, currentUser, login, signUp } = useUserStore();
+  const { isLoading, login, signUp } = useUserStore();
 
   const toggleMode = () => {
     setIsLoginMode(!isLoginMode);
@@ -18,14 +18,14 @@ const AuthenticationModal = ({ isOpen, onClose }) => {
     await login(email, password);
     // for immediate access to zustand states use this syntax
     const updatedCurrentUser = useUserStore.getState().currentUser;
-    console.log("User logged in successfully. User: ", updatedCurrentUser);
     if (updatedCurrentUser) onClose();
   };
 
   const handleSignUp = async (values) => {
     const { name, email, password, role } = values;
     await signUp(name, email, password, role);
-    if (currentUser) onClose();
+    const updatedCurrentUser = useUserStore.getState().currentUser;
+    if (updatedCurrentUser) onClose();
   };
 
   return (

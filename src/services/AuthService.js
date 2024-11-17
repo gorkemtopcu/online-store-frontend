@@ -37,9 +37,9 @@ class AuthService {
     }
   }
 
-  async logout() {
+  logout() {
     try {
-      await auth.signOut();
+      auth.signOut();
     } catch (error) {
       this.handleError(error);
     }
