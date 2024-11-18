@@ -11,6 +11,7 @@ import HomeView from "features/customer/home/view/home_view";
 import CollectionView from "features/customer/collection/view/collection_view";
 import WishlistView from "features/customer/wishlist/wishlist_view";
 import ProductDetails from "product/ProductDetails";
+import CheckoutView from "features/customer/checkout/checkout_view";
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
           <Route path={CustomerRoutePaths.CONTACT} element={<h1>Contact</h1>} />
           <Route path={CustomerRoutePaths.WISHLIST} element={<WishlistView />} />
           <Route path={CustomerRoutePaths.DETAILS} element={<ProductDetails />} />
+          <Route path={CustomerRoutePaths.CHECKOUT} element={<CheckoutView />} />
           <Route path="*" element={<NotFoundView />} />
         </Route>
       </Routes>
