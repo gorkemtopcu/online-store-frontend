@@ -1,40 +1,41 @@
-import React, { useState } from 'react';
-import './sidemenu.css';
-import categories from 'constants/ProductCategories';
-
+import React, { useState } from "react";
+import "./sidemenu.css";
+import categories from "constants/ProductCategories";
 
 const Sidemenu = ({ isOpen, toggleMenu }) => {
-  const [expandedCategories, setExpandedCategories] = useState({});
+  // eslint-disable-next-line no-unused-vars
+  const [selectedFilters, setSelectedFilters] = useState({});
 
-  const toggleCategory = (categoryName) => {
-    setExpandedCategories((prevState) => ({
-      ...prevState,
-      [categoryName]: !prevState[categoryName]
+  const handleFilterChange = (category, subCategory, isChecked) => {
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      [category]: {
+        ...prevFilters[category],
+        [subCategory]: isChecked,
+      },
     }));
   };
 
   return (
-    <div className={`sidemenu ${isOpen ? 'open' : ''}`}>
-      <div className="sidemenu-header">
-        <button onClick={toggleMenu} className="close-button">X</button>
-      </div>
+    <div className={`sidemenu ${isOpen ? "open" : ""}`}>
+      <button className="close-button" onClick={toggleMenu}>
+        X
+      </button>
       {categories.map((category, index) => (
-        <div key={index}>
-          <div
-            className="category-item"
-            onClick={() => toggleCategory(category.name)}
-          >
-            {category.name}
-          </div>
-          {expandedCategories[category.name] && (
-            <div className="subcategory-list">
-              {category.subcategories.map((sub, subIndex) => (
-                <div key={subIndex} className="subcategory-item">
-                  {sub}
-                </div>
-              ))}
+        <div key={index} className="category-section">
+          <div className="category-name">{category.name}</div>
+          {category.subcategories.map((sub, subIndex) => (
+            <div key={subIndex} className="subcategory-item">
+              <input
+                type="checkbox"
+                id={`${category.name}-${sub}`}
+                onChange={(e) =>
+                  handleFilterChange(category.name, sub, e.target.checked)
+                }
+              />
+              <label htmlFor={`${category.name}-${sub}`}>{sub}</label>
             </div>
-          )}
+          ))}
         </div>
       ))}
     </div>
