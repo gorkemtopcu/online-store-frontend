@@ -9,6 +9,7 @@ const StringConstants = {
   PASSWORD: "Password",
   CONFIRM_PASSWORD: "Confirm Password",
   CREATE_PRODUCT: "Create Product",
+  CONTINUE_SHOPPING: "Continue Shopping",
 
   //Admin product creation
   PRODUCT_NAME: "Product Name",

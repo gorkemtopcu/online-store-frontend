@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Card, Button, Row, Col } from "antd";
-import { useParams } from "react-router-dom";
+import { Card, Button, Row, Col, notification } from "antd";
+import { useNavigate, useParams } from "react-router-dom";
 import ProductService from "services/ProductService";
+import useCartStore from "context/CartStore";
+import ProductImage from "./components/ProductImage";
+import ProductInfo from "./components/ProductInfo";
+import { CustomerRoutePaths } from "constants/route_paths";
 
 const ProductDetailsView = () => {
   const { id } = useParams(); // Get the product ID from the URL
   const [product, setProduct] = useState(null);
+  const { addToCart } = useCartStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Define an asynchronous function to fetch the product
@@ -21,6 +27,21 @@ const ProductDetailsView = () => {
     fetchProduct(); // Call the async function
   }, [id]);
 
+  const handleAddToCart = () => {
+    addToCart(product);
+    notification.success({
+      key: "added-to-cart",
+      message: "Added to Cart",
+      description: `${product.name} has been successfully added to your cart.`,
+      placement: "topRight",
+      duration: 2,
+      onClick: () => {
+        navigate(CustomerRoutePaths.CART);
+        notification.destroy("added-to-cart");
+      },
+    });
+  };
+
   if (!product) {
     return <p>Loading product details...</p>;
   }
@@ -31,47 +52,25 @@ const ProductDetailsView = () => {
         <Row gutter={[16, 16]}>
           {/* Left column for image */}
           <Col xs={24} md={10}>
-            <img
-              alt={product.name}
-              src={product.imageURL[0]} // Display the first image in the array
-              style={{
-                width: "100%",
-                borderRadius: "8px",
-                objectFit: "cover",
-              }}
-            />
+            <ProductImage imageURL={product.imageURL[0]} name={product.name} />
           </Col>
 
           {/* Right column for product details */}
           <Col xs={24} md={14}>
-            <h1 className="text-2xl font-bold text-center">{product.name}</h1>
-            <p className="text-center">
-              {product.brand}
-              <br />
-              <br />
-            </p>
-            <p>
-              <strong>Description:</strong> {product.description}
-            </p>
-
-            <p>
-              <strong>Warranty Status:</strong> {product.warrantyStatus} <br />
-              <br />
-            </p>
-            <p>
-              <strong>Stock:</strong> {product.quantityInStock} available
-            </p>
-
-            <p className="text-xl">
-              <strong>${product.price}</strong>{" "}
-            </p>
-
+            <ProductInfo
+              name={product.name}
+              brand={product.brand}
+              description={product.description}
+              warrantyStatus={product.warrantyStatus}
+              quantityInStock={product.quantityInStock}
+              price={product.price}
+            />
             <div className="flex space-x-4 mt-4">
-              <Button type="primary">Add to Cart</Button>
+              <Button type="primary" onClick={handleAddToCart}>
+                Add to Cart
+              </Button>
               <Button type="default">Add to Wishlist</Button>
             </div>
-
-            {/* TODO: Implement comment, rating, stock, size etc. */}
           </Col>
         </Row>
       </Card>

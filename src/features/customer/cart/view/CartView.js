@@ -1,61 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { Typography, Button, Card, Empty } from "antd";
-import { productMockService } from "services/mock/product_mock_service";
+import { Typography, Button, Card } from "antd";
 import CartTable from "./components/CartTable";
+import React from "react";
+import useCartStore from "context/CartStore";
+import CartEmpty from "./components/CartEmpty";
 
 const { Title } = Typography;
 
 const CartView = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const { cart, getTotalPrice } = useCartStore();
+  console.log("CART: " + cart);
 
-  useEffect(() => {
-    const products = productMockService.generateProducts(10).map((product) => ({
-      ...product,
-      quantity: 1,
-    }));
-    setCartItems(products);
-  }, []);
-
-  useEffect(() => {
-    const total = cartItems.reduce(
-      (sum, item) => sum + item.price * item.quantity,
-      0
-    );
-    setTotalPrice(total.toFixed(2));
-  }, [cartItems]);
-
-  const handleQuantityChange = (value, productId) => {
-    setCartItems((prevCartItems) =>
-      prevCartItems.map((item) =>
-        item.id === productId ? { ...item, quantity: value || 1 } : item
-      )
-    );
-  };
-
-  const handleRemoveItem = (productId) => {
-    setCartItems((prevCartItems) =>
-      prevCartItems.filter((item) => item.id !== productId)
-    );
-  };
+  // Calculate the total price using the store
+  const totalPrice = cart ? getTotalPrice() : 0;
 
   return (
     <>
       <Title level={2} style={{ textAlign: "left" }}>
         My Cart
       </Title>
-      {cartItems.length > 0 ? (
+      {Object.keys(cart || {}).length > 0 ? ( // Use empty object as fallback
         <div style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
           <div style={{ flex: 3 }}>
-            <CartTable
-              cartItems={cartItems}
-              onQuantityChange={handleQuantityChange}
-              onRemoveItem={handleRemoveItem}
-            />
+            <CartTable />
           </div>
           <div style={{ flex: 1 }}>
             <Card>
-              <Title level={4}>Total: ${totalPrice}</Title>
+              <Title level={4}>Total: ${totalPrice.toFixed(2)}</Title>
               <Button type="primary" size="large" block>
                 Checkout
               </Button>
@@ -63,14 +33,7 @@ const CartView = () => {
           </div>
         </div>
       ) : (
-        <Empty
-          description={<span>Your cart is empty!</span>}
-          style={{ marginTop: "50px" }}
-        >
-          <Button type="primary" size="large">
-            Continue Shopping
-          </Button>
-        </Empty>
+        <CartEmpty />
       )}
     </>
   );
