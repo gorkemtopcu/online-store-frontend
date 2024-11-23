@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Checkout from './components/checkout'; // Import Checkout
 import PaymentForm from './components/payment_form'; // Import PaymentForm
-import ProductService from 'api/ProductService';
+import ProductService from 'services/ProductService'; // Import ProductService
 import { Row, Col, Divider, Card } from 'antd'; // For layout
 import HomeFooter from 'components/footers/home_footer';
 
-const CheckoutView = () => {
+const PaymentView = () => {
   const [showPaymentForm, setShowPaymentForm] = useState(false); // State to control showing PaymentForm
   const [selectedProducts, setSelectedProducts] = useState([]);
 
@@ -65,7 +65,9 @@ const CheckoutView = () => {
         {/* Payment Form Section */}
         <Col span={12} style={{ display: 'flex', justifyContent: 'left' }}>
           <div style={{ maxWidth: '500px', width: '100%' }}>
-            <PaymentForm product={selectedProducts} />
+            <PaymentForm 
+              product={selectedProducts}
+              onProceedToPayment={proceedToPayment} />
           </div>
         </Col>
       </Row>
@@ -76,4 +78,4 @@ const CheckoutView = () => {
   );
 };
 
-export default CheckoutView;
+export default PaymentView;

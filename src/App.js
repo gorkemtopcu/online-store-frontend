@@ -14,6 +14,7 @@ import ProductDetailsView from "features/customer/product/view/ProductDetailsVie
 import CartView from "features/customer/cart/view/CartView";
 import useUserStore from "context/UserStore";
 import UserRoles from "constants/UserRoles";
+import PaymentView from "features/customer/checkout/checkout_view";
 
 function App() {
   const { currentUser } = useUserStore();
@@ -71,6 +72,7 @@ function App() {
             element={<ProductDetailsView />}
           />
           <Route path={CustomerRoutePaths.CART} element={<CartView />} />
+          <Route path={CustomerRoutePaths.PAYMENT} element={<PaymentView />} />
           <Route path="*" element={<NotFoundView />} />
         </Route>
       </Routes>
