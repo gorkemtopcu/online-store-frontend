@@ -1,17 +1,17 @@
 const CustomerRoutePaths = {
-    HOME: '/',
-    COLLECTION: '/collection',
-    ABOUT: '/about',
-    CONTACT: '/contact',
-    WISHLIST: '/wishlist',
-    DETAILS: '/products/:id', 
-    PAYMENT: '/payment'
+  HOME: "/",
+  COLLECTION: "/collection",
+  ABOUT: "/about",
+  CONTACT: "/contact",
+  WISHLIST: "/wishlist",
+  DETAILS: "/products/:id",
+  CART: "/cart",
 };
 
 const AdminRoutePaths = {
-    ADMIN: '/admin',
-    CREATE_PRODUCT: 'product/create',
-    EDIT_PRODUCT: 'product/edit'
+  ADMIN: "/admin",
+  CREATE_PRODUCT: "product/create",
+  EDIT_PRODUCT: "product/edit",
 };
 
 export { CustomerRoutePaths, AdminRoutePaths };

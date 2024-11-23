@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import './sidemenu.css';
-import categories from 'constants/ProductCategories';
+import React, { useState } from "react";
+import categories from "constants/ProductCategories";
 
-
-const Sidemenu = ({ isOpen, toggleMenu }) => {
+const SideMenu = ({ isOpen, toggleMenu }) => {
   const [expandedCategories, setExpandedCategories] = useState({});
 
   const toggleCategory = (categoryName) => {
     setExpandedCategories((prevState) => ({
       ...prevState,
-      [categoryName]: !prevState[categoryName]
+      [categoryName]: !prevState[categoryName],
     }));
   };
 
   return (
-    <div className={`sidemenu ${isOpen ? 'open' : ''}`}>
+    <div className={`sidemenu ${isOpen ? "open" : ""}`}>
       <div className="sidemenu-header">
-        <button onClick={toggleMenu} className="close-button">X</button>
+        <button onClick={toggleMenu} className="close-button">
+          X
+        </button>
       </div>
       {categories.map((category, index) => (
         <div key={index}>
@@ -41,4 +41,4 @@ const Sidemenu = ({ isOpen, toggleMenu }) => {
   );
 };
 
-export default Sidemenu;
+export default SideMenu;
