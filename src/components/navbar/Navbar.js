@@ -58,7 +58,7 @@ const Navbar = () => {
           <div className="group relative">
             <UserMenu />
           </div>
-          <Link to="/cart" className="relative">
+          <Link to={CustomerRoutePaths.CART} className="relative">
             <ShoppingCartOutlined className="w-5 min-w-5" alt="" />
             <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded text-[8px]">
               10

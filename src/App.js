@@ -10,7 +10,8 @@ import NotFoundView from "features/common/not_found/view/not_found_view";
 import HomeView from "features/customer/home/view/home_view";
 import CollectionView from "features/customer/collection/view/collection_view";
 import WishlistView from "features/customer/wishlist/wishlist_view";
-import ProductDetails from "features/customer/product/view/ProductDetails";
+import ProductDetailsView from "features/customer/product/view/ProductDetailsView";
+import CartView from "features/customer/cart/view/CartView";
 
 function App() {
   return (
@@ -44,8 +45,9 @@ function App() {
           />
           <Route
             path={CustomerRoutePaths.DETAILS}
-            element={<ProductDetails />}
+            element={<ProductDetailsView />}
           />
+          <Route path={CustomerRoutePaths.CART} element={<CartView />} />
           <Route path="*" element={<NotFoundView />} />
         </Route>
       </Routes>
