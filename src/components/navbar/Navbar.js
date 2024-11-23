@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import {
   ShoppingCartOutlined,
@@ -8,10 +8,12 @@ import {
 import logo from "../../assets/images/logo.jpeg";
 import { CustomerRoutePaths } from "constants/route_paths";
 import UserMenu from "components/menu/UserMenu";
+import useCartStore from "context/CartStore";
 
 const Navbar = () => {
   // eslint-disable-next-line no-unused-vars
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
+  const { getTotalQuantity } = useCartStore();
 
   return (
     <div className="px-4 sm:px-8 lg:px-16">
@@ -58,11 +60,13 @@ const Navbar = () => {
           <div className="group relative">
             <UserMenu />
           </div>
-          <Link to="/cart" className="relative">
+          <Link to={CustomerRoutePaths.CART} className="relative">
             <ShoppingCartOutlined className="w-5 min-w-5" alt="" />
-            <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded text-[8px]">
-              10
-            </p>
+            {getTotalQuantity() > 0 && (
+              <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded text-[8px]">
+                {getTotalQuantity()}
+              </p>
+            )}
           </Link>
           {/* Display menu icon only in small sized screen*/}
           <MenuOutlined

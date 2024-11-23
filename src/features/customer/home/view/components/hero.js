@@ -3,9 +3,7 @@ import HeroImage from "assets/images/hero_image.png";
 
 const Hero = () => {
   return (
-    <div className="px-6 py-8 sm:px-12 sm:py-12 lg:px-20 lg:py-16 xl:px-32 xl:py-8">
-      {" "}
-      {/* Added horizontal and vertical padding */}
+    <div className="py-8 sm:py-12 lg:py-16 xl:py-8">
       <div className="flex flex-col sm:flex-row border border-gray-400 h-[500px] max-h-[500px] overflow-hidden">
         {/* Hero Left Side */}
         <div className="w-full sm:w-1/2 flex items-center justify-center py-10 sm:py-0">

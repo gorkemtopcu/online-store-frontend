@@ -19,7 +19,13 @@ const UserLayout = () => {
       </button>
       <div className="layout-container">
         <SideMenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
-        <div className="content-container">
+        <div
+          className="content-container"
+          style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+          }}
+        >
           <Outlet />
         </div>
       </div>

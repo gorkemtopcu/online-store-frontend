@@ -10,9 +10,11 @@ import UserLayout from "layouts/user_layout";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import WishlistView from "features/customer/wishlist/wishlist_view";
-import ProductDetails from "features/customer/product/view/ProductDetails";
+import ProductDetailsView from "features/customer/product/view/ProductDetailsView";
+import CartView from "features/customer/cart/view/CartView";
 import useUserStore from "context/UserStore";
 import UserRoles from "constants/UserRoles";
+
 function App() {
   const { currentUser } = useUserStore();
   const userRole = currentUser?.role;
@@ -66,8 +68,9 @@ function App() {
           />
           <Route
             path={CustomerRoutePaths.DETAILS}
-            element={<ProductDetails />}
+            element={<ProductDetailsView />}
           />
+          <Route path={CustomerRoutePaths.CART} element={<CartView />} />
           <Route path="*" element={<NotFoundView />} />
         </Route>
       </Routes>
