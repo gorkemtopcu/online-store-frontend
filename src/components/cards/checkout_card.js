@@ -5,7 +5,7 @@ const CheckoutCard = ({ product }) => {
   const { name, price, imageURL } = product;
 
   const cardStyle = {
-    maxWidth: '400px',
+    maxWidth: '800px',
     margin: '20px auto',
     padding: 0,
     overflow: 'hidden',
@@ -18,8 +18,8 @@ const CheckoutCard = ({ product }) => {
   };
 
   return (
-    <Card hoverable style={cardStyle}>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+    <Card hoverable style={cardStyle} size='small'>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         {/* Image Section */}
         <img
           alt={name}

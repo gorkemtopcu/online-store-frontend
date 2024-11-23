@@ -5,7 +5,7 @@ const CustomerRoutePaths = {
     CONTACT: '/contact',
     WISHLIST: '/wishlist',
     DETAILS: '/products/:id', 
-    CHECKOUT: '/checkout'
+    PAYMENT: '/payment'
 };
 
 const AdminRoutePaths = {

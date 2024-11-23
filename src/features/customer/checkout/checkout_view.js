@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Checkout from './components/checkout'; // Import Checkout
 import PaymentForm from './components/payment_form'; // Import PaymentForm
 import ProductService from 'api/ProductService';
-import { Row, Col, Divider, Flex, Button } from 'antd'; // For layout
+import { Row, Col, Divider, Card } from 'antd'; // For layout
+import HomeFooter from 'components/footers/home_footer';
 
 const CheckoutView = () => {
   const [showPaymentForm, setShowPaymentForm] = useState(false); // State to control showing PaymentForm
@@ -50,20 +51,27 @@ const CheckoutView = () => {
 
   return (
     <div>
-      <Row gutter={0}>
-        {/* Checkout Section on the left */}
-        <Col span={12}>
-            <Checkout products={selectedProducts} onProceedToPayment={proceedToPayment} />
+       <Row gutter={10} justify="center" align="middle">
+        {/* Checkout Section */}
+        <Col span={12} style={{ display: 'flex', justifyContent: 'right' }}>
+          <div style={{ maxWidth: '500px', width: '100%' }}>
+            <Checkout
+              products={selectedProducts}
+              onProceedToPayment={proceedToPayment}
+            />
+          </div>
         </Col>
 
-        {/* Payment Form Section on the right */}
-        <Col span={12}>
-          <PaymentForm product={selectedProducts} />
+        {/* Payment Form Section */}
+        <Col span={12} style={{ display: 'flex', justifyContent: 'left' }}>
+          <div style={{ maxWidth: '500px', width: '100%' }}>
+            <PaymentForm product={selectedProducts} />
+          </div>
         </Col>
       </Row>
 
       <Divider />
-
+      <HomeFooter />
     </div>
   );
 };

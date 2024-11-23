@@ -42,7 +42,7 @@ function App() {
           <Route path={CustomerRoutePaths.CONTACT} element={<h1>Contact</h1>} />
           <Route path={CustomerRoutePaths.WISHLIST} element={<WishlistView />} />
           <Route path={CustomerRoutePaths.DETAILS} element={<ProductDetails />} />
-          <Route path={CustomerRoutePaths.CHECKOUT} element={<CheckoutView />} />
+          <Route path={CustomerRoutePaths.PAYMENT} element={<CheckoutView />} />
           <Route path="*" element={<NotFoundView />} />
         </Route>
       </Routes>
