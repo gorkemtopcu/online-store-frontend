@@ -14,7 +14,7 @@ import ProductDetailsView from "features/customer/product/view/ProductDetailsVie
 import CartView from "features/customer/cart/view/CartView";
 import useUserStore from "context/UserStore";
 import UserRoles from "constants/UserRoles";
-import PaymentView from "features/customer/checkout/checkout_view";
+import PaymentView from "features/customer/checkout/CheckoutView";
 
 function App() {
   const { currentUser } = useUserStore();
