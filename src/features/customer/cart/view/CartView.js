@@ -1,22 +1,35 @@
-import { Typography, Button, Card } from "antd";
+import { Typography, Button, Card, Modal } from "antd";
 import CartTable from "./components/CartTable";
-import React from "react";
+import React,  { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import useCartStore from "context/CartStore";
+import useUserStore from "context/UserStore";
 import CartEmpty from "./components/CartEmpty";
+import AuthenticationModal from "components/modals/AuthenticationModal";
 
 const { Title } = Typography;
 
 const CartView = () => {
   const { cart, getTotalPrice } = useCartStore();
+  const { isLoggedIn } = useUserStore();
   const navigate = useNavigate();
+  const [isLoginVisible, setIsLoginVisible] = useState(false);
   console.log("CART: " + cart);
 
   // Calculate the total price using the store
   const totalPrice = cart ? getTotalPrice() : 0;
 
   const handleCheckout = () => {
-    navigate('/payment');
+    if (isLoggedIn) {
+      navigate('/payment');
+    } else {
+      setIsLoginVisible(true); // Show the login screen if not logged in
+    }
+  };
+
+  const handleLoginSuccess = () => {
+    setIsLoginVisible(false); // Hide the login screen
+    navigate('/payment'); // Navigate to the payment page after successful login
   };
 
   return (
@@ -41,6 +54,15 @@ const CartView = () => {
       ) : (
         <CartEmpty />
       )}
+
+      <Modal
+        visible={isLoginVisible}
+        onCancel={() => setIsLoginVisible(false)}
+        footer={null}
+      >
+        <AuthenticationModal isOpen={isLoginVisible} onClose={handleLoginSuccess} />
+      </Modal>
+
     </>
   );
 };
