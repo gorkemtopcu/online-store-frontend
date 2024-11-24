@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
-import { Row, Col, Divider, Typography, Form } from 'antd';
+import { Row, Col, Divider, Typography, Form, message } from 'antd';
+import axios from 'axios';
 import PaymentForm from './components/PaymentForm';
 import AddressForm from './components/AddressForm';
 import Checkout from './components/Checkout'; 
 import useCartStore from 'context/CartStore';
+import ServiceConstants from 'constants/ServiceConstants';
 
 const { Text } = Typography;
 
 const CheckoutView = () => {
-  const { cart } = useCartStore(); // Get the cart from the store
+  const { cart, clearCart } = useCartStore(); // Get the cart from the store
   const selectedProducts = Object.values(cart); // Convert cart object to array
   const [addressForm] = Form.useForm();
   const [paymentForm] = Form.useForm();
@@ -21,9 +23,38 @@ const CheckoutView = () => {
     addressForm.validateFields()
       .then(() => {
         console.log("Address form is valid");
+        paymentForm.validateFields()
+          .then(() => {
+            console.log("Payment form is valid");
+            completePurchase();
+          })
+          .catch((errorInfo) => {
+            console.error("Payment form validation failed:", errorInfo);
+          });
       })
       .catch((errorInfo) => {
         console.error("Address form validation failed:", errorInfo);
+      });
+  };
+
+  const completePurchase = () => {
+    const addressDetails = addressForm.getFieldsValue();
+    const paymentDetails = paymentForm.getFieldsValue();
+    const orderDetails = {
+      address: addressDetails,
+      payment: paymentDetails,
+      products: selectedProducts,
+    };
+
+    axios.post(ServiceConstants.ORDERS, orderDetails)
+      .then(response => {
+        message.success('Purchase completed successfully!');
+        clearCart(); // Clear the cart after successful purchase
+        console.log('Order details sent to backend:', response.data);
+      })
+      .catch(error => {
+        message.error('Failed to complete purchase. Please try again.');
+        console.error('Error sending order details to backend:', error);
       });
   };
 
