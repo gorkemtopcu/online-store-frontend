@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Divider, Typography, Form } from 'antd';
-import Checkout from './components/Checkout'; 
+import Checkout from './components/Checkout';
 import useCartStore from 'context/CartStore';
 import { completePurchase } from 'services/OrderService';
 import PaymentColumn from './components/PaymentColumn';
