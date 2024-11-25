@@ -42,10 +42,14 @@ const CheckoutView = () => {
     const addressDetails = addressForm.getFieldsValue();
     const paymentDetails = paymentForm.getFieldsValue();
     const orderTotal = getTotalPrice().toFixed(2);
+    console.log("Selected: ", selectedProducts[0].product.imageURL);
     // get the product ids and quantities from the selected products
     const selectedProductsData = selectedProducts.map((item) => ({
       productId: item.product?.productId || null,
+      name: item.product?.name || null,
       quantity: item.quantity,
+      imageURL: item.product?.imageURL[0] || null,
+      price: item.product?.price || null,
     }));
     
     const success = OrderService.completePurchase(

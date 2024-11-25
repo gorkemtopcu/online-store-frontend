@@ -7,6 +7,7 @@ const CustomerRoutePaths = {
   DETAILS: "/products/:id",
   CART: "/cart",
   PAYMENT: "/payment",
+  ORDERS: "/orders",
 };
 
 const AdminRoutePaths = {

@@ -24,6 +24,13 @@ const OrderService = {
       .then((response) => true)
       .catch((error) => false);
   },
+
+  getOrders: (uid) => {
+    return axios
+      .get(ServiceConstants.ORDERS + ServiceConstants.GET_BY_USERID + uid)
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
+  },
 };
 
 export default OrderService;
