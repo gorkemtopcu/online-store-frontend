@@ -6,6 +6,7 @@ const ServiceConstants = {
 
   GET_ALL: "/getAll",
   GET_BY_ID: "/getById",
+  CREATE: "/create",
 };
 
 export default ServiceConstants;

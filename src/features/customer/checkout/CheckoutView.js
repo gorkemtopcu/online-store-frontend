@@ -2,12 +2,12 @@ import React from "react";
 import { Row, Divider, Typography, Form, notification } from "antd";
 import Checkout from "./components/Checkout";
 import useCartStore from "context/CartStore";
+import useUserStore from "context/UserStore";
 import PaymentColumn from "./components/PaymentColumn";
 import AddressColumn from "./components/AddressColumn";
 import { useNavigate } from "react-router-dom";
 import OrderService from "services/OrderService";
 import { CustomerRoutePaths } from "constants/route_paths";
-
 const { Text } = Typography;
 
 const CheckoutView = () => {
@@ -15,6 +15,7 @@ const CheckoutView = () => {
   const selectedProducts = getCartObjects();
   const [addressForm] = Form.useForm();
   const [paymentForm] = Form.useForm();
+  const { currentUser } = useUserStore();
   const navigate = useNavigate();
 
   const proceedToPayment = () => {
@@ -40,10 +41,13 @@ const CheckoutView = () => {
   const handleOnPurchase = () => {
     const addressDetails = addressForm.getFieldsValue();
     const paymentDetails = paymentForm.getFieldsValue();
+    const selectedProductIds = selectedProducts.map((item) => item.product?.productId || null);
+
     const success = OrderService.completePurchase(
+      currentUser.uid,
       addressDetails,
       paymentDetails,
-      selectedProducts
+      selectedProductIds
     );
     // Todo: Show invoice to user
     navigate(CustomerRoutePaths.HOME);
