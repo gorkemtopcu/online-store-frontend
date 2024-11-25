@@ -14,7 +14,6 @@ const CartView = () => {
   const { isLoggedIn } = useUserStore();
   const navigate = useNavigate();
   const [isLoginVisible, setIsLoginVisible] = useState(false);
-  console.log("CART: " + cart);
 
   // Calculate the total price using the store
   const totalPrice = cart ? getTotalPrice() : 0;
@@ -58,7 +57,7 @@ const CartView = () => {
       ) : (
         <CartEmpty />
       )}
-      <AuthenticationModal isOpen={isLoginVisible} onClose={handleCloseModal} onLoginSuccess={handleLoginSuccess} />
+      <AuthenticationModal isOpen={isLoginVisible} onClose={handleCloseModal} onAuthSuccess={handleLoginSuccess} />
     </>
   );
 };

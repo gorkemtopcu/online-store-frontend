@@ -4,7 +4,7 @@ import AddressForm from './AddressForm';
 
 const { Text } = Typography;
 
-const PaymentColumn = ({ form }) => {
+const AddressColumn = ({ form }) => {
   return (
     <Col span={14} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 auto' }}>
           <div style={{ maxWidth: '500px', width: '100%', marginBottom: '20px' }}>
@@ -17,4 +17,4 @@ const PaymentColumn = ({ form }) => {
   );
 };
 
-export default PaymentColumn;
+export default AddressColumn;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Row, Divider, Typography, Form } from 'antd';
 import Checkout from './components/Checkout'; 
 import useCartStore from 'context/CartStore';
@@ -9,14 +9,10 @@ import AddressColumn from './components/AddressColumn';
 const { Text } = Typography;
 
 const CheckoutView = () => {
-  const { cart, clearCart, getCartObjects } = useCartStore(); // Get the cart from the store
+  const { clearCart, getCartObjects } = useCartStore(); // Get the cart from the store
   const selectedProducts = getCartObjects(); // Get the products from the cart
   const [addressForm] = Form.useForm();
   const [paymentForm] = Form.useForm();
-
-  useEffect(() => {
-    console.log("Selected Products:", selectedProducts);
-  }, [selectedProducts]);
 
   const proceedToPayment = () => {
     addressForm.validateFields()
