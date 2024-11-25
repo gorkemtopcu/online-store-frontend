@@ -5,6 +5,7 @@ import useCartStore from 'context/CartStore';
 import { completePurchase } from 'services/OrderService';
 import PaymentColumn from './components/PaymentColumn';
 import AddressColumn from './components/AddressColumn';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const { Text } = Typography;
 
@@ -13,6 +14,7 @@ const CheckoutView = () => {
   const selectedProducts = getCartObjects(); // Get the products from the cart
   const [addressForm] = Form.useForm();
   const [paymentForm] = Form.useForm();
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const proceedToPayment = () => {
     addressForm.validateFields()
@@ -24,6 +26,10 @@ const CheckoutView = () => {
             const addressDetails = addressForm.getFieldsValue();
             const paymentDetails = paymentForm.getFieldsValue();
             completePurchase(addressDetails, paymentDetails, selectedProducts, clearCart);
+
+            // TODO: navigate to home page or wherever you want to go after successful purchase
+            navigate('/'); // Navigate to the home page after successful purchase
+
           })
           .catch((errorInfo) => {
             console.error("Payment form validation failed:", errorInfo);
