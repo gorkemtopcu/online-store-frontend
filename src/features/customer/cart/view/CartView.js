@@ -1,4 +1,4 @@
-import { Typography, Button, Card, Modal } from "antd";
+import { Typography, Button, Card } from "antd";
 import CartTable from "./components/CartTable";
 import React,  { useState } from "react";
 import { useNavigate } from 'react-router-dom';
@@ -27,9 +27,21 @@ const CartView = () => {
     }
   };
 
-  const handleLoginSuccess = () => {
-    setIsLoginVisible(false); // Hide the login screen
-    navigate('/payment'); // Navigate to the payment page after successful login
+  const onAuth = () => {
+
+    if (isLoggedIn) {
+      setIsLoginVisible(false);
+      navigate('/payment');
+    } else {
+      setIsLoginVisible(true); // Show the login screen if not logged in
+    }
+
+    //setIsLoginVisible(false); // Hide the login screen
+    //navigate('/payment'); // Navigate to the payment page after successful login
+  };
+
+  const onCancel = () => {
+    setIsLoginVisible(false); // Just close the modal without navigating
   };
 
   return (
@@ -54,14 +66,7 @@ const CartView = () => {
       ) : (
         <CartEmpty />
       )}
-
-      <Modal
-        visible={isLoginVisible}
-        onCancel={() => setIsLoginVisible(false)}
-        footer={null}
-      >
-        <AuthenticationModal isOpen={isLoginVisible} onClose={handleLoginSuccess} />
-      </Modal>
+        <AuthenticationModal isOpen={isLoginVisible} onClose={onCancel} />
 
     </>
   );

@@ -6,13 +6,9 @@ const { Text, Title } = Typography;
 
 const Checkout = () => {
   const [loading, setLoading] = useState(true);
-  const cart = useCartStore((state) => state.cart);
-  const products = Object.values(cart);
-
-   // Calculate the total price
-   const totalPrice = products.reduce((total, item) => {
-    return total + item.product.price * item.quantity;
-  }, 0);
+  const { getCartObjects, getTotalPrice } = useCartStore((state) => state); // Destructure the functions from the store
+  const products = getCartObjects(); // Get the cart items as an array
+  const totalPrice = getTotalPrice(); // Get the total price using the built-in function
 
   return (
     <div>

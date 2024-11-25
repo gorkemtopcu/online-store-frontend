@@ -69,6 +69,11 @@ const useCartStore = create((set, get) => ({
     );
   },
 
+  getCartObjects: () => {
+    const state = get();
+    return Object.values(state.cart);
+  },
+
   getTotalQuantity: () => {
     const state = get();
     return Object.values(state.cart).reduce(
