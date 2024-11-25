@@ -72,7 +72,16 @@ function App() {
             element={<ProductDetailsView />}
           />
           <Route path={CustomerRoutePaths.CART} element={<CartView />} />
-          <Route path={CustomerRoutePaths.PAYMENT} element={<PaymentView />} />
+          <Route
+            path={CustomerRoutePaths.PAYMENT}
+            element={
+              <ProtectedRoute
+                element={<PaymentView />}
+                isAllowed={userRole === UserRoles.CUSTOMER}
+                redirectTo={CustomerRoutePaths.HOME}
+              />
+            }
+          />
           <Route path="*" element={<NotFoundView />} />
         </Route>
       </Routes>
