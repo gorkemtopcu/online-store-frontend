@@ -5,7 +5,7 @@ import LoginForm from "components/forms/LoginForm";
 import SignUpForm from "components/forms/SignUpForm";
 import useUserStore from "context/UserStore";
 
-const AuthenticationModal = ({ isOpen, onClose }) => {
+const AuthenticationModal = ({ isOpen, onClose, onLoginSuccess }) => {
   const [isLoginMode, setIsLoginMode] = useState(true);
   const { isLoading, login, signUp } = useUserStore();
 
@@ -18,7 +18,10 @@ const AuthenticationModal = ({ isOpen, onClose }) => {
     await login(email, password);
     // for immediate access to zustand states use this syntax
     const updatedCurrentUser = useUserStore.getState().currentUser;
-    if (updatedCurrentUser) onClose();
+    if (updatedCurrentUser) {
+      onClose();
+      onLoginSuccess(); // Call onLoginSuccess after successful login
+    }
   };
 
   const handleSignUp = async (values) => {
