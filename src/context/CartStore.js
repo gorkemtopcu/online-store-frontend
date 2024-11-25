@@ -7,7 +7,6 @@ const useCartStore = create((set, get) => ({
     set((state) => {
       const productId = product.productId;
       const existingProduct = state.cart[productId];
-
       const updatedCart = {
         ...state.cart,
         [productId]: existingProduct
