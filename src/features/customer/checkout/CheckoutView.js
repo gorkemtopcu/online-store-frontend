@@ -11,7 +11,7 @@ import { CustomerRoutePaths } from "constants/route_paths";
 const { Text } = Typography;
 
 const CheckoutView = () => {
-  const { clearCart, getCartObjects } = useCartStore();
+  const { clearCart, getCartObjects, getTotalPrice } = useCartStore();
   const selectedProducts = getCartObjects();
   const [addressForm] = Form.useForm();
   const [paymentForm] = Form.useForm();
@@ -41,13 +41,19 @@ const CheckoutView = () => {
   const handleOnPurchase = () => {
     const addressDetails = addressForm.getFieldsValue();
     const paymentDetails = paymentForm.getFieldsValue();
-    const selectedProductIds = selectedProducts.map((item) => item.product?.productId || null);
-
+    const orderTotal = getTotalPrice().toFixed(2);
+    // get the product ids and quantities from the selected products
+    const selectedProductsData = selectedProducts.map((item) => ({
+      productId: item.product?.productId || null,
+      quantity: item.quantity,
+    }));
+    
     const success = OrderService.completePurchase(
       currentUser.uid,
+      orderTotal,
       addressDetails,
       paymentDetails,
-      selectedProductIds
+      selectedProductsData,
     );
     // Todo: Show invoice to user
     navigate(CustomerRoutePaths.HOME);
