@@ -5,11 +5,9 @@ import PropTypes from "prop-types";
 import StringConstants from "constants/StringConstants";
 
 const OrderList = ({ orders }) => {
-  if (!orders.length) {
-    return <div>{StringConstants.NO_ORDERS}</div>;
-  }
-
-  return (
+  return !orders?.length ? (
+    <div>{StringConstants.NO_ORDERS}</div>
+  ) : (
     <Row gutter={[16, 16]}>
       {orders.map((order) => (
         <Col key={order.orderId} span={24}>
@@ -21,7 +19,7 @@ const OrderList = ({ orders }) => {
 };
 
 OrderList.propTypes = {
-  orders: PropTypes.array.isRequired,
+  orders: PropTypes.array,
 };
 
 export default OrderList;
