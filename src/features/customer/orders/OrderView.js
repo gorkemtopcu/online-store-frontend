@@ -5,6 +5,8 @@ import OrderCard from "./components/OrderCard";
 import StringConstants from "constants/StringConstants";
 import OrderService from "services/OrderService";
 import useUserStore from "context/UserStore";
+import LoadingSpinner from "components/spinner/LoadingSpinner";
+import OrderList from "./components/OrderList";
 
 const OrderView = () => {
   const [orders, setOrders] = useState([]);
@@ -27,30 +29,15 @@ const OrderView = () => {
       });
   }, [currentUser.uid]);
 
-  if (loading) {
-    return (
-      <div style={{ padding: "20px", backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
-        <OrderViewNavbar orders={orders} setFilteredOrders={setFilteredOrders} />
-        <div>{StringConstants.LOADING}</div>
-      </div>
-    );
-  }
-
   return (
     <div style={{ padding: "20px", backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
       <OrderViewNavbar orders={orders} setFilteredOrders={setFilteredOrders} />
-      {filteredOrders.length ? (
-        <Row gutter={[16, 16]}>
-          {filteredOrders.map((order) => (
-            <Col key={order.orderId} span={24}>
-              <OrderCard order={order} />
-            </Col>
-          ))}
-        </Row>
+      {loading ? (
+        <LoadingSpinner message={StringConstants.LOADING} />
       ) : (
-        <div>{StringConstants.NO_ORDERS}</div>
+        <OrderList orders={filteredOrders} />
       )}
-    </div>
+  </div>
   );
 };
 

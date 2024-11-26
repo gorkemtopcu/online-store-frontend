@@ -1,32 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Button, Input } from "antd";
 import StringConstants from "constants/StringConstants";
+import useFilterOrders from "../hooks/UseFilterOrders";
 
 const { Search } = Input;
+
 
 const OrderViewNavbar = ({ orders, setFilteredOrders }) => {
   const [activeFilter, setActiveFilter] = useState(StringConstants.ALL);
 
-  const sortOrders = (criteria) => {
-    let sortedOrders = [...orders];
+  const filterStrategies = useFilterOrders(orders);
 
-    switch (criteria) {
-      case StringConstants.PROCESSING:
-        sortedOrders = orders.filter((order) => order.orderStatus === "PROCESSING");
-        break;
-      case StringConstants.IN_TRANSIT:
-        sortedOrders = orders.filter((order) => order.orderStatus === "IN_TRANSIT");
-        break;
-      case StringConstants.DELIVERED:
-        sortedOrders = orders.filter((order) => order.orderStatus === "DELIVERED");
-        break;
-      case StringConstants.CANCELLED:
-        sortedOrders = orders.filter((order) => order.orderStatus === "CANCELLED");
-        break;
-      case StringConstants.ALL:
-      default:
-        sortedOrders = [...orders]; // Reset to all orders
-    }
+  const sortOrders = (criteria) => {
+    const strategy = filterStrategies[criteria] || filterStrategies[StringConstants.ALL];
+    const sortedOrders = strategy();
 
     setFilteredOrders(sortedOrders);
     setActiveFilter(criteria);
@@ -46,6 +33,12 @@ const OrderViewNavbar = ({ orders, setFilteredOrders }) => {
         enterButton={StringConstants.SEARCH}
         size="large"
         style={{ width: "300px", marginRight: "20px", borderRadius: "8px" }}
+        onSearch={(value) => {
+          const searchedOrders = orders.filter((order) =>
+            order.orderId.includes(value)
+          );
+          setFilteredOrders(searchedOrders);
+        }}
       />
       <Button
         style={getButtonStyle(StringConstants.ALL)}

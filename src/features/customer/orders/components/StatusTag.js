@@ -1,46 +1,43 @@
-const { CheckCircleOutlined, SyncOutlined, ClockCircleOutlined, CloseCircleOutlined } = require("@ant-design/icons");
-const { Tag } = require("antd");
-const { default: StringConstants } = require("constants/StringConstants");
-const { default: React } = require("react");
+import React from "react";
+import { Tag } from "antd";
+import { CheckCircleOutlined, SyncOutlined, ClockCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import StringConstants from "constants/StringConstants";
 
+const statusMapping = {
+  DELIVERED: {
+    color: "green",
+    icon: <CheckCircleOutlined />,
+    label: StringConstants.DELIVERED,
+  },
+  IN_TRANSIT: {
+    color: "blue",
+    icon: <SyncOutlined spin />,
+    label: StringConstants.IN_TRANSIT,
+  },
+  PROCESSING: {
+    color: "orange",
+    icon: <ClockCircleOutlined />,
+    label: StringConstants.PROCESSING,
+  },
+  CANCELLED: {
+    color: "red",
+    icon: <CloseCircleOutlined />,
+    label: StringConstants.CANCELLED,
+  },
+};
 
 const StatusTag = ({ status }) => {
-    const renderStatusTag = (status) => {
-        switch (status) {
-          case "DELIVERED":
-            return (
-              <Tag color="green" icon={<CheckCircleOutlined />} style={{ fontSize: "14px", padding: "5px 10px" }}>
-                {StringConstants.DELIVERED}
-              </Tag>
-            );
-          case "IN_TRANSIT":
-            return (
-              <Tag color="blue" icon={<SyncOutlined spin />} style={{ fontSize: "14px", padding: "5px 10px" }}>
-                {StringConstants.IN_TRANSIT}
-              </Tag>
-            );
-          case "PROCESSING":
-            return (
-              <Tag color="orange" icon={<ClockCircleOutlined />} style={{ fontSize: "14px", padding: "5px 10px" }}>
-                {StringConstants.PROCESSING}
-              </Tag>
-        );
-          case "CANCELLED":
-            return (
-              <Tag color="red" icon={<CloseCircleOutlined />} style={{ fontSize: "14px", padding: "5px 10px" }}>
-                {StringConstants.CANCELLED}
-              </Tag>
-            );
-          default:
-            return (
-              <Tag color="default" style={{ fontSize: "14px", padding: "5px 10px" }}>
-                {StringConstants.UNKNOWN}
-              </Tag>
-            );
-        }
-      };
+  const { color, icon, label } = statusMapping[status] || {
+    color: "default",
+    icon: null,
+    label: StringConstants.UNKNOWN,
+  };
 
-    return renderStatusTag(status);
-}
+  return (
+    <Tag color={color} icon={icon} style={{ fontSize: "14px", padding: "5px 10px" }}>
+      {label}
+    </Tag>
+  );
+};
 
 export default StatusTag;
