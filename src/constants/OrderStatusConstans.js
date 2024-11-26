@@ -1,9 +1,8 @@
-const OrderStatusConstans = {
-    PENDING: 'PENDING',
-    IN_TRANSIT: 'IN_TRANSIT',
-    DELIVERED: 'DELIVERED',
-    CANCELLED: 'CANCELLED'
+const OrderStatusConstants = {
+  PENDING: "PENDING",
+  IN_TRANSIT: "IN_TRANSIT",
+  DELIVERED: "DELIVERED",
+  CANCELLED: "CANCELLED",
 };
 
-export default OrderStatusConstans;
-   
+export default OrderStatusConstants;

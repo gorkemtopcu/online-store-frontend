@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col } from "antd";
 import OrderViewNavbar from "./components/OrderViewNavbar";
-import OrderCard from "./components/OrderCard";
 import StringConstants from "constants/StringConstants";
 import OrderService from "services/OrderService";
 import useUserStore from "context/UserStore";
@@ -30,14 +28,20 @@ const OrderView = () => {
   }, [currentUser.uid]);
 
   return (
-    <div style={{ padding: "20px", backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
+    <div
+      style={{
+        padding: "20px",
+        backgroundColor: "#f8f9fa",
+        minHeight: "100vh",
+      }}
+    >
       <OrderViewNavbar orders={orders} setFilteredOrders={setFilteredOrders} />
       {loading ? (
         <LoadingSpinner message={StringConstants.LOADING} />
       ) : (
         <OrderList orders={filteredOrders} />
       )}
-  </div>
+    </div>
   );
 };
 

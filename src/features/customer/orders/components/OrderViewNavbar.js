@@ -1,10 +1,9 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { Button, Input } from "antd";
 import StringConstants from "constants/StringConstants";
 import useFilterOrders from "../hooks/UseFilterOrders";
 
 const { Search } = Input;
-
 
 const OrderViewNavbar = ({ orders, setFilteredOrders }) => {
   const [activeFilter, setActiveFilter] = useState(StringConstants.ALL);
@@ -12,7 +11,8 @@ const OrderViewNavbar = ({ orders, setFilteredOrders }) => {
   const filterStrategies = useFilterOrders(orders);
 
   const sortOrders = (criteria) => {
-    const strategy = filterStrategies[criteria] || filterStrategies[StringConstants.ALL];
+    const strategy =
+      filterStrategies[criteria] || filterStrategies[StringConstants.ALL];
     const sortedOrders = strategy();
 
     setFilteredOrders(sortedOrders);
