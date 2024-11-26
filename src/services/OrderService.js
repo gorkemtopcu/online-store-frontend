@@ -4,23 +4,32 @@ import ServiceConstants from "constants/ServiceConstants";
 const OrderService = {
   completePurchase: (
     uid,
+    orderTotal,
     addressDetails,
     paymentDetails,
-    selectedProductIds,
+    selectedProductsData,
     clearCart
   ) => {
     const orderDetails = {
       uid: uid,
+      orderTotal: orderTotal,
       address: addressDetails,
       payment: paymentDetails,
-      productIds: selectedProductIds,
+      products: selectedProductsData,
     };
-    console.log("Order Details:", selectedProductIds);
 
+    console.log("Order Details:", orderDetails);
     return axios
       .post(ServiceConstants.ORDERS + ServiceConstants.CREATE, orderDetails)
       .then((response) => true)
       .catch((error) => false);
+  },
+
+  getOrders: (uid) => {
+    return axios
+      .get(ServiceConstants.ORDERS + ServiceConstants.GET_BY_USERID + uid)
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
   },
 };
 

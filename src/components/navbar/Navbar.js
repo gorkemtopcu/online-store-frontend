@@ -9,6 +9,7 @@ import logo from "../../assets/images/logo.jpeg";
 import { CustomerRoutePaths } from "constants/route_paths";
 import UserMenu from "components/menu/UserMenu";
 import useCartStore from "context/CartStore";
+import StringConstants from "constants/StringConstants";
 
 const Navbar = () => {
   // eslint-disable-next-line no-unused-vars
@@ -28,28 +29,28 @@ const Navbar = () => {
         {/* Navigation Links */}
         <ul className="hidden md:flex gap-5 text-sm text-gray-700">
           <NavLink to="/" className="flex flex-col items-center gap-1">
-            <p>HOME</p>
+            <p> {StringConstants.HOME}</p>
             <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
           </NavLink>
           <NavLink
             to={CustomerRoutePaths.COLLECTION}
             className="flex flex-col items-center gap-1"
           >
-            <p>COLLECTION</p>
+            <p> {StringConstants.COLLECTION}</p>
             <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
           </NavLink>
           <NavLink
             to={CustomerRoutePaths.ABOUT}
             className="flex flex-col items-center gap-1"
           >
-            <p>ABOUT</p>
+            <p> {StringConstants.ABOUT}</p>
             <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
           </NavLink>
           <NavLink
             to={CustomerRoutePaths.CONTACT}
             className="flex flex-col items-center gap-1"
           >
-            <p>CONTACT</p>
+            <p> {StringConstants.CONTACT}</p>
             <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
           </NavLink>
         </ul>

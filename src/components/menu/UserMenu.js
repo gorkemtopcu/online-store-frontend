@@ -4,6 +4,8 @@ import AuthenticationModal from "components/modals/AuthenticationModal";
 import useUserStore from "context/UserStore";
 import { useState } from "react";
 import React from "react";
+import StringConstants from "constants/StringConstants";
+import { CustomerRoutePaths } from "constants/route_paths";
 
 const UserMenu = () => {
   const { currentUser, logout } = useUserStore();
@@ -24,18 +26,20 @@ const UserMenu = () => {
         <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
           {currentUser ? (
             <>
-              <p className="cursor-pointer hover:text-black">Profile</p>
-              <p className="cursor-pointer hover:text-black">Orders</p>
+              <p className="cursor-pointer hover:text-black"> {StringConstants.PROFILE}</p>
+              <p className="cursor-pointer hover:text-black"> 
+                <Link to= {CustomerRoutePaths.ORDERS}> {StringConstants.ORDERS} </Link>
+              </p>
               <p className="cursor-pointer hover:text-black">
-                <Link to="/wishlist">Wishlist</Link>
+                <Link to= {CustomerRoutePaths.WISHLIST}> {StringConstants.WISHLIST} </Link>
               </p>
               <p className="cursor-pointer hover:text-black" onClick={logout}>
-                Logout
+              {StringConstants.LOGOUT}
               </p>
             </>
           ) : (
             <p className="cursor-pointer hover:text-black" onClick={openModal}>
-              Sign In
+              {StringConstants.SIGN_IN}
             </p>
           )}
         </div>
