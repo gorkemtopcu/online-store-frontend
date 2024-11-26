@@ -43,7 +43,8 @@ const LoadingSpinner = ({ message = "Loading...", fullScreen = true }) => {
     if (styleSheet) {
       styleSheet.insertRule(animationStyle, styleSheet.cssRules.length);
     }
-  }, []);
+  }, [animationStyle]);
+
 
   // Create React element programmatically
   return React.createElement(
