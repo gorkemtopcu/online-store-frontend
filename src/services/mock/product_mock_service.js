@@ -1,10 +1,8 @@
 import { faker } from "@faker-js/faker";
-import categories from "constants/categories"; // Kategorilerin tanımlı olduğu dosya yolunu belirtin
+import categories from "constants/categories";
 
 const generateRandomProduct = (id) => {
-  // Rastgele bir kategori seç
   const category = faker.helpers.arrayElement(categories);
-  // Rastgele bir alt kategori seç
   const subcategory = faker.helpers.arrayElement(category.subcategories);
 
   return {
@@ -17,8 +15,8 @@ const generateRandomProduct = (id) => {
     stock: faker.number.int({ min: 0, max: 100 }),
     popularity: faker.number.int({ min: 1, max: 100 }),
     warrantyStatus: faker.datatype.boolean() ? "Under Warranty" : "No Warranty",
-    category: category.name, // Kategori adı
-    subcategory: subcategory, // Alt kategori adı
+    category: category.name,
+    subcategory: subcategory,
   };
 };
 

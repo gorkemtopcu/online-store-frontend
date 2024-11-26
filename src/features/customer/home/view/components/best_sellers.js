@@ -1,6 +1,6 @@
 import ProductCardList from "components/lists/product_card_list";
 import React, { useEffect, useState } from "react";
-import { productMockService } from "services/product_mock_service";
+import { productMockService } from "services/mock/product_mock_service";
 
 const BestSellers = () => {
   const [bestSellers, setBestSellers] = useState([]);

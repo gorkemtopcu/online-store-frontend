@@ -1,69 +1,85 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { ShoppingCartOutlined, UserOutlined, SearchOutlined, MenuOutlined } from '@ant-design/icons';
-import logo from '../../assets/images/logo.jpeg';
-import { CustomerRoutePaths } from 'constants/route_paths';
+import React, { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import {
+  ShoppingCartOutlined,
+  SearchOutlined,
+  MenuOutlined,
+} from "@ant-design/icons";
+import logo from "../../assets/images/logo.jpeg";
+import { CustomerRoutePaths } from "constants/route_paths";
+import UserMenu from "components/menu/UserMenu";
+import useCartStore from "context/CartStore";
+import StringConstants from "constants/StringConstants";
 
 const Navbar = () => {
-    // eslint-disable-next-line no-unused-vars
-    const [visible, setVisible] = React.useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [visible, setVisible] = useState(false);
+  const { getTotalQuantity } = useCartStore();
 
-    return (
-        <div className="px-4 sm:px-8 lg:px-16"> {/* Outer padding */}
-            <div className="max-w-7xl mx-auto flex items-center justify-between py-3 font-medium">
-                {/* Logo Container */}
-                <div className="flex items-center">
-                    <img src={logo} alt="logo" className="w-24 mr-4" />
-                </div>
-
-                {/* Navigation Links */}
-                <ul className="hidden md:flex gap-5 text-sm text-gray-700">
-                    <NavLink to="/" className="flex flex-col items-center gap-1">
-                        <p>HOME</p>
-                        <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
-                    </NavLink>
-                    <NavLink to={CustomerRoutePaths.COLLECTION} className="flex flex-col items-center gap-1">
-                        <p>COLLECTION</p>
-                        <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
-                    </NavLink>
-                    <NavLink to={CustomerRoutePaths.ABOUT} className="flex flex-col items-center gap-1">
-                        <p>ABOUT</p>
-                        <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
-                    </NavLink>
-                    <NavLink to={CustomerRoutePaths.CONTACT} className="flex flex-col items-center gap-1">
-                        <p>CONTACT</p>
-                        <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
-                    </NavLink>
-                </ul>
-
-                {/* Icon Links */}
-                <div className="flex items-center gap-6">
-                    <SearchOutlined className="w-5 h-5 cursor-pointer" />
-                    <div className="group relative">
-                        <UserOutlined className="w-5 h-5 cursor-pointer" />
-                        <div className="hidden group-hover:block absolute right-0 pt-4 z-50">
-                            <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
-                                <p className="cursor-pointer hover:text-black">Profile</p>
-                                <p className="cursor-pointer hover:text-black">Orders</p>
-                                <p className="cursor-pointer hover:text-black">
-                                    <Link to="/wishlist">Wishlist</Link>    </p>
-                                <p className="cursor-pointer hover:text-black">Logout</p>
-                            </div>
-                        </div>
-                    </div>
-                    <Link to="/cart" className="relative">
-                        <ShoppingCartOutlined className="w-5 min-w-5" alt="" />
-                        <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded text-[8px]">
-                            10
-                        </p>
-                    </Link>
-                    {/* Display menu icon only in small sized screen*/}
-                    <MenuOutlined onClick= {()=>setVisible(true)} className="w-5 cursor-pointer sm:hidden" alt = "" />
-                    {/* todo: Display menu  only in small sized screen*/}
-                </div>
-            </div>
+  return (
+    <div className="px-4 sm:px-8 lg:px-16">
+      {" "}
+      {/* Outer padding */}
+      <div className="max-w-7xl mx-auto flex items-center justify-between py-3 font-medium">
+        {/* Logo Container */}
+        <div className="flex items-center">
+          <img src={logo} alt="logo" className="w-24 mr-4" />
         </div>
-    );
+
+        {/* Navigation Links */}
+        <ul className="hidden md:flex gap-5 text-sm text-gray-700">
+          <NavLink to="/" className="flex flex-col items-center gap-1">
+            <p> {StringConstants.HOME}</p>
+            <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+          </NavLink>
+          <NavLink
+            to={CustomerRoutePaths.COLLECTION}
+            className="flex flex-col items-center gap-1"
+          >
+            <p> {StringConstants.COLLECTION}</p>
+            <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+          </NavLink>
+          <NavLink
+            to={CustomerRoutePaths.ABOUT}
+            className="flex flex-col items-center gap-1"
+          >
+            <p> {StringConstants.ABOUT}</p>
+            <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+          </NavLink>
+          <NavLink
+            to={CustomerRoutePaths.CONTACT}
+            className="flex flex-col items-center gap-1"
+          >
+            <p> {StringConstants.CONTACT}</p>
+            <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+          </NavLink>
+        </ul>
+
+        {/* Icon Links */}
+        <div className="flex items-center gap-6">
+          <SearchOutlined className="w-5 h-5 cursor-pointer" />
+          <div className="group relative">
+            <UserMenu />
+          </div>
+          <Link to={CustomerRoutePaths.CART} className="relative">
+            <ShoppingCartOutlined className="w-5 min-w-5" alt="" />
+            {getTotalQuantity() > 0 && (
+              <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded text-[8px]">
+                {getTotalQuantity()}
+              </p>
+            )}
+          </Link>
+          {/* Display menu icon only in small sized screen*/}
+          <MenuOutlined
+            onClick={() => setVisible(true)}
+            className="w-5 cursor-pointer sm:hidden"
+            alt=""
+          />
+          {/* todo: Display menu  only in small sized screen*/}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Navbar;

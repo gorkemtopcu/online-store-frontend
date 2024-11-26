@@ -32,7 +32,12 @@ const ProductCard = ({ product }) => {
             alt={product.name}
             src={product.imageURL}
             onLoad={handleImageLoad}
-            className="w-full h-full object-cover"
+            style={{
+              visibility: loading ? "hidden" : "visible",
+              objectFit: "contain",
+              width: "100%",
+              height: "100%",
+            }}
           />
         </div>
       }
