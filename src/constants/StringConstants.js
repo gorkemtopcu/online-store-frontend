@@ -30,6 +30,7 @@ const StringConstants = {
   SEARCH_ORDERS: "Search in Orders",
   SEARCH: "Search",
   ALL_ORDERS: "All Orders",
+  ALL: "All",
   IN_TRANSIT: "In Transit",
   PROCESSING: "Processing",
   DELIVERED: "Delivered",

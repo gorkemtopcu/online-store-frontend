@@ -27,34 +27,10 @@ const OrderView = () => {
       });
   }, [currentUser.uid]);
 
-  const sortOrders = (criteria) => {
-    let sortedOrders = [...orders];
-
-    switch (criteria) {
-      case "PROCESSING":
-        sortedOrders = orders.filter((order) => order.orderStatus === "PROCESSING");
-        break;
-      case "IN_TRANSIT":
-        sortedOrders = orders.filter((order) => order.orderStatus === "IN_TRANSIT");
-        break;
-      case "DELIVERED":
-        sortedOrders = orders.filter((order) => order.orderStatus === "DELIVERED");
-        break;
-      case "CANCELLED":
-        sortedOrders = orders.filter((order) => order.orderStatus === "CANCELLED");
-        break;
-      case "ALL":
-      default:
-        sortedOrders = [...orders]; // Reset to all orders
-    }
-
-    setFilteredOrders(sortedOrders);
-  };
-
   if (loading) {
     return (
       <div style={{ padding: "20px", backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
-        <OrderViewNavbar sortOrders={sortOrders} />
+        <OrderViewNavbar orders={orders} setFilteredOrders={setFilteredOrders} />
         <div>{StringConstants.LOADING}</div>
       </div>
     );
@@ -62,7 +38,7 @@ const OrderView = () => {
 
   return (
     <div style={{ padding: "20px", backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
-      <OrderViewNavbar sortOrders={sortOrders} />
+      <OrderViewNavbar orders={orders} setFilteredOrders={setFilteredOrders} />
       {filteredOrders.length ? (
         <Row gutter={[16, 16]}>
           {filteredOrders.map((order) => (
