@@ -34,7 +34,7 @@ const OrderViewNavbar = ({ orders, setFilteredOrders }) => {
         size="large"
         style={{ width: "300px", marginRight: "20px", borderRadius: "8px" }}
         onSearch={(value) => {
-          const searchedOrders = orders.filter((order) =>
+          const searchedOrders = orders?.filter((order) =>
             order.orderId.includes(value)
           );
           setFilteredOrders(searchedOrders);

@@ -1,12 +1,20 @@
 import React from "react";
-import { Row, Col } from "antd";
-import OrderCard from "./OrderCard";
-import PropTypes from "prop-types";
+import { Row, Col, Empty } from "antd";
 import StringConstants from "constants/StringConstants";
+import OrderCard from "./OrderCard";
 
 const OrderList = ({ orders }) => {
   return !orders?.length ? (
-    <div>{StringConstants.NO_ORDERS}</div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+      }}
+    >
+      <Empty description={StringConstants.NO_ORDERS} />
+    </div>
   ) : (
     <Row gutter={[16, 16]}>
       {orders.map((order) => (
@@ -16,10 +24,6 @@ const OrderList = ({ orders }) => {
       ))}
     </Row>
   );
-};
-
-OrderList.propTypes = {
-  orders: PropTypes.array,
 };
 
 export default OrderList;
