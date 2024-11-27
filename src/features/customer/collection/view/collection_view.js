@@ -1,38 +1,61 @@
 import React, { useState, useEffect } from "react";
-import Sidemenu from "components/sidemenu/sidemenu";
+import FilterMenu from "features/customer/collection/view/components/FilterMenu";
 import CollectionProducts from "features/customer/collection/view/components/collection_products";
-import { productMockService } from "services/product_mock_service";
+import ProductService from "services/ProductService";
 import "./collection_view.css";
 
 const CollectionView = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [collectionProducts, setCollectionProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   useEffect(() => {
-    // Fetch mock products for collection view
-    const generatedProducts = productMockService.generateProducts(52);
-    setCollectionProducts(
-      generatedProducts.sort((a, b) => b.popularity - a.popularity)
-    );
+    const fetchProducts = async () => {
+      try {
+        const response = await ProductService.getAll();
+        if (response && response.data) {
+          setCollectionProducts(response.data);
+          setFilteredProducts(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
   }, []);
+
+  const handleCategoryFilter = ({ mainCategory, subCategory }) => {
+    const filtered = collectionProducts.filter((product) => {
+      const matchesMainCategory = mainCategory
+        ? product.category === mainCategory
+        : true;
+      const matchesSubCategory = subCategory
+        ? product.subcategory === subCategory
+        : true;
+      return matchesMainCategory && matchesSubCategory;
+    });
+    setFilteredProducts(filtered);
+  };
 
   return (
     <div className="collection-view-container">
-  <button
-    className="filter-button"
-    onClick={toggleMenu}
-  >
-    Filter
-  </button>
-  <Sidemenu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
-  <div className={`products-container ${isMenuOpen ? "menu-open" : ""}`}>
-    <CollectionProducts products={collectionProducts} />
-  </div>
-</div>
+      <button className="menu-toggle-button" onClick={toggleMenu}>
+        ☰
+      </button>
+      <FilterMenu
+        isOpen={isMenuOpen}
+        toggleMenu={toggleMenu}
+        onCategoryFilter={handleCategoryFilter}
+      />
+      <div className={`content-container ${isMenuOpen ? "menu-open" : ""}`}>
+        <CollectionProducts products={filteredProducts} />
+      </div>
+    </div>
   );
 };
 

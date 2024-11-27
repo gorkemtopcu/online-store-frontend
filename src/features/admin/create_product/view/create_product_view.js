@@ -1,22 +1,57 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Upload } from "antd";
+import { Form, Button, message } from "antd";
 import ProductHeader from "components/headers/ProductHeader";
-import { UploadOutlined } from "@ant-design/icons";
+import StringConstants from "constants/StringConstants";
+
+import ProductNameInput from "../components/ProductNameInput";
+import ProductDescriptionInput from "../components/ProductDescriptionInput";
+import ProductPriceInput from "../components/ProductPriceInput";
+import DistributorInformationInput from "../components/DistributorInformationInput";
+import ModelNumberInput from "../components/ModelNumberInput";
+import StockQuantityInput from "../components/StockQuantityInput";
+import SerialNumberInput from "../components/SerialNumberInput";
+import ProductImageUpload from "../components/ProductImageUpload";
+import WarrantyStatusInput from "../components/WarrantyStatusInput";
+import ProductService from "services/ProductService";
 
 const CreateProductPage = () => {
-  const [productName, setProductName] = useState("");
-  const [productDescription, setProductDescription] = useState("");
-  const [productPrice, setProductPrice] = useState("");
-  // eslint-disable-next-line no-unused-vars
-  const [productImage, setProductImage] = useState(null);
+  const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
 
-  const onFinish = (values) => {
-    console.log("Received values:", values);
-  };
+  const onFinish = async (values) => {
+    setLoading(true);
 
-  const handleImageChange = (info) => {
-    if (info.file.status === "done") {
-      setProductImage(info.file.originFileObj);
+    // Create FormData payload
+    const formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("model", values.modelNumber);
+    formData.append("serialNumber", values.serialNumber);
+    formData.append("description", values.productDescription);
+    formData.append("quantityInStock", values.quantityInStock);
+    formData.append("price", values.productPrice);
+    formData.append("warrantyStatus", values.warrantyStatus);
+    formData.append("distributorInformation", values.distributorInformation);
+
+    // Append images to FormData if they exist
+    if (values.productImage) {
+      values.productImage.forEach((file) => {
+        formData.append("images", file.originFileObj);
+      });
+    }
+
+    try {
+      // Call the ProductService to add the product with FormData
+      const response = await ProductService.addProduct(formData); // Adjust ProductService to accept FormData
+      message.success("Product created successfully!");
+      console.log("Response:", response);
+
+      // Reset form fields after success
+      form.resetFields();
+    } catch (error) {
+      message.error("Error creating product. Please try again.");
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -25,77 +60,30 @@ const CreateProductPage = () => {
       style={{ display: "flex", justifyContent: "flex-start", padding: "20px" }}
     >
       <div style={{ width: "100%", maxWidth: "500px" }}>
-        <ProductHeader title="Create Product" />
+        <ProductHeader title={StringConstants.CREATE_PRODUCT} />
         <Form
+          form={form}
           name="create_product"
-          initialValues={{ remember: true }}
           onFinish={onFinish}
           layout="vertical"
         >
-          <Form.Item
-            label="Product Name"
-            name="productName"
-            rules={[
-              { required: true, message: "Please input the product name!" },
-            ]}
-          >
-            <Input
-              value={productName}
-              onChange={(e) => setProductName(e.target.value)}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Product Description"
-            name="productDescription"
-            rules={[
-              {
-                required: true,
-                message: "Please input the product description!",
-              },
-            ]}
-          >
-            <Input
-              value={productDescription}
-              onChange={(e) => setProductDescription(e.target.value)}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Product Price"
-            name="productPrice"
-            rules={[
-              { required: true, message: "Please input the product price!" },
-            ]}
-          >
-            <Input
-              type="number"
-              value={productPrice}
-              onChange={(e) => setProductPrice(e.target.value)}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Product Image"
-            name="productImage"
-            valuePropName="fileList"
-            getValueFromEvent={(e) => e.fileList}
-            rules={[
-              { required: true, message: "Please upload a product image!" },
-            ]}
-          >
-            <Upload
-              listType="picture"
-              beforeUpload={() => false} // Prevents auto-upload
-              onChange={handleImageChange}
-            >
-              <Button icon={<UploadOutlined />}>Upload Image</Button>
-            </Upload>
-          </Form.Item>
-
+          <ProductNameInput />
+          <ProductDescriptionInput />
+          <ProductPriceInput />
+          <DistributorInformationInput />
+          <ModelNumberInput />
+          <StockQuantityInput />
+          <SerialNumberInput />
+          <WarrantyStatusInput />
+          <ProductImageUpload />
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
-              Submit
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ width: "100%" }}
+              loading={loading}
+            >
+              {StringConstants.SUBMIT}
             </Button>
           </Form.Item>
         </Form>
