@@ -8,6 +8,13 @@ const CategoryService = {
         } catch (error) {
             throw error;
         }
+    },
+    getCategories: async () => {
+        try {
+            return await axios.get(ServiceConstants.CATEGORY + ServiceConstants.GET_ALL);
+        } catch (error) {
+            throw error;
+        }
     }
 };
 

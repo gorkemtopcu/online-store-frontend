@@ -6,7 +6,7 @@ import StringConstants from "constants/StringConstants";
 const ProductDescriptionInput = () => (
   <Form.Item
     label={StringConstants.PRODUCT_DESCRIPTION}
-    name="productDescription"
+    name="description"
     rules={[{ required: true, message: "Please input the product description!" }]}
   >
     <Input.TextArea />

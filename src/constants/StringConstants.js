@@ -62,6 +62,17 @@ const StringConstants = {
   UPLOAD_IMAGE: "Upload Image",
   SUBMIT: "Submit",
 
+  // Product book related
+  AUTHOR: "Author",
+  PUBLISHER: "Publisher",
+  ISBN: "ISBN",
+  LANGUAGE: "Language",
+  NUMBER_OF_PAGES: "Number of Pages",
+  PUBLICATION_DATE: "Publication Date",
+  GENRE: "Genre",
+  EDITION: "Edition",
+
+
   //Admin Category Creation
   CATEGORY_NAME: "Category Name",
   CATEGORY_DESCRIPTION: "Category Description",
