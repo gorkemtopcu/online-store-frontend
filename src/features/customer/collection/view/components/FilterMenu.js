@@ -1,51 +1,51 @@
-import React, { useState } from "react";
-import "./FilterMenu.css";
+import React from "react";
 import categories from "constants/ProductCategories";
+import "./FilterMenu.css";
 
-const FilterMenu = ({ isOpen, toggleMenu, onCategoryFilter }) => {
-  const [selectedFilters, setSelectedFilters] = useState({});
+const FilterMenu = ({ onCategoryFilter }) => {
+  const handleFilterChange = (categoryName, subCategoryName, isChecked) => {
+    if (onCategoryFilter) {
+      onCategoryFilter({
+        mainCategory: categoryName,
+        subCategory: isChecked ? subCategoryName : null,
+      });
+    }
+  };
 
-  const handleFilterChange = (category, subCategory, isChecked) => {
-    const updatedFilters = {
-      ...selectedFilters,
-      [category]: {
-        ...selectedFilters[category],
-        [subCategory]: isChecked,
-      },
-    };
-    setSelectedFilters(updatedFilters);
-
-    // OnCategoryFilter işlevini tetikle
-    onCategoryFilter({
-      mainCategory: category,
-      subCategory: isChecked ? subCategory : null,
-    });
+  const handleApplyFilters = () => {
+    console.log("Filters applied!");
+    // Filter applications
   };
 
   return (
-    <div className={`filter-menu ${isOpen ? "open" : ""}`}>
-      <div className="filter-menu-header">
-        <button onClick={toggleMenu} className="close-button">
-          X
-        </button>
-      </div>
+    <div className="filter-menu-body">
       {categories.map((category, index) => (
-        <div key={index} className="category-section">
-          <div className="category-name">{category.name}</div>
-          {category.subcategories.map((sub, subIndex) => (
-            <div key={subIndex} className="subcategory-item">
-              <input
-                type="checkbox"
-                id={`${category.name}-${sub}`}
-                onChange={(e) =>
-                  handleFilterChange(category.name, sub, e.target.checked)
-                }
-              />
-              <label htmlFor={`${category.name}-${sub}`}>{sub}</label>
-            </div>
-          ))}
+        <div key={index} className="filter-category">
+          <h4 className="filter-category-title">{category.name}</h4>
+          <div className="filter-subcategories">
+            {category.subcategories.map((subCategory, subIndex) => (
+              <label key={subIndex} className="filter-subcategory">
+                <input
+                  type="checkbox"
+                  onChange={(e) =>
+                    handleFilterChange(category.name, subCategory, e.target.checked)
+                  }
+                />
+                {subCategory}
+              </label>
+            ))}
+          </div>
         </div>
       ))}
+      {/* Apply Filters Butonu */}
+      <div className="filter-apply-button-container">
+        <button
+          className="filter-apply-button"
+          onClick={handleApplyFilters}
+        >
+          Apply Filters
+        </button>
+      </div>
     </div>
   );
 };

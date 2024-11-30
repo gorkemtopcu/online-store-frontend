@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { Drawer, Button } from "antd"; // Ant Design bileşenleri
 import FilterMenu from "features/customer/collection/view/components/FilterMenu";
+import ProductSearchFilter from "features/customer/collection/view/components/ProductSearchFilter";
 import CollectionProducts from "features/customer/collection/view/components/collection_products";
 import ProductService from "services/ProductService";
 import "./collection_view.css";
 
 const CollectionView = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [collectionProducts, setCollectionProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen);
   };
 
   useEffect(() => {
@@ -44,15 +46,26 @@ const CollectionView = () => {
 
   return (
     <div className="collection-view-container">
-      <button className="menu-toggle-button" onClick={toggleMenu}>
-        ☰
-      </button>
-      <FilterMenu
-        isOpen={isMenuOpen}
-        toggleMenu={toggleMenu}
-        onCategoryFilter={handleCategoryFilter}
-      />
-      <div className={`content-container ${isMenuOpen ? "menu-open" : ""}`}>
+      {/* Menü Açma/Kapama Butonu */}
+      <Button type="primary" onClick={toggleDrawer}>
+        Filters
+      </Button>
+
+      {/* Drawer (Yan Menü) */}
+      <Drawer
+        title="Filters"
+        placement="left" // Sol taraftan açılır
+        onClose={toggleDrawer}
+        open={isDrawerOpen}
+        width={300} // Drawer genişliği
+      >
+        <FilterMenu onCategoryFilter={handleCategoryFilter} />
+
+      </Drawer>
+
+      {/* Ürünler */}
+      <div className="products-container">
+        <ProductSearchFilter onSearch={undefined} onSort={undefined} onCategoryFilter={undefined} />
         <CollectionProducts products={filteredProducts} />
       </div>
     </div>

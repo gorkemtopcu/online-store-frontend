@@ -1,33 +1,19 @@
-const categories = [
+const Categories = [
   {
-    name: "Cinsiyet",
-    subcategories: ["Men", "Women", "Kids"],
-  },
-  {
-    name: "Kategori",
-    subcategories: ["Apparel", "Accessories", "Footwear"],
-  },
-  {
-    name: "Ürün Grubu",
+    name: "CATEGORIES",
     subcategories: [
-      "Tops",
-      "Jackets",
-      "Skirts",
-      "Caps",
-      "Bags",
-      "Denim Pants",
-      "Wallets",
-      "Polo Tees",
+      "Fiction",            // Roman ve hikaye türleri
+      "Non-Fiction",        // Gerçek olaylar ve bilgi içerikli kitaplar
+      "Mystery",            // Gizem ve dedektif hikayeleri
+      "Science Fiction",    // Bilim kurgu
+      "Fantasy",            // Fantastik dünyalar ve hikayeler
+      "Biography",          // Biyografi ve anı
+      "Self-Help",          // Kişisel gelişim
+      "History",            // Tarih kitapları
+      "Young Adult",        // Genç yetişkin türü
+      "Children's Books"    // Çocuk kitapları
     ],
-  },
-  {
-    name: "Beden",
-    subcategories: ["S", "M", "L", "XL", "XXL"],
-  },
-  {
-    name: "Renk",
-    subcategories: ["Red", "Blue", "Green", "Black", "White"],
-  },
+  }
 ];
 
-export default categories;
+export default Categories;
