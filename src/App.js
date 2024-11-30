@@ -17,6 +17,7 @@ import UserRoles from "constants/UserRoles";
 import PaymentView from "features/customer/checkout/CheckoutView";
 import OrderView from "features/customer/orders/OrderView";
 import CreateCategoryView from "features/admin/create_category/view/CreateCategoryView";
+import EditCategoryView from "features/admin/edit_category/view/EditCategoryView";
 
 function App() {
   const { currentUser } = useUserStore();
@@ -47,6 +48,10 @@ function App() {
           <Route
             path={AdminRoutePaths.CREATE_CATEGORY}
             element={<CreateCategoryView />}
+          />
+          <Route
+            path={AdminRoutePaths.EDIT_CATEGORY}
+            element={<EditCategoryView />}
           />
           <Route path="*" element={<NotFoundView />} />
         </Route>

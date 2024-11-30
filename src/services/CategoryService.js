@@ -15,7 +15,15 @@ const CategoryService = {
         } catch (error) {
             throw error;
         }
+    },
+    deleteCategory: async (id) => {
+        try {
+            return await axios.delete(ServiceConstants.CATEGORY + `/${id}`);
+        } catch (error) {
+            throw error;
+        }
     }
+
 };
 
 export default CategoryService;
