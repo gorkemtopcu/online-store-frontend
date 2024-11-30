@@ -3,6 +3,7 @@ const ServiceConstants = {
   VERIFY: "http://localhost:8081/auth/verify",
   USER: "http://localhost:8081/user",
   ORDERS: "http://localhost:8081/api/orders",
+  CATEGORY: "http://localhost:8081/categories",
 
   GET_ALL: "/getAll",
   GET_BY_ID: "/getById",
