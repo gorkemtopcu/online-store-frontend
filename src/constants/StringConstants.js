@@ -10,6 +10,8 @@ const StringConstants = {
   CONFIRM_PASSWORD: "Confirm Password",
   CREATE_PRODUCT: "Create Product",
   CONTINUE_SHOPPING: "Continue Shopping",
+  EDIT: "Edit",
+  DELETE: "Delete",
 
   //Navbar
   HOME: "HOME",
