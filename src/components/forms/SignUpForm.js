@@ -77,7 +77,7 @@ const SignUpForm = ({ onSubmit }) => {
       </Form.Item>
 
       <Form.Item style={{ marginBottom: "8px" }}>
-        {isLoading ? (
+        {isLoading() ? (
           <LoadingButton />
         ) : (
           <Button type="primary" htmlType="submit" block>

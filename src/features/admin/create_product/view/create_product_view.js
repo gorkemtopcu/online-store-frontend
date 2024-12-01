@@ -22,7 +22,7 @@ const CreateProductPage = () => {
     });
 
     try {
-      const response = await ProductService.addProduct(formData);
+      await ProductService.addProduct(formData);
       message.success("Product created successfully!");
       form.resetFields();
     } catch (error) {
@@ -33,10 +33,17 @@ const CreateProductPage = () => {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "flex-start", padding: "20px" }}>
+    <div
+      style={{ display: "flex", justifyContent: "flex-start", padding: "20px" }}
+    >
       <div style={{ width: "100%", maxWidth: "900px" }}>
         <ProductHeader title={StringConstants.CREATE_PRODUCT} />
-        <Form form={form} name="create_product" onFinish={onFinish} layout="vertical">
+        <Form
+          form={form}
+          name="create_product"
+          onFinish={onFinish}
+          layout="vertical"
+        >
           {CreateProductFormConfig.map((row, index) => (
             <Row gutter={16} key={index}>
               {row.components.map((Component, colIndex) => (
@@ -47,7 +54,12 @@ const CreateProductPage = () => {
             </Row>
           ))}
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: "100%" }} loading={loading}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ width: "100%" }}
+              loading={loading}
+            >
               {StringConstants.SUBMIT}
             </Button>
           </Form.Item>

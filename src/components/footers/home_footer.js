@@ -6,7 +6,7 @@ import {
   LinkedinOutlined,
 } from "@ant-design/icons";
 import React from "react";
-import logo from "../../assets/images/logo.jpeg";
+import logo from "../../assets/images/logo.png";
 
 const { Footer } = Layout;
 
@@ -26,7 +26,7 @@ const HomeFooter = () => {
             <div className="flex items-center">
               <img src={logo} alt="logo" className="w-24 mr-4" />
             </div>
-            <p>Innovating your wardrobe since 2024.</p>
+            <p>Inspiring your next chapter since 2024.</p>
             <p>All rights reserved &copy; {new Date().getFullYear()}</p>
           </div>
 
@@ -46,7 +46,7 @@ const HomeFooter = () => {
             <h4 className="font-semibold">Contact Us</h4>
             <p>Email: support@yourcompany.com</p>
             <p>Phone: +1 234 567 890</p>
-            <p>Address: 123 Fashion Ave, New York, NY</p>
+            <p>Address: 123 Literature Ave, New York, NY</p>
           </div>
 
           {/* Social Media Icons */}
