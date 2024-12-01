@@ -33,7 +33,7 @@ const BankingView = ({ onVerificationComplete }) => {
 
     return (
         <div style={{ padding: '20px', maxWidth: '400px', margin: '0 auto', textAlign: 'center' }}>
-            <Card style={{ backgroundColor: '#97e6ff' }}>
+            <Card style={{ backgroundColor: '#f8f9fa' }}>
                 <Title level={2}>Blue Bank</Title>
                 <Paragraph style={{ textAlign: 'left' }}><strong>Company Name:&emsp;</strong> KitApp</Paragraph>
                 <Paragraph style={{ textAlign: 'left' }}><strong>Order Total: &emsp;&emsp;&emsp;</strong> {orderTotal}</Paragraph>
