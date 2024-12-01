@@ -18,6 +18,7 @@ import PaymentView from "features/customer/checkout/CheckoutView";
 import OrderView from "features/customer/orders/OrderView";
 import CreateCategoryView from "features/admin/create_category/view/CreateCategoryView";
 import EditCategoryView from "features/admin/edit_category/view/EditCategoryView";
+import DeliveryManagementView from "features/admin/delivery-management/view/DeliveryManagementView";
 
 
 function App() {
@@ -55,6 +56,11 @@ function App() {
             path={AdminRoutePaths.EDIT_CATEGORY}
             element={<EditCategoryView />}
           />
+          <Route
+          path={AdminRoutePaths.MANAGE_DELIVERY}
+          element={<DeliveryManagementView />}
+          />
+          
           <Route path="*" element={<NotFoundView />} />
         </Route>
 

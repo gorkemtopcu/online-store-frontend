@@ -1,6 +1,7 @@
 import React from "react";
-import { BarChartOutlined, EditOutlined } from "@ant-design/icons";
+import { BarChartOutlined, EditOutlined , TruckOutlined} from "@ant-design/icons";
 import { AdminRoutePaths } from "./route_paths";
+
 
 const AdminRoutes = [
   {
@@ -33,6 +34,18 @@ const AdminRoutes = [
       {
         key: AdminRoutePaths.EDIT_PRODUCT,
         label: "Edit",
+        icon: <EditOutlined />,
+      },
+    ],
+  },
+  {
+    key: "delivery",
+    icon: <TruckOutlined />, // Delivery icon for the new section
+    label: "Delivery",
+    children: [
+      {
+        key: AdminRoutePaths.MANAGE_DELIVERY, // Add a route path for managing deliveries
+        label: "Manage Delivery Status",
         icon: <EditOutlined />,
       },
     ],
