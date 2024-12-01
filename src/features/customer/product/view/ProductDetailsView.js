@@ -7,11 +7,14 @@ import ProductImage from "./components/ProductImage";
 import ProductInfo from "./components/ProductInfo";
 import { CustomerRoutePaths } from "constants/route_paths";
 import WishlistService from "services/WishlistService";
+import useUserStore from "context/UserStore";
+
 
 const ProductDetailsView = () => {
   const { id } = useParams(); // Get the product ID from the URL
   const [product, setProduct] = useState(null);
   const { addToCart, getCartObjects } = useCartStore();
+  const { currentUser } = useUserStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,7 +65,7 @@ const ProductDetailsView = () => {
 
   const handleAddtoWishlist = async (productId) => {
     try {
-      await WishlistService.addToWishlist(productId);
+      await WishlistService.addToWishlist(currentUser.uid, productId);
       notification.success({
         message: "Added to Wishlist",
         description: `${product.name} has been successfully added to your wishlist.`,

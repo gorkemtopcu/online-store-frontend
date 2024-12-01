@@ -11,33 +11,44 @@ const WishlistService = {
       console.error("Error fetching wishlist data:", error);
     }
   },
-  getById: async (id) => {
+  getById: async (userId) => {
     try {
       console.log(
-        ServiceConstants.WISHLIST + ServiceConstants.GET_BY_ID + `/${id}`
+        ServiceConstants.WISHLIST + `/${userId}`
       );
       return await axios.get(
-        ServiceConstants.WISHLIST + ServiceConstants.GET_BY_ID + `/${id}`
+        ServiceConstants.WISHLIST + `/${userId}`
       );
     } catch (error) {
       console.error("Error fetching wishlist data:", error);
     }
   },
-  addToWishlist: async (productId) => {
+  addToWishlist: async (userId, productId) => {
     try {
-      console.log(productId);
-      return await axios.post(ServiceConstants.WISHLIST, productId);
+      const wishlistPayload = { userId, productId };
+      console.log("Adding product to wishlist:", wishlistPayload);
+      const response = await axios.post(
+        ServiceConstants.WISHLIST,
+        wishlistPayload, // Ensure the payload is formatted as JSON
+        {
+          headers: {
+            'Content-Type': 'application/json', // Set the Content-Type header
+          },
+        }
+      );
+      console.log("Response:", response);
+      return response;
     } catch (error) {
-      console.error("Error adding product to wishlist:", error);
+      console.error("Error adding product to wishlist:", error.response ? error.response.data : error.message);
     }
   },
-  removeFromWishlist: async (productId) => {
+  removeFromWishlist: async (itemId) => {
     try {
       console.log(
-        ServiceConstants.WISHLIST + ServiceConstants.REMOVE + `/${productId}`
+        ServiceConstants.WISHLIST + `/remove/${itemId}`
       );
       return await axios.delete(
-        ServiceConstants.WISHLIST + ServiceConstants.REMOVE + `/${productId}`
+        ServiceConstants.WISHLIST + `/remove/${itemId}`
       );
     } catch (error) {
       console.error("Error removing product from wishlist:", error);
