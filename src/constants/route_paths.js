@@ -21,6 +21,8 @@ const AdminRoutePaths = {
   CREATE_CATEGORY: "category/create",
   EDIT_CATEGORY: "category/edit",
 
+  // Order
+  MANAGE_ORDER: "/admin/manage-order",
 };
 
 export { CustomerRoutePaths, AdminRoutePaths };

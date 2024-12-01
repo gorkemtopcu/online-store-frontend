@@ -10,7 +10,7 @@ import { CustomerRoutePaths } from "constants/route_paths";
 const ProductDetailsView = () => {
   const { id } = useParams(); // Get the product ID from the URL
   const [product, setProduct] = useState(null);
-  const { addToCart } = useCartStore();
+  const { addToCart, getCartObjects } = useCartStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,9 +23,22 @@ const ProductDetailsView = () => {
         console.error("Error fetching product:", error);
       }
     };
-
     fetchProduct(); // Call the async function
   }, [id]);
+
+  const getQuantityOnCart = () => {
+    const cart = getCartObjects();
+    if (!cart) return 0;
+    const productInCart = cart.find(
+      (item) => item.product.productId === product.productId
+    );
+    return productInCart ? productInCart.quantity : 0;
+  };
+
+  const checkProductAvailability = () => {
+    const quantityOnCart = getQuantityOnCart();
+    return product.quantityInStock - quantityOnCart >= 1;
+  };
 
   const handleAddToCart = () => {
     addToCart(product);
@@ -66,7 +79,11 @@ const ProductDetailsView = () => {
               price={product.price}
             />
             <div className="flex space-x-4 mt-4">
-              <Button type="primary" onClick={handleAddToCart}>
+              <Button
+                type="primary"
+                onClick={handleAddToCart}
+                disabled={!checkProductAvailability()}
+              >
                 Add to Cart
               </Button>
               <Button type="default">Add to Wishlist</Button>

@@ -9,6 +9,7 @@ const ServiceConstants = {
   GET_BY_ID: "/getById",
   CREATE: "/create",
   GET_BY_USERID: "/getByUserId/",
+  UPDATE_STATUS: "/updateStatus",
 };
 
 export default ServiceConstants;
