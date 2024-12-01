@@ -31,7 +31,7 @@ const AdminLayout = () => {
                         </h2>
                     ) : (
                         <h2 className="text-white fs-5 text-center py-3 mb-0">
-                            <span className="lg-logo"> Clothing Store </span>
+                            <span className="lg-logo"> Book Store </span>
                         </h2>
                     )}
                 </div>

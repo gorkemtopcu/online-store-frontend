@@ -16,7 +16,7 @@ const LatestCollections = () => {
         Latest Collections
       </h1>
       <p className="text-center text-gray-600 mb-8">
-        Explore our newest arrivals of clothing and accessories!
+        Explore our newest arrivals of books!
       </p>
 
       <ProductCardList products={collections} />
