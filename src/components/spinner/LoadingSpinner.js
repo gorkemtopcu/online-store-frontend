@@ -10,7 +10,6 @@ const LoadingSpinner = ({ message = "Loading...", fullScreen = true }) => {
     alignItems: "center",
     minHeight: fullScreen ? "100vh" : "auto",
     padding: "20px",
-    backgroundColor: fullScreen ? "#f8f9fa" : "transparent",
   };
 
   // Inline styles for spinner
@@ -44,7 +43,6 @@ const LoadingSpinner = ({ message = "Loading...", fullScreen = true }) => {
       styleSheet.insertRule(animationStyle, styleSheet.cssRules.length);
     }
   }, [animationStyle]);
-
 
   // Create React element programmatically
   return React.createElement(

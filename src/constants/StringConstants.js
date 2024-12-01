@@ -10,6 +10,8 @@ const StringConstants = {
   CONFIRM_PASSWORD: "Confirm Password",
   CREATE_PRODUCT: "Create Product",
   CONTINUE_SHOPPING: "Continue Shopping",
+  CATEGORIES: "Categories",
+  FILTERS: "Filters",
 
   //Navbar
   HOME: "HOME",
@@ -24,8 +26,6 @@ const StringConstants = {
   LOGOUT: "Logout",
   SIGN_IN: "Sign In",
 
-
-  
   // Orders
   SEARCH_ORDERS: "Search in Orders",
   SEARCH: "Search",
@@ -39,7 +39,6 @@ const StringConstants = {
 
   LOADING: "Loading...",
   NO_ORDERS: "No Orders Found",
-
 
   // Expanded Order Details
   SELLER: "Seller",
@@ -62,6 +61,11 @@ const StringConstants = {
   PRODUCT_CATEGORY: "Product Category",
   UPLOAD_IMAGE: "Upload Image",
   SUBMIT: "Submit",
+
+  // Errors
+  ERROR_DEFAULT: "Oops! Something went wrong.",
+  ERROR_FETCHING_PRODUCTS:
+    "There was an error fetching the products. Please try again later.",
 };
 
 export default StringConstants;

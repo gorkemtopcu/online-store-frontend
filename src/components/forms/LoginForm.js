@@ -28,7 +28,7 @@ const LoginForm = ({ onSubmit }) => {
         <Input.Password />
       </Form.Item>
       <Form.Item>
-        {isLoading ? (
+        {isLoading() ? (
           <LoadingButton />
         ) : (
           <Button type="primary" htmlType="submit" block>
