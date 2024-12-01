@@ -10,6 +10,8 @@ const StringConstants = {
   CONFIRM_PASSWORD: "Confirm Password",
   CREATE_PRODUCT: "Create Product",
   CONTINUE_SHOPPING: "Continue Shopping",
+  EDIT: "Edit",
+  DELETE: "Delete",
 
   //Navbar
   HOME: "HOME",
@@ -25,7 +27,6 @@ const StringConstants = {
   SIGN_IN: "Sign In",
 
 
-  
   // Orders
   SEARCH_ORDERS: "Search in Orders",
   SEARCH: "Search",
@@ -62,6 +63,23 @@ const StringConstants = {
   PRODUCT_CATEGORY: "Product Category",
   UPLOAD_IMAGE: "Upload Image",
   SUBMIT: "Submit",
+
+  // Product book related
+  AUTHOR: "Author",
+  PUBLISHER: "Publisher",
+  ISBN: "ISBN",
+  LANGUAGE: "Language",
+  NUMBER_OF_PAGES: "Number of Pages",
+  PUBLICATION_DATE: "Publication Date",
+  GENRE: "Genre",
+  EDITION: "Edition",
+
+
+  //Admin Category Creation
+  CATEGORY_NAME: "Category Name",
+  CATEGORY_DESCRIPTION: "Category Description",
+  CATEGORY_IMAGE: "Category Image",
+  CREATE_CATEGORY: "Create Category",
 };
 
 export default StringConstants;
