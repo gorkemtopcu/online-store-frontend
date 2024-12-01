@@ -1,5 +1,5 @@
-import React from "react";
-import { Row, Divider, Typography, Form, notification } from "antd";
+import React, { useState } from 'react';
+import { Row, Divider, Typography, Form, notification, Modal } from "antd";
 import Checkout from "./components/Checkout";
 import useCartStore from "context/CartStore";
 import useUserStore from "context/UserStore";
@@ -8,6 +8,7 @@ import AddressColumn from "./components/AddressColumn";
 import { useNavigate } from "react-router-dom";
 import OrderService from "services/OrderService";
 import { CustomerRoutePaths } from "constants/route_paths";
+import BankingView from './BankingView';
 const { Text } = Typography;
 
 const CheckoutView = () => {
@@ -16,6 +17,7 @@ const CheckoutView = () => {
   const [addressForm] = Form.useForm();
   const [paymentForm] = Form.useForm();
   const { currentUser } = useUserStore();
+  const [isBankingModalVisible, setIsBankingModalVisible] = useState(false);
   const navigate = useNavigate();
 
   const proceedToPayment = () => {
@@ -27,7 +29,8 @@ const CheckoutView = () => {
           .validateFields()
           .then(() => {
             console.log("Payment form is valid");
-            handleOnPurchase();
+            setIsBankingModalVisible(true);
+            //handleOnPurchase();
           })
           .catch((errorInfo) => {
             console.error("Payment form validation failed:", errorInfo);
@@ -59,8 +62,10 @@ const CheckoutView = () => {
       paymentDetails,
       selectedProductsData,
     );
+
     // Todo: Show invoice to user
     navigate(CustomerRoutePaths.HOME);
+
     handleAfterPurchaseNotification(success);
   };
 
@@ -79,6 +84,23 @@ const CheckoutView = () => {
         placement: "topRight",
       });
     }
+  };
+
+  const handleOpenBankingModal = () => {
+    setIsBankingModalVisible(true);
+  };
+
+  const handleCloseBankingModal = () => {
+    setIsBankingModalVisible(false);
+  };
+
+  const handleVerificationComplete = (isVerified) => {
+    if (isVerified) {
+      handleOnPurchase();
+    } else {
+      alert('Verification failed. Please try again.');
+    }
+    handleCloseBankingModal();
   };
 
   return (
@@ -110,6 +132,16 @@ const CheckoutView = () => {
         />{" "}
         {/* Use the PaymentColumn component */}
       </Row>
+
+      {/* Banking Modal */}
+      <Modal
+        title="3D Secure Verification"
+        visible={isBankingModalVisible}
+        onCancel={handleCloseBankingModal}
+        footer={null}
+      >
+        <BankingView onVerificationComplete={handleVerificationComplete} />
+      </Modal>
 
       <Divider />
     </div>
