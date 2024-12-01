@@ -18,7 +18,7 @@ import PaymentView from "features/customer/checkout/CheckoutView";
 import OrderView from "features/customer/orders/OrderView";
 import CreateCategoryView from "features/admin/create_category/view/CreateCategoryView";
 import EditCategoryView from "features/admin/edit_category/view/EditCategoryView";
-
+import OrderManagementView from "features/admin/order_management/view/OrderManagementView";
 
 function App() {
   const { currentUser } = useUserStore();
@@ -42,7 +42,7 @@ function App() {
             path={AdminRoutePaths.CREATE_PRODUCT}
             element={<CreateProductView />}
           />
-          
+
           <Route
             path={AdminRoutePaths.EDIT_PRODUCT}
             element={<InventoryManagementView />}
@@ -55,6 +55,11 @@ function App() {
             path={AdminRoutePaths.EDIT_CATEGORY}
             element={<EditCategoryView />}
           />
+          <Route
+            path={AdminRoutePaths.MANAGE_ORDER}
+            element={<OrderManagementView />}
+          />
+
           <Route path="*" element={<NotFoundView />} />
         </Route>
 
@@ -77,8 +82,14 @@ function App() {
           <Route path={CustomerRoutePaths.ORDERS} element={<OrderView />} />
           <Route path={CustomerRoutePaths.ABOUT} element={<h1>About</h1>} />
           <Route path={CustomerRoutePaths.CONTACT} element={<h1>Contact</h1>} />
-          <Route path={CustomerRoutePaths.WISHLIST} element={<WishlistView />} />
-          <Route path={CustomerRoutePaths.DETAILS} element={<ProductDetailsView />} />
+          <Route
+            path={CustomerRoutePaths.WISHLIST}
+            element={<WishlistView />}
+          />
+          <Route
+            path={CustomerRoutePaths.DETAILS}
+            element={<ProductDetailsView />}
+          />
           <Route path={CustomerRoutePaths.CART} element={<CartView />} />
           <Route
             path={CustomerRoutePaths.PAYMENT}
