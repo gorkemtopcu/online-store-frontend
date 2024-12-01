@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Spin, Typography, Alert } from "antd";
-import axios from "axios";
+import InvoiceService from "services/InvoiceService";
 
 const { Title } = Typography;
 
@@ -15,14 +15,7 @@ const InvoiceDisplay = () => {
     const fetchInvoice = async () => {
       try {
         console.log("Fetching invoice for orderId:", orderId);
-        const response = await axios.get(
-          `http://localhost:8081/api/invoices/${orderId}`,
-          { responseType: "blob" } 
-        );
-
-        // Blob'dan URL oluştur
-        const blob = new Blob([response.data], { type: "application/pdf" });
-        const url = window.URL.createObjectURL(blob);
+        const url = await InvoiceService.fetchInvoice(orderId);
         setInvoiceUrl(url);
         console.log("Invoice URL created:", url);
       } catch (err) {

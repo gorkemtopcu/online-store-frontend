@@ -8,6 +8,7 @@ import AddressColumn from "./components/AddressColumn";
 import { useNavigate } from "react-router-dom";
 import OrderService from "services/OrderService";
 import BankingView from "./BankingView";
+import InvoiceService from "services/InvoiceService";
 
 const { Text } = Typography;
 
@@ -46,7 +47,7 @@ const CheckoutView = () => {
 
       if (orderId) {
         try {
-          await OrderService.fetchInvoice(orderId); 
+          await InvoiceService.fetchInvoice(orderId); 
           navigate(`/invoice/${orderId}`); 
         } catch (invoiceError) {
           console.error("Error fetching invoice:", invoiceError);
