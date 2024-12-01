@@ -2,53 +2,44 @@ import axios from "axios";
 import ServiceConstants from "constants/ServiceConstants";
 
 const OrderService = {
-  completePurchase: (
-    uid,
-    orderTotal,
-    addressDetails,
-    paymentDetails,
-    selectedProductsData,
-    clearCart
-  ) => {
+  completePurchase: async (uid, orderTotal, addressDetails, paymentDetails, selectedProductsData) => {
     const orderDetails = {
-      uid: uid,
-      orderTotal: orderTotal,
+      uid,
+      orderTotal,
       address: addressDetails,
       payment: paymentDetails,
       products: selectedProductsData,
     };
-    return axios
-      .post(ServiceConstants.ORDERS + ServiceConstants.CREATE, orderDetails)
-      .then((response) => true)
-      .catch((error) => false);
+
+    try {
+      const response = await axios.post(
+        `${ServiceConstants.ORDERS}${ServiceConstants.CREATE}`, 
+        orderDetails
+      );
+
+      if (typeof response.data === "string" && response.data.includes("ID:")) {
+        const orderId = response.data.split("ID:")[1].trim();
+        return orderId;
+      } else {
+        console.error("Unexpected response format:", response.data);
+        return null;
+      }
+    } catch (error) {
+      console.error("Error completing purchase:", error);
+      return null;
+    }
   },
 
-  getOrders: (uid) => {
-    return axios
-      .get(ServiceConstants.ORDERS + ServiceConstants.GET_BY_USERID + uid)
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
-  },
-
-  getAllOrders: () => {
-    return axios
-      .get(ServiceConstants.ORDERS + ServiceConstants.GET_ALL)
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
-  },
-
-  updateOrderStatus: (orderId, newStatus) => {
-    const updatedOrder = {
-      orderId: orderId,
-      orderStatus: newStatus,
-    };
-    return axios
-      .put(
-        ServiceConstants.ORDERS + ServiceConstants.UPDATE_STATUS,
-        updatedOrder
-      )
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
+  fetchInvoice: async (orderId) => {
+    const url = `${ServiceConstants.INVOICES}/${orderId}`;
+    try {
+      const response = await axios.get(url, { responseType: "blob" });
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      return window.URL.createObjectURL(blob); 
+    } catch (error) {
+      console.error("Error fetching invoice:", error);
+      throw error;
+    }
   },
 };
 

@@ -19,6 +19,7 @@ import OrderView from "features/customer/orders/OrderView";
 import CreateCategoryView from "features/admin/create_category/view/CreateCategoryView";
 import EditCategoryView from "features/admin/edit_category/view/EditCategoryView";
 import OrderManagementView from "features/admin/order_management/view/OrderManagementView";
+import InvoiceDisplay from "features/customer/checkout/components/InvoiceDisplay";
 
 function App() {
   const { currentUser } = useUserStore();
@@ -101,6 +102,11 @@ function App() {
               />
             }
           />
+         <Route
+            path={CustomerRoutePaths.INVOICE}
+            element={<InvoiceDisplay />}
+          />
+          
           <Route path="*" element={<NotFoundView />} />
         </Route>
       </Routes>
