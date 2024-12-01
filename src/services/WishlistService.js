@@ -1,6 +1,7 @@
 import axios from "axios";
 import ServiceConstants from "../constants/ServiceConstants";
 
+
 const WishlistService = {
   getAll: async () => {
     try {
@@ -42,16 +43,16 @@ const WishlistService = {
       console.error("Error adding product to wishlist:", error.response ? error.response.data : error.message);
     }
   },
-  removeFromWishlist: async (itemId) => {
+  removeFromWishlist: async (wishlistId) => {
     try {
-      console.log(
-        ServiceConstants.WISHLIST + `/remove/${itemId}`
+      console.log("Removing item from wishlist:", wishlistId);
+      const response = await axios.delete(
+        ServiceConstants.WISHLIST + `/remove/${wishlistId}`
       );
-      return await axios.delete(
-        ServiceConstants.WISHLIST + `/remove/${itemId}`
-      );
+      console.log("Response:", response);
+      return response;
     } catch (error) {
-      console.error("Error removing product from wishlist:", error);
+      console.error("Error removing product from wishlist:", error.response ? error.response.data : error.message);
     }
   },
 };
