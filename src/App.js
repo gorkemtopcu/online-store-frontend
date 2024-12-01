@@ -2,7 +2,7 @@ import ProtectedRoute from "components/routes/ProtectedRoute";
 import { AdminRoutePaths, CustomerRoutePaths } from "constants/route_paths";
 import InventoryManagementView from "features/admin/inventory_management/view/inventory_management_view";
 import NotFoundView from "features/common/not_found/view/not_found_view";
-import CollectionView from "features/customer/collection/view/collection_view";
+import CollectionView from "features/customer/collection/view/CollectionView";
 import CreateProductView from "features/admin/create_product/view/create_product_view";
 import HomeView from "features/customer/home/view/home_view";
 import AdminLayout from "layouts/admin_layout";
@@ -74,7 +74,7 @@ function App() {
             path={CustomerRoutePaths.COLLECTION}
             element={<CollectionView />}
           />
-          <Route path={CustomerRoutePaths.ORDERS} element={<OrderView/>} />
+          <Route path={CustomerRoutePaths.ORDERS} element={<OrderView />} />
           <Route path={CustomerRoutePaths.ABOUT} element={<h1>About</h1>} />
           <Route path={CustomerRoutePaths.CONTACT} element={<h1>Contact</h1>} />
           <Route path={CustomerRoutePaths.WISHLIST} element={<WishlistView />} />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Spin } from "antd";
+import { Button } from "antd";
 import StringConstants from "constants/StringConstants";
 import useUserStore from "context/UserStore";
 import LoadingSpinner from "components/spinner/LoadingSpinner";
@@ -9,9 +9,9 @@ const LogoutButton = () => {
   const [loading, setLoading] = useState(false);
 
   const handleLogout = async () => {
-    setLoading(true); 
+    setLoading(true);
     try {
-      await logout(); 
+      await logout();
     } catch (error) {
       console.error("Logout failed:", error);
     } finally {

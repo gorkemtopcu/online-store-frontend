@@ -1,17 +1,12 @@
 const Categories = [
-  {
-    name: "CATEGORIES",
-    subcategories: [
-      "Non-Fiction",
-      "History",
-      "Poetry",
-      "Thriller",
-      "Academic & Text Books",
-      "Fantasy",
-      "Science",
-      "Mystery & Crime",
-    ],
-  },
+  "5EoqFw7J61Ie3QA96L78",
+  "History",
+  "Poetry",
+  "Thriller",
+  "Academic & Text Books",
+  "Fantasy",
+  "Science",
+  "Mystery & Crime",
 ];
 
 export default Categories;
