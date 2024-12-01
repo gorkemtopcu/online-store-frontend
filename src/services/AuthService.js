@@ -5,6 +5,7 @@ import {
 } from "firebase/auth";
 import { auth } from "lib/firebase";
 import { generateFirebaseAuthErrorMessage } from "lib/firebase/auth/error";
+import exceptionService from "./error/ExceptionService";
 
 class AuthService {
   async signUp(email, password) {
@@ -46,10 +47,10 @@ class AuthService {
   }
 
   handleError(error) {
-    console.error(error);
     if (error instanceof FirebaseError) {
       return generateFirebaseAuthErrorMessage(error);
     }
+    return exceptionService.handleException(error);
   }
 }
 

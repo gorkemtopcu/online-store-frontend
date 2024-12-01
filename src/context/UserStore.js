@@ -35,31 +35,39 @@ const useUserStore = create((set) => ({
 
   signUp: async (name, email, password, role) => {
     set({ isLoading: true });
-    // Sign up the user
-    const user = await authService.signUp(email, password);
-    if (!user) {
+    try {
+      // Sign up the user
+      const user = await authService.signUp(email, password);
+      if (!user) {
+        set({ isLoading: false });
+        return;
+      }
+      // Create user in the database
+      const userDoc = await userService.createUser({
+        name: name,
+        email: email,
+        role: role,
+        uid: user.uid,
+      });
+      set({ currentUser: userDoc });
+    } finally {
       set({ isLoading: false });
-      return;
     }
-    // Create user in the database
-    const userDoc = await userService.createUser({
-      name: name,
-      email: email,
-      role: role,
-      uid: user.uid,
-    });
-    set({ currentUser: userDoc, isLoading: false });
   },
 
   login: async (email, password) => {
     set({ isLoading: true });
-    const user = await authService.login(email, password);
-    if (!user) {
+    try {
+      const user = await authService.login(email, password);
+      if (!user) {
+        set({ isLoading: false });
+        return;
+      }
+      const userDoc = await userService.getUserById(user.uid);
+      set({ currentUser: userDoc });
+    } finally {
       set({ isLoading: false });
-      return;
     }
-    const userDoc = await userService.getUserById(user.uid);
-    set({ isLoading: false, currentUser: userDoc });
   },
 
   logout: async () => {
