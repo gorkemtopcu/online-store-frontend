@@ -1,5 +1,5 @@
 const StringConstants = {
-  APP_NAME: "Clothing Store",
+  APP_NAME: "Book Store",
   LOGIN: "Login",
   SIGN_UP: "Sign Up",
   LOG_OUT: "Log Out",
