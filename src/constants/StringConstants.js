@@ -12,6 +12,8 @@ const StringConstants = {
   CONTINUE_SHOPPING: "Continue Shopping",
   CATEGORIES: "Categories",
   FILTERS: "Filters",
+  EDIT: "Edit",
+  DELETE: "Delete",
 
   //Navbar
   HOME: "HOME",
@@ -61,6 +63,22 @@ const StringConstants = {
   PRODUCT_CATEGORY: "Product Category",
   UPLOAD_IMAGE: "Upload Image",
   SUBMIT: "Submit",
+
+  // Product book related
+  AUTHOR: "Author",
+  PUBLISHER: "Publisher",
+  ISBN: "ISBN",
+  LANGUAGE: "Language",
+  NUMBER_OF_PAGES: "Number of Pages",
+  PUBLICATION_DATE: "Publication Date",
+  GENRE: "Genre",
+  EDITION: "Edition",
+
+  //Admin Category Creation
+  CATEGORY_NAME: "Category Name",
+  CATEGORY_DESCRIPTION: "Category Description",
+  CATEGORY_IMAGE: "Category Image",
+  CREATE_CATEGORY: "Create Category",
 
   // Errors
   ERROR_DEFAULT: "Oops! Something went wrong.",

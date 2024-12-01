@@ -4,6 +4,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import AdminRoutes from '../constants/AdminRoutes';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import LoginButton from 'components/buttons/LoginButton';
+import LogoutButton from 'components/buttons/LogoutButton';
 
 const { Header, Sider, Content } = Layout;
 
@@ -67,7 +68,7 @@ const AdminLayout = () => {
                         }}
                     />
                     <div style={{ flex: 1 }} /> {}
-                    <LoginButton />
+                    <LogoutButton />
                 </Header>
                 <Content
                     style={{

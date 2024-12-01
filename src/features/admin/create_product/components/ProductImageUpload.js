@@ -7,7 +7,7 @@ import StringConstants from "constants/StringConstants";
 const ProductImageUpload = () => (
   <Form.Item
     label={StringConstants.PRODUCT_IMAGE}
-    name="productImage"
+    name="images"
     valuePropName="fileList"
     getValueFromEvent={(e) => e.fileList}
     rules={[{ required: false, message: "Please upload a product image!" }]}

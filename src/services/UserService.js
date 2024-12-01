@@ -1,5 +1,6 @@
 import axios from "axios";
 import ServiceConstants from "constants/ServiceConstants";
+import exceptionService from "./error/ExceptionService";
 
 class UserService {
   async getUserById(userId) {
@@ -9,7 +10,7 @@ class UserService {
       return response.data;
     } catch (error) {
       console.error("Error fetching user data:", error);
-      throw error;
+      exceptionService.handleException(error);
     }
   }
 
@@ -19,7 +20,7 @@ class UserService {
       return await axios.post(ServiceConstants.USER, user);
     } catch (error) {
       console.error("Error creating user:", error);
-      throw error;
+      exceptionService.handleException(error);
     }
   }
 }

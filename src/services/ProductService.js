@@ -25,6 +25,7 @@ const ProductService = {
   },
   addProduct: async (product) => {
     try {
+      console.log(product);
       return await axios.post(ServiceConstants.PRODUCTS, product);
     } catch (error) {
       console.error("Error adding product:", error);
