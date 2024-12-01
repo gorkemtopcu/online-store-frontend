@@ -80,6 +80,9 @@ const StringConstants = {
   CATEGORY_IMAGE: "Category Image",
   CREATE_CATEGORY: "Create Category",
 
+  // Notifications
+  NOTIFICATIONS: "Notifications",
+
   // Errors
   ERROR_DEFAULT: "Oops! Something went wrong.",
   ERROR_FETCHING_PRODUCTS:

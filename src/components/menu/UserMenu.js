@@ -26,15 +26,26 @@ const UserMenu = () => {
         <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
           {currentUser ? (
             <>
-              <p className="cursor-pointer hover:text-black"> {StringConstants.PROFILE}</p>
-              <p className="cursor-pointer hover:text-black"> 
-                <Link to= {CustomerRoutePaths.ORDERS}> {StringConstants.ORDERS} </Link>
+              <p className="cursor-pointer hover:text-black">
+                <Link to={CustomerRoutePaths.NOTIFICATIONS}>
+                  {" "}
+                  {StringConstants.NOTIFICATIONS}{" "}
+                </Link>
               </p>
               <p className="cursor-pointer hover:text-black">
-                <Link to= {CustomerRoutePaths.WISHLIST}> {StringConstants.WISHLIST} </Link>
+                <Link to={CustomerRoutePaths.ORDERS}>
+                  {" "}
+                  {StringConstants.ORDERS}{" "}
+                </Link>
+              </p>
+              <p className="cursor-pointer hover:text-black">
+                <Link to={CustomerRoutePaths.WISHLIST}>
+                  {" "}
+                  {StringConstants.WISHLIST}{" "}
+                </Link>
               </p>
               <p className="cursor-pointer hover:text-black" onClick={logout}>
-              {StringConstants.LOGOUT}
+                {StringConstants.LOGOUT}
               </p>
             </>
           ) : (

@@ -8,8 +8,7 @@ const CustomerRoutePaths = {
   CART: "/cart",
   PAYMENT: "/payment",
   ORDERS: "/orders",
-  NOTIFICATIONS: "/notifications", // Added Notifications route
-
+  NOTIFICATIONS: "/notifications",
 };
 
 const AdminRoutePaths = {
