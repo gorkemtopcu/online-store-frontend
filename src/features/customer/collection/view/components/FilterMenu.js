@@ -1,20 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Drawer } from "antd";
 import Categories from "constants/ProductCategories";
 import { FilterOutlined } from "@ant-design/icons";
+import CategoryService from "services/CategoryService";
 
 const FilterMenu = ({ onFilterChange }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({});
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await CategoryService.getCategories();
+        const backendCategories = response.data;
+
+        // Map frontend categories with backend categories
+        const mappedCategories = Categories.map((frontendCategory) => {
+          const matchedCategory =
+            backendCategories.find(
+              (backendCategory) =>
+                backendCategory.id === frontendCategory || 
+                backendCategory.name === frontendCategory
+            ) || { id: frontendCategory, name: frontendCategory }; // Fallback to frontend category if no match
+          return matchedCategory;
+        });
+
+        setCategories(mappedCategories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const toggleDrawer = () => {
     setIsDrawerOpen((prev) => !prev);
   };
 
-  const handleCheckboxChange = (category, isChecked) => {
+  const handleCheckboxChange = (categoryId, isChecked) => {
     setSelectedFilters((prevFilters) => ({
       ...prevFilters,
-      [category]: isChecked,
+      [categoryId]: isChecked,
     }));
   };
 
@@ -44,9 +72,9 @@ const FilterMenu = ({ onFilterChange }) => {
         width={300}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-          {Categories.map((category, index) => (
+          {categories.map((category, index) => (
             <div
-              key={category}
+              key={category.id}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -56,9 +84,9 @@ const FilterMenu = ({ onFilterChange }) => {
               <input
                 type="checkbox"
                 id={`category-${index}`}
-                checked={!!selectedFilters[category]}
+                checked={!!selectedFilters[category.id]}
                 onChange={(e) =>
-                  handleCheckboxChange(category, e.target.checked)
+                  handleCheckboxChange(category.id, e.target.checked)
                 }
               />
               <label
@@ -69,7 +97,7 @@ const FilterMenu = ({ onFilterChange }) => {
                   cursor: "pointer",
                 }}
               >
-                {category}
+                {category.name}
               </label>
             </div>
           ))}

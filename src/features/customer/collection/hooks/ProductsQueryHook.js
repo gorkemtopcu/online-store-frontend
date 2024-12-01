@@ -34,6 +34,7 @@ const useProductsQuery = () => {
       setState(PRODUCT_STATES.ERROR);
     }
   }, []);
+  
 
   useEffect(() => {
     loadProducts();
@@ -44,6 +45,8 @@ const useProductsQuery = () => {
     filtered = sortProducts(filtered, sortOption);
     return filterProducts(filtered, filters);
   }, [products, searchTerm, sortOption, filters]);
+
+  
 
   return {
     state,
