@@ -42,8 +42,8 @@ const AuthenticationModal = ({ isOpen, onClose, onAuthSuccess = () => {} }) => {
       }
       open={isOpen}
       footer={null}
-      onCancel={!isLoading ? onClose : null}
-      closable={!isLoading}
+      onCancel={!isLoading() ? onClose : null}
+      closable={!isLoading()}
     >
       {isLoginMode ? (
         <LoginForm onSubmit={handleLogin} />

@@ -1,79 +1,53 @@
 import React, { useState } from "react";
-import categories from "../../../../../constants/categories";
+import { Input, Button, Select, Row, Col } from "antd";
+import { SearchOutlined, SortAscendingOutlined } from "@ant-design/icons";
+import FilterMenu from "./FilterMenu";
 
-const ProductSearchFilter = ({ onSearch, onSort, onCategoryFilter }) => {
+const { Option } = Select;
+
+const ProductSearchFilter = ({ sortOption, onSearch, onSort, setFilters }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortOption, setSortOption] = useState("");
-  const [mainCategory, setMainCategory] = useState("");
-  const [subCategory, setSubCategory] = useState("");
-
-  const handleSearchChange = (e) => {
-    const term = e.target.value; 
-    setSearchTerm(term);
-    if (onSearch) {
-      onSearch(term); 
-    }
-  };
-
-  const handleSortChange = (e) => {
-    const option = e.target.value;
-    setSortOption(option);
-    onSort(option);
-  };
-
-  const handleMainCategoryChange = (e) => {
-    const selectedMainCategory = e.target.value;
-    setMainCategory(selectedMainCategory);
-    setSubCategory("");
-  };
-
-  const applyCategoryFilter = () => {
-    onCategoryFilter({ mainCategory, subCategory });
-  };
 
   return (
-    <div className="product-search-filter">
-      {/* Search Input */}
-      <input
-        type="text"
-        placeholder="Search products..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-      />
+    <div style={{ padding: "10px 0" }}>
+      <Row gutter={16} align="middle">
+        {/* Search Input */}
+        <Col flex="auto">
+          <Input
+            placeholder="Search products"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onPressEnter={() => onSearch(searchTerm)}
+            suffix={
+              <Button
+                type="link"
+                icon={<SearchOutlined />}
+                onClick={() => onSearch(searchTerm)}
+              />
+            }
+          />
+        </Col>
 
-      {/* Main Category Selection */}
-      <select value={mainCategory} onChange={handleMainCategoryChange}>
-        <option value="">Select Category</option>
-        {categories.map((category) => (
-          <option key={category.name} value={category.name}>
-            {category.name}
-          </option>
-        ))}
-      </select>
+        {/* Filter Button */}
+        <Col>
+          <FilterMenu onFilterChange={setFilters} />
+        </Col>
 
-      {/* Subcategory Selection */}
-      {mainCategory && (
-        <select value={subCategory} onChange={(e) => setSubCategory(e.target.value)}>
-          <option value="">Select Subcategory</option>
-          {categories
-            .find((category) => category.name === mainCategory)
-            ?.subcategories.map((subcategory) => (
-              <option key={subcategory} value={subcategory}>
-                {subcategory}
-              </option>
-            ))}
-        </select>
-      )}
-
-      {/* Sorting Selection */}
-      <select value={sortOption} onChange={handleSortChange}>
-        <option value="">Sort By</option>
-        <option value="price">Price</option>
-        <option value="popularity">Popularity</option>
-      </select>
-
-      {/* Apply Filters */}
-      <button onClick={applyCategoryFilter}>Apply Filters</button>
+        {/* Sort Dropdown */}
+        <Col>
+          <Select
+            value={sortOption || undefined}
+            onChange={onSort}
+            placeholder="Sort by"
+            suffixIcon={<SortAscendingOutlined />}
+            style={{ minWidth: 120 }}
+            allowClear
+          >
+            <Option value="price">Price</Option>
+            <Option value="popularity">Popularity</Option>
+          </Select>
+        </Col>
+      </Row>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import ProtectedRoute from "components/routes/ProtectedRoute";
 import { AdminRoutePaths, CustomerRoutePaths } from "constants/route_paths";
 import InventoryManagementView from "features/admin/inventory_management/view/inventory_management_view";
 import NotFoundView from "features/common/not_found/view/not_found_view";
-import CollectionView from "features/customer/collection/view/collection_view";
+import CollectionView from "features/customer/collection/view/CollectionView";
 import CreateProductView from "features/admin/create_product/view/create_product_view";
 import HomeView from "features/customer/home/view/home_view";
 import AdminLayout from "layouts/admin_layout";
@@ -16,6 +16,9 @@ import useUserStore from "context/UserStore";
 import UserRoles from "constants/UserRoles";
 import PaymentView from "features/customer/checkout/CheckoutView";
 import OrderView from "features/customer/orders/OrderView";
+import CreateCategoryView from "features/admin/create_category/view/CreateCategoryView";
+import EditCategoryView from "features/admin/edit_category/view/EditCategoryView";
+
 
 function App() {
   const { currentUser } = useUserStore();
@@ -39,9 +42,18 @@ function App() {
             path={AdminRoutePaths.CREATE_PRODUCT}
             element={<CreateProductView />}
           />
+          
           <Route
             path={AdminRoutePaths.EDIT_PRODUCT}
             element={<InventoryManagementView />}
+          />
+          <Route
+            path={AdminRoutePaths.CREATE_CATEGORY}
+            element={<CreateCategoryView />}
+          />
+          <Route
+            path={AdminRoutePaths.EDIT_CATEGORY}
+            element={<EditCategoryView />}
           />
           <Route path="*" element={<NotFoundView />} />
         </Route>
@@ -62,17 +74,11 @@ function App() {
             path={CustomerRoutePaths.COLLECTION}
             element={<CollectionView />}
           />
-          <Route path={CustomerRoutePaths.ORDERS} element={<OrderView/>} />
+          <Route path={CustomerRoutePaths.ORDERS} element={<OrderView />} />
           <Route path={CustomerRoutePaths.ABOUT} element={<h1>About</h1>} />
           <Route path={CustomerRoutePaths.CONTACT} element={<h1>Contact</h1>} />
-          <Route
-            path={CustomerRoutePaths.WISHLIST}
-            element={<WishlistView />}
-          />
-          <Route
-            path={CustomerRoutePaths.DETAILS}
-            element={<ProductDetailsView />}
-          />
+          <Route path={CustomerRoutePaths.WISHLIST} element={<WishlistView />} />
+          <Route path={CustomerRoutePaths.DETAILS} element={<ProductDetailsView />} />
           <Route path={CustomerRoutePaths.CART} element={<CartView />} />
           <Route
             path={CustomerRoutePaths.PAYMENT}

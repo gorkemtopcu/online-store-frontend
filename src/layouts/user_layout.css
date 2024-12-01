@@ -1,45 +1,82 @@
-/* user_layout.css */
-
-/* Container styling */
+/* General Layout Styling */
 .layout-container {
     display: flex;
     position: relative;
     min-height: 100vh;
 }
 
-/* Sidemenu styling */
+/* Sidemenu Styling */
 .sidemenu {
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
-    width: 250px;
+    width: 300px;
     background-color: rgba(255, 255, 255, 0.9); /* Light transparent background */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease-in-out;
     transform: translateX(-100%);
     z-index: 1000;
+    overflow-y: auto; /* Allow scrolling if content overflows */
 }
 
-/* Show the sidemenu when open */
+/* Sidemenu Open State */
 .sidemenu.open {
     transform: translateX(0);
 }
 
-/* Content container for main layout */
+/* Sidemenu Header Styling */
+.sidemenu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Sidemenu Content */
+.sidemenu-content {
+    padding: 20px;
+    font-size: 16px;
+    color: #333;
+}
+
+.category-item {
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.category-item:hover {
+    color: #007bff; /* Highlight on hover */
+}
+
+.subcategory-item {
+    margin-left: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.subcategory-item:hover {
+    color: #007bff; /* Highlight on hover */
+}
+
+/* Content Container for Main Layout */
 .content-container {
     flex: 1;
     padding: 20px;
-    margin-left: 250px; /* Offset for sidemenu */
-    transition: margin-left 0.3s ease;
+    margin-left: 0; /* Default margin for when sidemenu is closed */
+    transition: margin-left 0.3s ease-in-out;
 }
 
-/* Adjust content margin when sidemenu is closed */
-.sidemenu:not(.open) ~ .content-container {
-    margin-left: 0;
+/* Adjust Content Margin When Sidemenu is Open */
+.sidemenu.open ~ .content-container {
+    margin-left: 300px; /* Matches sidemenu width */
 }
 
-/* Toggle button styling */
+/* Menu Toggle Button Styling */
 .menu-toggle-button {
     position: fixed;
     top: 15px;
@@ -48,9 +85,28 @@
     background: none;
     border: none;
     cursor: pointer;
-    z-index: 1100; /* Above sidemenu */
+    z-index: 1100; /* Ensure it appears above the sidemenu */
 }
 
 .menu-toggle-button:hover {
-    color: #555; /* Slight color change on hover */
+    color: #555; /* Subtle color change on hover */
+}
+
+/* Additional Styling for Filter Button */
+.filter-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 1100;
+}
+
+.filter-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
 }
