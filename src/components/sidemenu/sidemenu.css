@@ -1,0 +1,99 @@
+/* Sidemenu Genel Stilleri */
+.sidemenu {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  height: 100vh !important;
+  width: 300px !important;
+  background-color: #ffffff !important;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1) !important;
+  transform: translateX(-100%) !important;
+  transition: transform 0.3s ease !important;
+  z-index: 1100 !important;
+  overflow-y: auto !important;
+  padding: 20px !important;
+  font-family: Arial, sans-serif !important;
+}
+
+/* Menü Açık Durumda */
+.sidemenu.open {
+  transform: translateX(0) !important;
+}
+
+/* Kapat Butonu */
+.close-button {
+  position: absolute !important;
+  top: 15px !important;
+  right: 15px !important;
+  background: none !important;
+  border: none !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  color: #000 !important;
+}
+
+/* Kategori Başlıkları */
+.category-section {
+  margin-bottom: 20px !important;
+}
+
+.category-name {
+  font-size: 16px !important;
+  font-weight: bold !important;
+  color: #000 !important;
+  margin-bottom: 10px !important;
+  border-bottom: 1px solid #ddd !important;
+  padding-bottom: 5px !important;
+}
+
+/* Alt Kategoriler */
+.subcategory-item {
+  display: flex !important;
+  align-items: center !important;
+  margin-bottom: 10px !important;
+}
+
+.subcategory-item input {
+  margin-right: 10px !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.subcategory-item label {
+  font-size: 14px !important;
+  color: #555 !important;
+}
+
+.subcategory-item:hover label {
+  color: #007bff !important;
+}
+
+/* Arama Kutusu (Opsiyonel) */
+.search-box {
+  width: 100% !important;
+  margin-bottom: 15px !important;
+  padding: 10px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 5px !important;
+  font-size: 14px !important;
+}
+
+.filter-button {
+  position: absolute !important; /* Sabit pozisyon */
+  top: 20px !important; /* Üstten mesafe */
+  left: 20px !important; /* Soldan mesafe */
+  padding: 5px 10px !important; /* Daha küçük boyut için padding */
+  background-color: #007bff !important; /* Mavi arkaplan */
+  color: white !important;
+  border: none !important;
+  border-radius: 3px !important; /* Hafif yuvarlatılmış köşeler */
+  font-size: 12px !important; /* Daha küçük yazı boyutu */
+  font-weight: normal !important; /* Yazı ağırlığını azalt */
+  cursor: pointer !important;
+  z-index: 1100 !important;
+}
+
+.filter-button:hover {
+  background-color: #0056b3 !important; /* Hover için daha koyu mavi */
+}

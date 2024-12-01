@@ -17,6 +17,7 @@ import UserRoles from "constants/UserRoles";
 import PaymentView from "features/customer/checkout/CheckoutView";
 import OrderView from "features/customer/orders/OrderView";
 
+
 function App() {
   const { currentUser } = useUserStore();
   const userRole = currentUser?.role;
@@ -39,6 +40,7 @@ function App() {
             path={AdminRoutePaths.CREATE_PRODUCT}
             element={<CreateProductView />}
           />
+          
           <Route
             path={AdminRoutePaths.EDIT_PRODUCT}
             element={<InventoryManagementView />}
@@ -65,14 +67,8 @@ function App() {
           <Route path={CustomerRoutePaths.ORDERS} element={<OrderView/>} />
           <Route path={CustomerRoutePaths.ABOUT} element={<h1>About</h1>} />
           <Route path={CustomerRoutePaths.CONTACT} element={<h1>Contact</h1>} />
-          <Route
-            path={CustomerRoutePaths.WISHLIST}
-            element={<WishlistView />}
-          />
-          <Route
-            path={CustomerRoutePaths.DETAILS}
-            element={<ProductDetailsView />}
-          />
+          <Route path={CustomerRoutePaths.WISHLIST} element={<WishlistView />} />
+          <Route path={CustomerRoutePaths.DETAILS} element={<ProductDetailsView />} />
           <Route path={CustomerRoutePaths.CART} element={<CartView />} />
           <Route
             path={CustomerRoutePaths.PAYMENT}
