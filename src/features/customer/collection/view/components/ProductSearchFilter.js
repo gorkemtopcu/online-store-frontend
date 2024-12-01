@@ -17,6 +17,7 @@ const ProductSearchFilter = ({ sortOption, onSearch, onSort, setFilters }) => {
             placeholder="Search products"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            onPressEnter={() => onSearch(searchTerm)}
             suffix={
               <Button
                 type="link"
