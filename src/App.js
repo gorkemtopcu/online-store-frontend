@@ -18,6 +18,7 @@ import PaymentView from "features/customer/checkout/CheckoutView";
 import OrderView from "features/customer/orders/OrderView";
 import CreateCategoryView from "features/admin/create_category/view/CreateCategoryView";
 import EditCategoryView from "features/admin/edit_category/view/EditCategoryView";
+import NotificationView from "features/customer/notifications/NotificationView";
 
 
 function App() {
@@ -80,6 +81,9 @@ function App() {
           <Route path={CustomerRoutePaths.WISHLIST} element={<WishlistView />} />
           <Route path={CustomerRoutePaths.DETAILS} element={<ProductDetailsView />} />
           <Route path={CustomerRoutePaths.CART} element={<CartView />} />
+          <Route path={CustomerRoutePaths.NOTIFICATIONS} element={<NotificationView userId={currentUser?.uid} />}
+/>
+
           <Route
             path={CustomerRoutePaths.PAYMENT}
             element={
