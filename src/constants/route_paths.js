@@ -8,6 +8,7 @@ const CustomerRoutePaths = {
   CART: "/cart",
   PAYMENT: "/payment",
   ORDERS: "/orders",
+  INVOICE: "/invoice/:orderId",
 };
 
 const AdminRoutePaths = {

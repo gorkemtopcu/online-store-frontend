@@ -1,14 +1,12 @@
 import axios from "axios";
 import ServiceConstants from "constants/ServiceConstants";
-
 const OrderService = {
   completePurchase: (
     uid,
     orderTotal,
     addressDetails,
     paymentDetails,
-    selectedProductsData,
-    clearCart
+    selectedProductsData
   ) => {
     const orderDetails = {
       uid: uid,
@@ -19,7 +17,7 @@ const OrderService = {
     };
     return axios
       .post(ServiceConstants.ORDERS + ServiceConstants.CREATE, orderDetails)
-      .then((response) => true)
+      .then((response) => response.data)
       .catch((error) => false);
   },
 
@@ -51,5 +49,6 @@ const OrderService = {
       .catch((error) => console.log(error));
   },
 };
+
 
 export default OrderService;
