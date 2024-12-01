@@ -11,12 +11,9 @@ const CartTable = () => {
   const navigate = useNavigate();
 
   const handleQuantityChange = (quantity, productId) => {
+    if (quantity < 1) return;
     if (cart && cart[productId]) {
-      if (quantity > 0) {
-        addToCart(cart[productId].product, quantity - cart[productId].quantity);
-      } else {
-        removeFromCart(productId);
-      }
+      addToCart(cart[productId].product, quantity - cart[productId].quantity);
     } else {
       console.error("Product not found in cart");
     }
