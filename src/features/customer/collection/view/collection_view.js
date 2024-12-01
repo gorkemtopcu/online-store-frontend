@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Drawer, Button } from "antd"; // Ant Design bileşenleri
+import { Drawer, Button } from "antd";
 import FilterMenu from "features/customer/collection/view/components/FilterMenu";
 import ProductSearchFilter from "features/customer/collection/view/components/ProductSearchFilter";
 import CollectionProducts from "features/customer/collection/view/components/collection_products";
@@ -46,26 +46,26 @@ const CollectionView = () => {
 
   return (
     <div className="collection-view-container">
-      {/* Menü Açma/Kapama Butonu */}
       <Button type="primary" onClick={toggleDrawer}>
         Filters
       </Button>
 
-      {/* Drawer (Yan Menü) */}
       <Drawer
         title="Filters"
-        placement="left" // Sol taraftan açılır
+        placement="left"
         onClose={toggleDrawer}
         open={isDrawerOpen}
-        width={300} // Drawer genişliği
+        width={300}
       >
         <FilterMenu onCategoryFilter={handleCategoryFilter} />
-
       </Drawer>
 
-      {/* Ürünler */}
       <div className="products-container">
-        <ProductSearchFilter onSearch={undefined} onSort={undefined} onCategoryFilter={undefined} />
+        <ProductSearchFilter
+          onSearch={undefined}
+          onSort={undefined}
+          onCategoryFilter={undefined}
+        />
         <CollectionProducts products={filteredProducts} />
       </div>
     </div>

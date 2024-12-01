@@ -5,9 +5,9 @@
 
 .search-filter-container {
   display: flex;
-  align-items: left; /* Buton ve filtrelerin aynı hizaya gelmesini sağlar */
-  justify-content: flex-start; /* Sola hizalar */
-  gap: 20px; /* Elemanlar arasında boşluk bırakır */
+  align-items: left;
+  justify-content: flex-start;
+  gap: 20px;
   margin-bottom: 20px;
 }
 

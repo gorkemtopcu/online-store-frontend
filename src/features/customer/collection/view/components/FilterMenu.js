@@ -14,7 +14,7 @@ const FilterMenu = ({ onCategoryFilter }) => {
 
   const handleApplyFilters = () => {
     console.log("Filters applied!");
-    // Filter applications
+    //TODO: Filter applications
   };
 
   return (
@@ -28,7 +28,11 @@ const FilterMenu = ({ onCategoryFilter }) => {
                 <input
                   type="checkbox"
                   onChange={(e) =>
-                    handleFilterChange(category.name, subCategory, e.target.checked)
+                    handleFilterChange(
+                      category.name,
+                      subCategory,
+                      e.target.checked
+                    )
                   }
                 />
                 {subCategory}
@@ -37,12 +41,8 @@ const FilterMenu = ({ onCategoryFilter }) => {
           </div>
         </div>
       ))}
-      {/* Apply Filters Butonu */}
       <div className="filter-apply-button-container">
-        <button
-          className="filter-apply-button"
-          onClick={handleApplyFilters}
-        >
+        <button className="filter-apply-button" onClick={handleApplyFilters}>
           Apply Filters
         </button>
       </div>
