@@ -6,7 +6,7 @@ import {
   LinkedinOutlined,
 } from "@ant-design/icons";
 import React from "react";
-import logo from "../../assets/images/logo.jpeg";
+import logo from "../../assets/images/logo.png";
 
 const { Footer } = Layout;
 

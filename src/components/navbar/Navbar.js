@@ -5,7 +5,7 @@ import {
   SearchOutlined,
   MenuOutlined,
 } from "@ant-design/icons";
-import logo from "../../assets/images/logo.jpeg";
+import logo from "../../assets/images/logo.png";
 import { CustomerRoutePaths } from "constants/route_paths";
 import UserMenu from "components/menu/UserMenu";
 import useCartStore from "context/CartStore";
