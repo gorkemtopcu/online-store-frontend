@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Row, Divider, Typography, Form, notification, Modal } from "antd";
 import Checkout from "./components/Checkout";
 import useCartStore from "context/CartStore";
@@ -7,8 +7,9 @@ import PaymentColumn from "./components/PaymentColumn";
 import AddressColumn from "./components/AddressColumn";
 import { useNavigate } from "react-router-dom";
 import OrderService from "services/OrderService";
-import { CustomerRoutePaths } from "constants/route_paths";
-import BankingView from './BankingView';
+import BankingView from "./BankingView";
+import InvoiceService from "services/InvoiceService";
+
 const { Text } = Typography;
 
 const CheckoutView = () => {
@@ -20,33 +21,11 @@ const CheckoutView = () => {
   const [isBankingModalVisible, setIsBankingModalVisible] = useState(false);
   const navigate = useNavigate();
 
-  const proceedToPayment = () => {
-    addressForm
-      .validateFields()
-      .then(() => {
-        console.log("Address form is valid");
-        paymentForm
-          .validateFields()
-          .then(() => {
-            console.log("Payment form is valid");
-            setIsBankingModalVisible(true);
-            //handleOnPurchase();
-          })
-          .catch((errorInfo) => {
-            console.error("Payment form validation failed:", errorInfo);
-          });
-      })
-      .catch((errorInfo) => {
-        console.error("Address form validation failed:", errorInfo);
-      });
-  };
-
-  const handleOnPurchase = () => {
+  const handleOnPurchase = async () => {
     const addressDetails = addressForm.getFieldsValue();
     const paymentDetails = paymentForm.getFieldsValue();
     const orderTotal = getTotalPrice().toFixed(2);
-    console.log("Selected: ", selectedProducts[0].product.imageURL);
-    // get the product ids and quantities from the selected products
+
     const selectedProductsData = selectedProducts.map((item) => ({
       productId: item.product?.productId || null,
       name: item.product?.name || null,
@@ -54,96 +33,91 @@ const CheckoutView = () => {
       imageURL: item.product?.imageURL[0] || null,
       price: item.product?.price || null,
     }));
-    
-    const success = OrderService.completePurchase(
-      currentUser.uid,
-      orderTotal,
-      addressDetails,
-      paymentDetails,
-      selectedProductsData,
-    );
 
-    // Todo: Show invoice to user
-    navigate(CustomerRoutePaths.HOME);
+    try {
+      const orderId = await OrderService.completePurchase(
+        currentUser.uid,
+        orderTotal,
+        addressDetails,
+        paymentDetails,
+        selectedProductsData
+      );
 
-    handleAfterPurchaseNotification(success);
-  };
+      console.log("Order ID from OrderService.completePurchase:", orderId);
 
-  const handleAfterPurchaseNotification = (success) => {
-    if (success) {
-      clearCart();
-      notification.success({
-        message: "Purchase Completed",
-        description: "Your order has been successfully placed.",
-        placement: "topRight",
-      });
-    } else {
+      if (orderId) {
+        try {
+          await InvoiceService.fetchInvoice(orderId); 
+          navigate(`/invoice/${orderId}`); 
+        } catch (invoiceError) {
+          console.error("Error fetching invoice:", invoiceError);
+          notification.warning({
+            message: "Invoice Error",
+            description: "Order placed but could not fetch invoice. Check your email.",
+            placement: "topRight",
+          });
+        }
+
+        notification.success({
+          message: "Purchase Completed",
+          description: "Your order has been successfully placed.",
+          placement: "topRight",
+        });
+        clearCart();
+      } else {
+        notification.warning({
+          message: "Order Error",
+          description: "Order placed but could not fetch invoice. Check your email.",
+          placement: "topRight",
+        });
+        clearCart();
+      }
+    } catch (error) {
+      console.error("Error completing purchase:", error);
       notification.error({
         message: "Purchase Failed",
-        description: "There was an error processing your order.",
+        description: "There was an error processing your purchase.",
         placement: "topRight",
       });
     }
-  };
-
-  const handleOpenBankingModal = () => {
-    setIsBankingModalVisible(true);
-  };
-
-  const handleCloseBankingModal = () => {
-    setIsBankingModalVisible(false);
   };
 
   const handleVerificationComplete = (isVerified) => {
     if (isVerified) {
       handleOnPurchase();
     } else {
-      alert('Verification failed. Please try again.');
+      alert("Verification failed. Please try again.");
     }
-    handleCloseBankingModal();
+    setIsBankingModalVisible(false);
   };
 
   return (
     <div>
-      <div
-        style={{
-          maxWidth: "500px",
-          width: "100%",
-          margin: "0 auto",
-          textAlign: "center",
-        }}
-      >
+      <div style={{ maxWidth: "500px", margin: "0 auto", textAlign: "center" }}>
         <Text strong>
-          <h3 style={{ textAlign: "center" }}>Order Summary</h3>
+          <h3>Order Summary</h3>
         </Text>
-        <Checkout /> {/* Checkout */}
+        <Checkout />
       </div>
-
       <Divider />
-
       <Row gutter={10} justify="center" align="middle">
-        <AddressColumn form={addressForm} />{" "}
-        {/* Use the AddressColumn component */}
-        <Divider type="vertical" style={{ height: "100%" }} />
+        <AddressColumn form={addressForm} />
+        <Divider type="vertical" />
         <PaymentColumn
           form={paymentForm}
           selectedProducts={selectedProducts}
-          proceedToPayment={proceedToPayment}
-        />{" "}
-        {/* Use the PaymentColumn component */}
+          proceedToPayment={() => setIsBankingModalVisible(true)}
+        />
       </Row>
-
-      {/* Banking Modal */}
+      {/* 3D Secure Modal */}
       <Modal
         title="3D Secure Verification"
         visible={isBankingModalVisible}
-        onCancel={handleCloseBankingModal}
+        onCancel={() => setIsBankingModalVisible(false)}
         footer={null}
       >
         <BankingView onVerificationComplete={handleVerificationComplete} />
       </Modal>
-
-      <Divider />
     </div>
   );
 };
