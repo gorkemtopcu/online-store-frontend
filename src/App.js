@@ -20,6 +20,7 @@ import CreateCategoryView from "features/admin/create_category/view/CreateCatego
 import EditCategoryView from "features/admin/edit_category/view/EditCategoryView";
 import OrderManagementView from "features/admin/order_management/view/OrderManagementView";
 import InvoiceDisplay from "features/customer/checkout/components/InvoiceDisplay";
+import Dashboard from "features/admin/dashboard/Dashboard";
 
 function App() {
   const { currentUser } = useUserStore();
@@ -39,11 +40,14 @@ function App() {
             />
           }
         >
+           <Route
+            path={AdminRoutePaths.DASHBOARD}
+            element={ <Dashboard/>}
+          />
           <Route
             path={AdminRoutePaths.CREATE_PRODUCT}
             element={<CreateProductView />}
           />
-
           <Route
             path={AdminRoutePaths.EDIT_PRODUCT}
             element={<InventoryManagementView />}

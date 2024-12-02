@@ -15,6 +15,7 @@ const AdminRoutePaths = {
   ADMIN: "/admin",
   CREATE_PRODUCT: "product/create",
   EDIT_PRODUCT: "product/edit",
+  DASHBOARD: "/admin",
 
   // Category
   CREATE_CATEGORY: "category/create",
