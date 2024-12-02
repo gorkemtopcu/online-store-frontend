@@ -52,12 +52,15 @@ const useUserStore = create((set, get) => ({
       }
 
       // Create user in the database
-      const userDoc = await userService.createUser({
+      await userService.createUser({
         name: name,
         email: email,
         role: role,
         uid: user.uid,
       });
+
+      const userDoc = await userService.getUserById(user.uid);
+
       set({ currentUser: userDoc, userState: userStoreStates.LOADED });
     } catch (error) {
       set({ userState: userStoreStates.ERROR, error: error.message }); // Catch and set error userState

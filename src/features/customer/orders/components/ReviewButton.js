@@ -17,6 +17,8 @@ const ReviewButton = ({ product }) => {
   useEffect(() => {
     if (!currentUser) return;
     ReviewService.getReviewsByUserId(currentUser.uid).then((response) => {
+      console.log("Reviews by user:", response);
+      if (!response.data) return;
       response.data.forEach((review) => {
         if (review.productId === product.productId) {
           setMyReview(review);

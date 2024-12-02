@@ -15,8 +15,10 @@ export const searchProducts = (products, searchTerm) => {
   if (!products) return [];
   if (searchTerm.trim() === "") return products;
 
-  return products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  return products.filter(
+    (product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 };
 

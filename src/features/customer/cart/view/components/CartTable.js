@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Table, InputNumber, Button, Typography, Spin } from "antd";
 import useCartStore from "context/CartStore";
 import { useNavigate } from "react-router-dom";
+import useUserStore from "context/UserStore";
 
 const { Text } = Typography;
 
 const CartTable = () => {
   const [loading, setLoading] = useState(true);
   const { cart, addToCart, removeFromCart } = useCartStore();
+  const { currentUser } = useUserStore();
   const navigate = useNavigate();
 
   const handleQuantityChange = (quantity, productId) => {
@@ -93,8 +95,9 @@ const CartTable = () => {
     },
   ];
 
+  console.log(currentUser);
+
   const dataSource = Object.values(cart);
-  console.log(dataSource);
 
   return (
     <Table
