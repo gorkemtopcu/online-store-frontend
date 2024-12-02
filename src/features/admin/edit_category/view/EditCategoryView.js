@@ -27,10 +27,6 @@ const EditCategoryView = () => {
     fetchCategories();
   }, [fetchCategories]);
 
-  const handleEdit = (record) => {
-    console.log("Edit record:", record);
-    message.info(`Edit functionality for "${record.name}" is under development.`);
-  };
 
   const handleDelete = async (id) => {
     try {
@@ -59,14 +55,9 @@ const EditCategoryView = () => {
       title: 'Action',
       key: 'action',
       render: (text, record) => (
-        <Button.Group>
-          <Button type="primary" onClick={() => handleEdit(record)}>
-             {StringConstants.EDIT}
-          </Button>
-          <Button type="primary" danger onClick={() => handleDelete(record.id)}>
-             {StringConstants.DELETE}
-          </Button>
-        </Button.Group>
+        <Button type="primary" danger onClick={() => handleDelete(record.id)}>
+            {StringConstants.DELETE}
+        </Button>
       ),
     },
   ];
