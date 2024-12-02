@@ -1,15 +1,17 @@
 import ProductCardList from "components/lists/product_card_list";
 import React, { useEffect, useState } from "react";
-import { productMockService } from "services/mock/product_mock_service";
+import ProductService from "services/ProductService";
 
 const BestSellers = () => {
   const [bestSellers, setBestSellers] = useState([]);
 
   useEffect(() => {
-    const generatedBestSellers = productMockService.generateProducts(8);
-    setBestSellers(
-      generatedBestSellers.sort((a, b) => b.popularity - a.popularity)
-    );
+    const fetchData = async () => {
+      const response = await ProductService.getBestSellers();
+      setBestSellers(response.data);
+    };
+
+    fetchData();
   }, []);
 
   return (
