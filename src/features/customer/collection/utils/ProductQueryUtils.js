@@ -1,14 +1,8 @@
 export const sortProducts = (products, sortOption) => {
   if (!products) return [];
   const sortedProducts = [...products];
-
-  if (sortOption === "price") {
-    return sortedProducts.sort((a, b) => a.price - b.price);
-  } else if (sortOption === "popularity") {
-    return sortedProducts.sort((a, b) => b.numOfWishlists - a.numOfWishlists);
-  }
-
-  return sortedProducts;
+  if (!sortOption || !sortOption.callback) return sortedProducts;
+  return sortedProducts.sort(sortOption.callback);
 };
 
 export const searchProducts = (products, searchTerm) => {

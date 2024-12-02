@@ -34,6 +34,7 @@ const ProductContainer = ({
         numberOfPages={product.numberOfPages}
         publicationDate={product.publicationDate}
         edition={product.edition}
+        numOfWishlist={product.numOfWishlists}
       />
     </Col>
   </Row>
