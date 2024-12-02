@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 
-const MainImage = ({ imageURL, name, onNavigate }) => (
+const MainImage = ({ imageURL, onNavigate }) => (
   <div style={{ position: "relative", textAlign: "center", width: "100%" }}>
     <Button
       type="text"
@@ -18,7 +18,7 @@ const MainImage = ({ imageURL, name, onNavigate }) => (
       }}
     />
     <img
-      alt={name}
+      alt={imageURL}
       src={imageURL}
       style={{
         width: "100%",

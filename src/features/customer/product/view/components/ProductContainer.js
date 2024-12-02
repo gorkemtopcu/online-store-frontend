@@ -11,7 +11,10 @@ const ProductContainer = ({
   <Row gutter={[16, 16]} justify="center" align="top">
     {/* Left column for product image */}
     <Col xs={24} md={10}>
-      <ProductImage imageURLs={product.imageURL} name={product.name} />
+      <ProductImage
+        imageURLs={product.imageURL}
+        productId={product.productId}
+      />
     </Col>
 
     {/* Right column for product details */}

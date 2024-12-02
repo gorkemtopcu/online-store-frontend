@@ -1,7 +1,6 @@
 import axios from "axios";
 import ServiceConstants from "../constants/ServiceConstants";
 
-
 const WishlistService = {
   getAll: async () => {
     try {
@@ -12,14 +11,10 @@ const WishlistService = {
       console.error("Error fetching wishlist data:", error);
     }
   },
-  getById: async (userId) => {
+  getByUserId: async (userId) => {
     try {
-      console.log(
-        ServiceConstants.WISHLIST + `/${userId}`
-      );
-      return await axios.get(
-        ServiceConstants.WISHLIST + `/${userId}`
-      );
+      console.log(ServiceConstants.WISHLIST + `/${userId}`);
+      return await axios.get(ServiceConstants.WISHLIST + `/${userId}`);
     } catch (error) {
       console.error("Error fetching wishlist data:", error);
     }
@@ -33,14 +28,17 @@ const WishlistService = {
         wishlistPayload, // Ensure the payload is formatted as JSON
         {
           headers: {
-            'Content-Type': 'application/json', // Set the Content-Type header
+            "Content-Type": "application/json", // Set the Content-Type header
           },
         }
       );
       console.log("Response:", response);
       return response;
     } catch (error) {
-      console.error("Error adding product to wishlist:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error adding product to wishlist:",
+        error.response ? error.response.data : error.message
+      );
     }
   },
   removeFromWishlist: async (wishlistId) => {
@@ -52,7 +50,10 @@ const WishlistService = {
       console.log("Response:", response);
       return response;
     } catch (error) {
-      console.error("Error removing product from wishlist:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error removing product from wishlist:",
+        error.response ? error.response.data : error.message
+      );
     }
   },
 };

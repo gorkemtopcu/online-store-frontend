@@ -10,7 +10,8 @@ import ReviewStatus from "constants/ReviewStatus";
 const useProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [reviews, setReviews] = useState([]);
+  const [allReviews, setAllReviews] = useState([]);
+  const [approvedReviews, setApprovedReviews] = useState([]);
   const { addToCart, getCartObjects } = useCartStore();
   const navigate = useNavigate();
 
@@ -31,7 +32,8 @@ const useProductDetails = () => {
       const approvedReviews = data.filter(
         (review) => review.reviewStatus === ReviewStatus.APPROVED.text
       );
-      setReviews(approvedReviews);
+      setAllReviews(data);
+      setApprovedReviews(approvedReviews);
     } catch (error) {
       console.error("Error fetching reviews:", error);
     }
@@ -77,7 +79,13 @@ const useProductDetails = () => {
     });
   }, [addToCart, navigate, product]);
 
-  return { product, reviews, checkProductAvailability, handleAddToCart };
+  return {
+    product,
+    allReviews,
+    approvedReviews,
+    checkProductAvailability,
+    handleAddToCart,
+  };
 };
 
 export default useProductDetails;

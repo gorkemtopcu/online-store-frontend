@@ -1,6 +1,5 @@
 import ProductCardList from "components/lists/product_card_list";
 import React, { useEffect, useState } from "react";
-import { productMockService } from "services/mock/product_mock_service";
 import ProductService from "services/ProductService";
 
 const LatestCollections = () => {
