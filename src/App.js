@@ -20,7 +20,10 @@ import CreateCategoryView from "features/admin/create_category/view/CreateCatego
 import EditCategoryView from "features/admin/edit_category/view/EditCategoryView";
 import OrderManagementView from "features/admin/order_management/view/OrderManagementView";
 import InvoiceDisplay from "features/customer/checkout/components/InvoiceDisplay";
+import About from "features/customer/about/About";
+import Contact from "features/customer/contact/contact";
 import Dashboard from "features/admin/dashboard/Dashboard";
+
 
 function App() {
   const { currentUser } = useUserStore();
@@ -85,8 +88,8 @@ function App() {
             element={<CollectionView />}
           />
           <Route path={CustomerRoutePaths.ORDERS} element={<OrderView />} />
-          <Route path={CustomerRoutePaths.ABOUT} element={<h1>About</h1>} />
-          <Route path={CustomerRoutePaths.CONTACT} element={<h1>Contact</h1>} />
+          <Route path={CustomerRoutePaths.ABOUT} element={ <About/>} />
+          <Route path={CustomerRoutePaths.CONTACT} element={<Contact/>} />
           <Route
             path={CustomerRoutePaths.WISHLIST}
             element={<WishlistView />}

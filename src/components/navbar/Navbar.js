@@ -57,7 +57,6 @@ const Navbar = () => {
 
         {/* Icon Links */}
         <div className="flex items-center gap-6">
-          <SearchOutlined className="w-5 h-5 cursor-pointer" />
           <div className="group relative">
             <UserMenu />
           </div>
