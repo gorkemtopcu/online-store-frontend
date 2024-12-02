@@ -21,6 +21,7 @@ const ServiceConstants = {
   UPDATE_STATUS: "/updateStatus",
   BEST_SELLERS: "/getMostWishlisted",
   NEW_ARRIVALS: "/getNewArrivals",
+  GET_PENDING: "/getAllPending",
 };
 
 export default ServiceConstants;

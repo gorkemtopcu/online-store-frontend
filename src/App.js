@@ -23,6 +23,8 @@ import InvoiceDisplay from "features/customer/checkout/components/InvoiceDisplay
 import About from "features/customer/about/About";
 import Contact from "features/customer/contact/contact";
 import Dashboard from "features/admin/dashboard/Dashboard";
+import CommentManagementView from "features/admin/comment_management/CommentManagementView";
+import DisplayCommentView from "features/admin/display_comment/DisplayCommentView";
 
 
 function App() {
@@ -51,6 +53,7 @@ function App() {
             path={AdminRoutePaths.CREATE_PRODUCT}
             element={<CreateProductView />}
           />
+          
           <Route
             path={AdminRoutePaths.EDIT_PRODUCT}
             element={<InventoryManagementView />}
@@ -67,6 +70,15 @@ function App() {
             path={AdminRoutePaths.MANAGE_ORDER}
             element={<OrderManagementView />}
           />
+          <Route
+            path={AdminRoutePaths.MANAGE_COMMENT}
+            element={<CommentManagementView />}
+          />
+           <Route
+            path={AdminRoutePaths.ALL_COMMENTS}
+            element={<DisplayCommentView />}
+          />
+
 
           <Route path="*" element={<NotFoundView />} />
         </Route>

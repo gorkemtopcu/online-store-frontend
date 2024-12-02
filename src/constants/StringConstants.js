@@ -14,6 +14,8 @@ const StringConstants = {
   FILTERS: "Filters",
   EDIT: "Edit",
   DELETE: "Delete",
+  APPROVE: "Approve", 
+  DECLINE: "Decline",
 
   //Navbar
   HOME: "HOME",
