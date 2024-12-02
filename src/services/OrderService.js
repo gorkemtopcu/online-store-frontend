@@ -23,7 +23,7 @@ const OrderService = {
 
   getOrders: (uid) => {
     return axios
-      .get(ServiceConstants.ORDERS + ServiceConstants.GET_BY_USERID + uid)
+      .get(ServiceConstants.ORDERS + ServiceConstants.GET_BY_USER_ID + uid)
       .then((response) => response.data)
       .catch((error) => console.log(error));
   },

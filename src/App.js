@@ -22,6 +22,8 @@ import OrderManagementView from "features/admin/order_management/view/OrderManag
 import InvoiceDisplay from "features/customer/checkout/components/InvoiceDisplay";
 import About from "features/customer/about/About";
 import Contact from "features/customer/contact/contact";
+import Dashboard from "features/admin/dashboard/Dashboard";
+
 
 function App() {
   const { currentUser } = useUserStore();
@@ -41,11 +43,14 @@ function App() {
             />
           }
         >
+           <Route
+            path={AdminRoutePaths.DASHBOARD}
+            element={ <Dashboard/>}
+          />
           <Route
             path={AdminRoutePaths.CREATE_PRODUCT}
             element={<CreateProductView />}
           />
-
           <Route
             path={AdminRoutePaths.EDIT_PRODUCT}
             element={<InventoryManagementView />}

@@ -4,6 +4,12 @@ import StringConstants from "constants/StringConstants";
 import OrderCard from "./OrderCard";
 
 const OrderList = ({ orders }) => {
+  const sortedOrders = [...orders].sort((a, b) => {
+    const dateA = new Date(a.orderDate).getTime();
+    const dateB = new Date(b.orderDate).getTime();
+    return dateB - dateA;
+  });
+
   return !orders?.length ? (
     <div
       style={{
@@ -17,7 +23,7 @@ const OrderList = ({ orders }) => {
     </div>
   ) : (
     <Row gutter={[16, 16]}>
-      {orders.map((order) => (
+      {sortedOrders.map((order) => (
         <Col key={order.orderId} span={24}>
           <OrderCard order={order} />
         </Col>

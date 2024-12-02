@@ -1,45 +1,59 @@
 import React, { useState, useEffect } from "react";
-import { productMockService } from "../../../../services/mock/product_mock_service";
 import { Table, Button, Card, message } from "antd";
 import ProductHeader from "components/headers/ProductHeader";
 import EditProductModal from "./components/EditProductModal";
+import ProductService from "services/ProductService";
 
 const InventoryManagementView = () => {
   const [products, setProducts] = useState([]);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [editedFields, setEditedFields] = useState({
+    productId: "",
     name: "",
-    brand: "",
     description: "",
+    imageURL: [],
     price: "",
-    stock: "",
+    quantityInStock: "",
+    categoryId: "",
+    numOfWishlists: 0,
+    serialNumber: "",
+    distributorInformation: "",
+    warrantyStatus: "",
+    author: "",
+    publisher: "",
+    isbn: "",
+    language: "",
+    numberOfPages: "",
+    publicationDate: "",
+    edition: "",
   });
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const mockProducts = await productMockService.generateProducts(10);
-      setProducts(mockProducts);
+      const response = await ProductService.getAll();
+      setProducts(response.data);
     };
-
     fetchProducts();
   }, []);
-  // todo: discuss moving handlers into another layer
-  // Delete product by ID
-  const handleDelete = (id) => {
-    setProducts(products.filter((product) => product.id !== id));
-    message.success("Product deleted successfully");
+
+  // Delete product by id
+  const handleDelete = async (productId) => {
+    try {
+      await ProductService.deleteProduct(productId);
+      setProducts(products.filter((product) => product.productId !== productId));
+      message.success("Product deleted successfully");
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      message.error("Error deleting product");
+    }
   };
 
   // Open edit modal and set product to be edited
   const handleEdit = (product) => {
     setEditingProduct(product);
     setEditedFields({
-      name: product.name,
-      brand: product.brand,
-      description: product.description,
-      price: product.price,
-      stock: product.stock,
+      ...product,
     });
     setIsEditModalVisible(true);
   };
@@ -56,7 +70,7 @@ const InventoryManagementView = () => {
   const handleSaveEdit = () => {
     setProducts(
       products.map((product) =>
-        product.id === editingProduct.id
+        product.productId === editingProduct.productId
           ? { ...product, ...editedFields }
           : product
       )
@@ -65,7 +79,7 @@ const InventoryManagementView = () => {
     setEditingProduct(null);
     message.success("Product updated successfully");
   };
-  // todo: dummy columns to be replaced with actual columns
+
   const columns = [
     {
       title: "Product Name",
@@ -73,12 +87,7 @@ const InventoryManagementView = () => {
       key: "name",
     },
     {
-      title: "Brand",
-      dataIndex: "brand",
-      key: "brand",
-    },
-    {
-      title: "Product Description",
+      title: "Description",
       dataIndex: "description",
       key: "description",
     },
@@ -89,18 +98,49 @@ const InventoryManagementView = () => {
     },
     {
       title: "Stock",
-      dataIndex: "stock",
-      key: "stock",
+      dataIndex: "quantityInStock",
+      key: "quantityInStock",
+    },
+    {
+      title: "Category",
+      dataIndex: "categoryId",
+      key: "categoryId",
+    },
+    {
+      title: "Number of Wishlists",
+      dataIndex: "numOfWishlists",
+      key: "numOfWishlists",
+    },
+    {
+      title: "Distributor",
+      dataIndex: "distributorInformation",
+      key: "distributorInformation",
+    },
+    {
+      title: "Warranty Status",
+      dataIndex: "warrantyStatus",
+      key: "warrantyStatus",
+    },
+    {
+      title: "Author",
+      dataIndex: "author",
+      key: "author",
+    },
+    {
+      title: "Publisher",
+      dataIndex: "publisher",
+      key: "publisher",
     },
     {
       title: "Action",
       key: "action",
       render: (text, record) => (
         <Button.Group>
-          <Button type="primary" onClick={() => handleEdit(record)}>
-            Edit
-          </Button>
-          <Button type="primary" danger onClick={() => handleDelete(record.id)}>
+          <Button
+            type="primary"
+            danger
+            onClick={() => handleDelete(record.productId)}
+          >
             Delete
           </Button>
         </Button.Group>
@@ -112,7 +152,7 @@ const InventoryManagementView = () => {
     <div>
       <ProductHeader title="Inventory Management" />
       <Card>
-        <Table dataSource={products} columns={columns} rowKey="id" />
+        <Table dataSource={products} columns={columns} rowKey="productId" />
       </Card>
 
       <EditProductModal

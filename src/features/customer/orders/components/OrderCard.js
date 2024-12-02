@@ -4,12 +4,12 @@ import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import ExpandedOrderDetails from "./ExpandedOrderDetails";
 import StatusTag from "./StatusTag";
 import StringConstants from "constants/StringConstants";
+import ReviewModal from "./ReviewButton";
 
 const { Text } = Typography;
 
 const OrderCard = ({ order }) => {
   const [expanded, setExpanded] = useState(false);
-
   const toggleExpand = () => setExpanded(!expanded);
 
   return (
@@ -31,12 +31,15 @@ const OrderCard = ({ order }) => {
           <br />
           <StatusTag status={order.orderStatus} />
           <br />
-          <Text style={{ color: "#616161", fontSize: "14px" }}>{order.orderDate}</Text>
+          <Text style={{ color: "#616161", fontSize: "14px" }}>
+            {order.orderDate}
+          </Text>
           <br />
           <Text strong style={{ color: "#1b5e20", fontSize: "16px" }}>
             {order.orderTotal.toFixed(2)} $
           </Text>
         </Col>
+
         <Col>
           <Button
             type="text"
@@ -50,27 +53,35 @@ const OrderCard = ({ order }) => {
       {/* Display products */}
       {expanded && (
         <div style={{ marginTop: "10px" }}>
-          {order.products.map((product, index) => (
-            <Row key={index} style={{ marginBottom: "10px" }} align="middle">
-              <Col flex="80px">
-                <img
-                  src={product.imageURL}
-                  alt={product.name}
-                  style={{
-                    width: "60px",
-                    height: "60px",
-                    borderRadius: "8px",
-                    border: "1px solid #90caf9",
-                  }}
-                />
-              </Col>
-              <Col flex="auto">
-                <Text strong>{product.name}</Text>
-                <br />
-                <Text style={{ color: "#4caf50" }}>{product.price.toFixed(2)} $</Text>
-              </Col>
-            </Row>
-          ))}
+          {order.products.map((product, index) => {
+            const totalCost = product.quantity * product.price;
+            return (
+              <Row key={index} style={{ marginBottom: "10px" }} align="middle">
+                <Col flex="80px">
+                  <img
+                    src={product.imageURL}
+                    alt={product.name}
+                    style={{
+                      width: "60px",
+                      height: "60px",
+                      borderRadius: "8px",
+                      border: "1px solid #90caf9",
+                    }}
+                  />
+                </Col>
+                <Col flex="auto">
+                  <Text strong>
+                    {product.name} (x{product.quantity})
+                  </Text>
+                  <br />
+                  <Text style={{ color: "#4caf50", fontSize: "18px" }} strong>
+                    {totalCost.toFixed(2)} $
+                  </Text>
+                </Col>
+                <ReviewModal product={product}></ReviewModal>
+              </Row>
+            );
+          })}
         </div>
       )}
 

@@ -8,7 +8,7 @@ import { AdminRoutePaths } from "./route_paths";
 
 const AdminRoutes = [
   {
-    key: "category",
+    key: "dashboard",
     icon: <BarChartOutlined />,
     label: "Category",
     children: [
@@ -25,7 +25,7 @@ const AdminRoutes = [
     ],
   },
   {
-    key: "dashboard",
+    key: "product",
     icon: <BarChartOutlined />,
     label: "Product",
     children: [

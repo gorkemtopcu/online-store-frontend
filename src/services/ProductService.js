@@ -11,6 +11,15 @@ const ProductService = {
       console.error("Error fetching data:", error);
     }
   },
+  deleteProduct: async (id) => {
+    try {
+      return await axios.delete(
+        ServiceConstants.PRODUCTS + `/${id}`
+      );
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  },
   getById: async (id) => {
     try {
       console.log(
