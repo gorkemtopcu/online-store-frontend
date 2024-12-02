@@ -13,6 +13,8 @@ const ServiceConstants = {
   REMOVE: "/remove",
   GET_BY_USERID: "/getByUserId/",
   UPDATE_STATUS: "/updateStatus",
+  BEST_SELLERS: "/getMostWishlisted",
+  NEW_ARRIVALS: "/getNewArrivals",
 };
 
 export default ServiceConstants;
