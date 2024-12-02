@@ -6,11 +6,15 @@ import useCartStore from "context/CartStore";
 import ProductImage from "./components/ProductImage";
 import ProductInfo from "./components/ProductInfo";
 import { CustomerRoutePaths } from "constants/route_paths";
+import WishlistService from "services/WishlistService";
+import useUserStore from "context/UserStore";
+
 
 const ProductDetailsView = () => {
   const { id } = useParams(); // Get the product ID from the URL
   const [product, setProduct] = useState(null);
   const { addToCart, getCartObjects } = useCartStore();
+  const { currentUser } = useUserStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,6 +63,26 @@ const ProductDetailsView = () => {
     return <p>Loading product details...</p>;
   }
 
+  const handleAddtoWishlist = async (productId) => {
+    try {
+      await WishlistService.addToWishlist(currentUser.uid, productId);
+      notification.success({
+        message: "Added to Wishlist",
+        description: `${product.name} has been successfully added to your wishlist.`,
+        placement: "topRight",
+        duration: 2,
+      });
+    } catch (error) {
+      console.error("Error adding product to wishlist:", error);
+      notification.error({
+        message: "Error",
+        description: "There was an error adding the product to your wishlist. Please try again.",
+        placement: "topRight",
+        duration: 2,
+      });
+    }
+  };
+
   return (
     <div className="product-details" style={{ padding: "20px" }}>
       <Card style={{ maxWidth: 1000, margin: "0 auto" }}>
@@ -86,7 +110,12 @@ const ProductDetailsView = () => {
               >
                 Add to Cart
               </Button>
-              <Button type="default">Add to Wishlist</Button>
+              <Button 
+                type="default"
+                onClick={() => handleAddtoWishlist(product.productId)}
+              >
+                Add to Wishlist
+              </Button>
             </div>
           </Col>
         </Row>
