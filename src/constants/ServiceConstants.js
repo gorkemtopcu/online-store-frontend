@@ -4,11 +4,17 @@ const ServiceConstants = {
   USER: "http://localhost:8081/user",
   ORDERS: "http://localhost:8081/api/orders",
   CATEGORY: "http://localhost:8081/categories",
+  REVIEW: "http://localhost:8081/review",
 
   GET_ALL: "/getAll",
   GET_BY_ID: "/getById",
   CREATE: "/create",
-  GET_BY_USERID: "/getByUserId/",
+  GET_BY_USER_ID: "/getByUserId/",
+  GET_BY_PRODUCT_ID: "/getByProductId/",
+  ADD: "/add",
+  DELETE: "/delete/",
+  APPROVE: "/approve/",
+  DECLINE: "/decline/",
 };
 
 export default ServiceConstants;
