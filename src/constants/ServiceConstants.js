@@ -5,6 +5,8 @@ const ServiceConstants = {
   ORDERS: "http://localhost:8081/api/orders",
   CATEGORY: "http://localhost:8081/categories",
   REVIEW: "http://localhost:8081/review",
+  WISHLIST: "http://localhost:8081/wishlist",
+  INVOICES: "http://localhost:8081/api/invoices",
 
   GET_ALL: "/getAll",
   GET_BY_ID: "/getById",
@@ -15,6 +17,10 @@ const ServiceConstants = {
   DELETE: "/delete/",
   APPROVE: "/approve/",
   DECLINE: "/decline/",
+  REMOVE: "/remove",
+  UPDATE_STATUS: "/updateStatus",
+  BEST_SELLERS: "/getMostWishlisted",
+  NEW_ARRIVALS: "/getNewArrivals",
 };
 
 export default ServiceConstants;

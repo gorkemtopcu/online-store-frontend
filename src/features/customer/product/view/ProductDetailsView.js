@@ -4,6 +4,8 @@ import LoadingSpinner from "components/spinner/LoadingSpinner";
 import ProductContainer from "./components/ProductContainer";
 import ReviewSection from "./components/ReviewSection";
 import { Divider } from "antd";
+import WishlistService from "services/WishlistService";
+import useUserStore from "context/UserStore";
 
 const ProductDetailsView = () => {
   const { product, checkProductAvailability, handleAddToCart, reviews } =

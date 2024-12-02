@@ -31,6 +31,24 @@ const ProductService = {
       console.error("Error adding product:", error);
     }
   },
+  getBestSellers: async () => {
+    try {
+      return await axios.get(
+        ServiceConstants.PRODUCTS + ServiceConstants.BEST_SELLERS
+      );
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  },
+  getNewArrivals: async () => {
+    try {
+      return await axios.get(
+        ServiceConstants.PRODUCTS + ServiceConstants.NEW_ARRIVALS
+      );
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
 };
 
 export default ProductService;

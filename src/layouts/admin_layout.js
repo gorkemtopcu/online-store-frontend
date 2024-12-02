@@ -44,7 +44,6 @@ const AdminLayout = () => {
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
             navigate(key);
-            console.log(key);
           }}
           items={AdminRoutes}
         />
