@@ -23,6 +23,10 @@ const AdminRoutePaths = {
 
   // Order
   MANAGE_ORDER: "/admin/manage-order",
+
+  // Comment
+  MANAGE_COMMENT: "/admin/manage-comment",
+  ALL_COMMENTS: "/admin/all-comments",
 };
 
 export { CustomerRoutePaths, AdminRoutePaths };

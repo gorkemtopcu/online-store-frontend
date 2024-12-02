@@ -53,6 +53,23 @@ const AdminRoutes = [
       },
     ],
   },
+  {
+    key: "comment",
+    icon: <EditOutlined />,
+    label: "Comment",
+    children: [
+      {
+        key: AdminRoutePaths.MANAGE_COMMENT,
+        label: "Manage Comment Status",
+        icon: <EditOutlined />,
+      },
+      {
+        key: AdminRoutePaths.ALL_COMMENTS,
+        label: "All Comments",
+        icon: <EditOutlined />,
+      },
+    ],
+  },
 ];
 
 export default AdminRoutes;
