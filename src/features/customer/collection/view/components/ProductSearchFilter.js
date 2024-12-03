@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Input, Button, Select, Row, Col } from "antd";
 import { SearchOutlined, SortAscendingOutlined } from "@ant-design/icons";
 import FilterMenu from "./FilterMenu";
+import SortOptions from "constants/SortOptions";
 
 const { Option } = Select;
 
@@ -36,15 +37,18 @@ const ProductSearchFilter = ({ sortOption, onSearch, onSort, setFilters }) => {
         {/* Sort Dropdown */}
         <Col>
           <Select
-            value={sortOption || undefined}
-            onChange={onSort}
+            value={sortOption?.text || undefined}
+            onChange={(key) => onSort(SortOptions[key])}
             placeholder="Sort by"
             suffixIcon={<SortAscendingOutlined />}
             style={{ minWidth: 120 }}
             allowClear
           >
-            <Option value="price">Price</Option>
-            <Option value="popularity">Popularity</Option>
+            {Object.entries(SortOptions).map(([key, option]) => (
+              <Option key={key} value={key}>
+                {option.text}
+              </Option>
+            ))}
           </Select>
         </Col>
       </Row>

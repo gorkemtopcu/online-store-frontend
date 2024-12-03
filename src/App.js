@@ -26,7 +26,6 @@ import Dashboard from "features/admin/dashboard/Dashboard";
 import CommentManagementView from "features/admin/comment_management/CommentManagementView";
 import DisplayCommentView from "features/admin/display_comment/DisplayCommentView";
 
-
 function App() {
   const { currentUser } = useUserStore();
   const userRole = currentUser?.role;
@@ -45,15 +44,12 @@ function App() {
             />
           }
         >
-           <Route
-            path={AdminRoutePaths.DASHBOARD}
-            element={ <Dashboard/>}
-          />
+          <Route path={AdminRoutePaths.DASHBOARD} element={<Dashboard />} />
           <Route
             path={AdminRoutePaths.CREATE_PRODUCT}
             element={<CreateProductView />}
           />
-          
+
           <Route
             path={AdminRoutePaths.EDIT_PRODUCT}
             element={<InventoryManagementView />}
@@ -74,11 +70,10 @@ function App() {
             path={AdminRoutePaths.MANAGE_COMMENT}
             element={<CommentManagementView />}
           />
-           <Route
+          <Route
             path={AdminRoutePaths.ALL_COMMENTS}
             element={<DisplayCommentView />}
           />
-
 
           <Route path="*" element={<NotFoundView />} />
         </Route>
@@ -99,12 +94,27 @@ function App() {
             path={CustomerRoutePaths.COLLECTION}
             element={<CollectionView />}
           />
-          <Route path={CustomerRoutePaths.ORDERS} element={<OrderView />} />
-          <Route path={CustomerRoutePaths.ABOUT} element={ <About/>} />
-          <Route path={CustomerRoutePaths.CONTACT} element={<Contact/>} />
+          <Route
+            path={CustomerRoutePaths.ORDERS}
+            element={
+              <ProtectedRoute
+                element={<OrderView />}
+                isAllowed={userRole === UserRoles.CUSTOMER}
+                redirectTo={CustomerRoutePaths.HOME}
+              />
+            }
+          />
+          <Route path={CustomerRoutePaths.ABOUT} element={<About />} />
+          <Route path={CustomerRoutePaths.CONTACT} element={<Contact />} />
           <Route
             path={CustomerRoutePaths.WISHLIST}
-            element={<WishlistView />}
+            element={
+              <ProtectedRoute
+                element={<WishlistView />}
+                isAllowed={userRole === UserRoles.CUSTOMER}
+                redirectTo={CustomerRoutePaths.HOME}
+              />
+            }
           />
           <Route
             path={CustomerRoutePaths.DETAILS}
@@ -121,11 +131,17 @@ function App() {
               />
             }
           />
-         <Route
+          <Route
             path={CustomerRoutePaths.INVOICE}
-            element={<InvoiceDisplay />}
+            element={
+              <ProtectedRoute
+                element={<InvoiceDisplay />}
+                isAllowed={userRole === UserRoles.CUSTOMER}
+                redirectTo={CustomerRoutePaths.HOME}
+              />
+            }
           />
-          
+
           <Route path="*" element={<NotFoundView />} />
         </Route>
       </Routes>

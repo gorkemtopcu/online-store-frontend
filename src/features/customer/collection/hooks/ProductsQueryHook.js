@@ -15,7 +15,7 @@ export const PRODUCT_STATES = {
 const useProductsQuery = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortOption, setSortOption] = useState("");
+  const [sortOption, setSortOption] = useState(null);
   const [filters, setFilters] = useState({});
   const [state, setState] = useState(PRODUCT_STATES.LOADING);
 
@@ -34,7 +34,6 @@ const useProductsQuery = () => {
       setState(PRODUCT_STATES.ERROR);
     }
   }, []);
-  
 
   useEffect(() => {
     loadProducts();
@@ -45,8 +44,6 @@ const useProductsQuery = () => {
     filtered = sortProducts(filtered, sortOption);
     return filterProducts(filtered, filters);
   }, [products, searchTerm, sortOption, filters]);
-
-  
 
   return {
     state,

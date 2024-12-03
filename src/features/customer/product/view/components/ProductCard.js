@@ -68,6 +68,7 @@ const AddToCartButton = ({ handleAddToCart, isProductAvailable }) => (
 );
 
 const ProductDetails = ({
+  numOfWishlist,
   warrantyStatus,
   quantityInStock,
   isbn,
@@ -107,6 +108,9 @@ const ProductDetails = ({
     <Text>
       <Text strong>Stock:</Text> {quantityInStock} available
     </Text>
+    <Text>
+      <Text strong>Number of Wishlists:</Text> {numOfWishlist}
+    </Text>
   </div>
 );
 
@@ -126,6 +130,7 @@ const ProductCard = ({
   numberOfPages,
   publicationDate,
   edition,
+  numOfWishlist,
 }) => (
   <Card
     style={{
@@ -152,6 +157,7 @@ const ProductCard = ({
       numberOfPages={numberOfPages}
       publicationDate={publicationDate}
       edition={edition}
+      numOfWishlist={numOfWishlist}
     />
   </Card>
 );

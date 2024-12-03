@@ -14,6 +14,10 @@ const OrderView = () => {
   const { currentUser } = useUserStore();
 
   useEffect(() => {
+    if (!currentUser) {
+      setLoading(false);
+      return;
+    }
     // Fetch orders when the component mounts
     OrderService.getOrders(currentUser.uid)
       .then((data) => {
@@ -25,7 +29,7 @@ const OrderView = () => {
         console.error("Failed to fetch orders:", error);
         setLoading(false);
       });
-  }, [currentUser.uid]);
+  }, [currentUser]);
 
   return (
     <div
