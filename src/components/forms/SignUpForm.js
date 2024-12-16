@@ -20,7 +20,8 @@ const SignUpForm = ({ onSubmit }) => {
       >
         <Select>
           <Select.Option value={UserRoles.CUSTOMER}>Customer</Select.Option>
-          <Select.Option value={UserRoles.ADMIN}>Admin</Select.Option>
+          <Select.Option value={UserRoles.PRODUCT_MANAGER}>Product Manager</Select.Option>
+          <Select.Option value={UserRoles.SALES_MANAGER}>Sales Manager</Select.Option>
         </Select>
       </Form.Item>
 

@@ -39,7 +39,7 @@ function App() {
           element={
             <ProtectedRoute
               element={<AdminLayout />}
-              isAllowed={userRole === UserRoles.ADMIN}
+              isAllowed={userRole === UserRoles.PRODUCT_MANAGER || userRole === UserRoles.SALES_MANAGER}
               redirectTo={CustomerRoutePaths.HOME}
             />
           }

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Layout, Menu, Button, theme } from "antd";
 import { Outlet, useNavigate } from "react-router-dom";
-import AdminRoutes from "../constants/AdminRoutes";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import LogoutButton from "components/buttons/LogoutButton";
+import useUserStore from "context/UserStore";
+import RouteFactory from "../constants/RouteFactory";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 
 const { Header, Sider, Content } = Layout;
 
@@ -13,6 +14,12 @@ const AdminLayout = () => {
     token: { colorBgContainer },
   } = theme.useToken();
   const navigate = useNavigate();
+  const { currentUser } = useUserStore();
+
+  // Generate routes dynamically based on user role
+  const userRole = currentUser?.role || "CUSTOMER"; // Default to CUSTOMER if undefined
+  const roleRoutes = RouteFactory(userRole);
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider
@@ -28,24 +35,17 @@ const AdminLayout = () => {
         }}
       >
         <div className="demo-logo-vertical">
-          {collapsed ? (
-            <h2 className="text-white fs-5 text-center py-3 mb-0">
-              <span className="lg-logo"> Store </span>
-            </h2>
-          ) : (
-            <h2 className="text-white fs-5 text-center py-3 mb-0">
-              <span className="lg-logo"> Book Store </span>
-            </h2>
-          )}
+          <h2 className="text-white fs-5 text-center py-3 mb-0">
+            {collapsed ? <span>Store</span> : <span>Book Store</span>}
+          </h2>
         </div>
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={[""]}
           onClick={({ key }) => {
             navigate(key);
           }}
-          items={AdminRoutes}
+          items={roleRoutes}
         />
       </Sider>
       <Layout style={{ marginLeft: collapsed ? 80 : 275 }}>
@@ -69,7 +69,6 @@ const AdminLayout = () => {
               height: 64,
             }}
           />
-          <div style={{ flex: 1 }} /> {}
           <LogoutButton />
         </Header>
         <Content
