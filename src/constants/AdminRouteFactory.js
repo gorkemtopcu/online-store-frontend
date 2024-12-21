@@ -10,7 +10,7 @@ import {
 import { AdminRoutePaths } from "./route_paths";
 import UserRoles from "./UserRoles";
 
-const RouteFactory = (role) => {
+const AdminRouteFactory = (role) => {
   switch (role) {
     case UserRoles.SALES_MANAGER:
       return [
@@ -37,7 +37,7 @@ const RouteFactory = (role) => {
             {
               key: AdminRoutePaths.SET_DISCOUNT_RATE,
               label: "Set Discount Rate",
-              icon: <PercentageOutlined />, 
+              icon: <PercentageOutlined />,
             },
           ],
         },
@@ -118,4 +118,4 @@ const RouteFactory = (role) => {
   }
 };
 
-export default RouteFactory;
+export default AdminRouteFactory;

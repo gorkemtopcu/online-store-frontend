@@ -3,7 +3,7 @@ import { Layout, Menu, Button, theme } from "antd";
 import { Outlet, useNavigate } from "react-router-dom";
 import LogoutButton from "components/buttons/LogoutButton";
 import useUserStore from "context/UserStore";
-import RouteFactory from "../constants/RouteFactory";
+import RouteFactory from "../constants/AdminRouteFactory";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 
 const { Header, Sider, Content } = Layout;
