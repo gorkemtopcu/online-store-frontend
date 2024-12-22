@@ -25,6 +25,7 @@ import Contact from "features/customer/contact/contact";
 import Dashboard from "features/admin/dashboard/Dashboard";
 import CommentManagementView from "features/admin/comment_management/CommentManagementView";
 import DisplayCommentView from "features/admin/display_comment/DisplayCommentView";
+import EvaluateRefunds from "features/admin/refund_requests/EvaluateRefunds";
 
 function App() {
   const { currentUser } = useUserStore();
@@ -73,6 +74,10 @@ function App() {
           <Route
             path={AdminRoutePaths.ALL_COMMENTS}
             element={<DisplayCommentView />}
+          />
+          <Route
+            path={AdminRoutePaths.EVALUATE_REFUNDS}
+            element={<EvaluateRefunds />}
           />
 
           <Route path="*" element={<NotFoundView />} />

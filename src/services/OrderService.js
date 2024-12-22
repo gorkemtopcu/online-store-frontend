@@ -48,6 +48,33 @@ const OrderService = {
       .then((response) => response.data)
       .catch((error) => console.log(error));
   },
+  cancelOrder: async (orderId) => {
+    try {
+      const response = await axios.delete(
+        ServiceConstants.ORDERS + ServiceConstants.CANCEL + orderId
+      );
+      console.log("Cancel order response:", response); // Log the response
+      return response.data;
+    } catch (error) {
+      console.error("Error cancelling order:", error.response ? error.response.data : error.message);
+      return false;
+    }
+  },
+
+  requestRefund: async (refundRequest) => {
+    try {
+      const response = await axios.post(
+        `${ServiceConstants.ORDERS}/requestRefund`,
+        refundRequest
+      );
+      console.log("Request refund response:", response); // Log the response
+      return response.data;
+    } catch (error) {
+      console.error("Error requesting refund:", error.response ? error.response.data : error.message);
+      return false;
+    }
+  },
+
 };
 
 
