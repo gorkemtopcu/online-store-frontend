@@ -9,6 +9,8 @@ import {
 } from "@ant-design/icons";
 import { AdminRoutePaths } from "./route_paths";
 import UserRoles from "./UserRoles";
+import SalesManagerInvoices from "features/admin/display_invoices/SalesManagerInvoices";
+import ProductManagerInvoices from "features/admin/display_invoices/ProductManagerInvoices";
 
 const AdminRouteFactory = (role) => {
   switch (role) {
@@ -23,6 +25,7 @@ const AdminRouteFactory = (role) => {
               key: AdminRoutePaths.DISPLAY_INVOICES,
               label: "Display Invoices",
               icon: <FileTextOutlined />,
+              component: SalesManagerInvoices,
             },
             {
               key: AdminRoutePaths.REVENUE_CHART,
@@ -93,6 +96,12 @@ const AdminRouteFactory = (role) => {
               label: "Delivery List",
               icon: <TruckOutlined />,
             },
+            {
+              key: AdminRoutePaths.DISPLAY_INVOICES,
+              label: "Display Invoices",
+              icon: <FileTextOutlined />,
+              component: ProductManagerInvoices,
+            }
           ],
         },
         {

@@ -25,6 +25,8 @@ import Contact from "features/customer/contact/contact";
 import Dashboard from "features/admin/dashboard/Dashboard";
 import CommentManagementView from "features/admin/comment_management/CommentManagementView";
 import DisplayCommentView from "features/admin/display_comment/DisplayCommentView";
+import SalesManagerInvoices from "features/admin/display_invoices/SalesManagerInvoices";
+import ProductManagerInvoices from "features/admin/display_invoices/ProductManagerInvoices";
 
 function App() {
   const { currentUser } = useUserStore();
@@ -74,6 +76,26 @@ function App() {
             path={AdminRoutePaths.ALL_COMMENTS}
             element={<DisplayCommentView />}
           />
+
+          <Route
+            path={AdminRoutePaths.DISPLAY_INVOICES}
+            element={
+              <ProtectedRoute
+                element={
+                  userRole === UserRoles.SALES_MANAGER ? (
+                    <SalesManagerInvoices />
+                  ) : (
+                    <ProductManagerInvoices />
+                  )
+                }
+                isAllowed={
+                  userRole === UserRoles.SALES_MANAGER || userRole === UserRoles.PRODUCT_MANAGER
+                }
+                redirectTo={CustomerRoutePaths.HOME}
+              />
+            }
+          />
+
 
           <Route path="*" element={<NotFoundView />} />
         </Route>
