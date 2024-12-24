@@ -3,18 +3,19 @@ import { DatePicker, Table, Button, Spin, Alert, Typography } from "antd";
 import InvoiceService from "services/InvoiceService";
 
 const { Title } = Typography;
+const { RangePicker } = DatePicker;
 
 const InvoicesList = ({ role }) => {
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchInvoices = async (date) => {
+  const fetchInvoices = async (startDate, endDate) => {
     setLoading(true);
     setError(null);
 
     try {
-      const data = await InvoiceService.fetchInvoices(date);
+      const data = await InvoiceService.fetchInvoices(startDate, endDate);
       setInvoices(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error fetching invoices:", err);
@@ -24,12 +25,12 @@ const InvoicesList = ({ role }) => {
     }
   };
 
-  const handleDateChange = (date) => {
-    if (date) {
-      const formattedDate = date.format("YYYY-MM-DD");
-      fetchInvoices(formattedDate);
+  const handleDateChange = (dates) => {
+    if (dates && dates.length === 2) {
+      const [startDate, endDate] = dates.map((date) => date.format("YYYY-MM-DD"));
+      fetchInvoices(startDate, endDate);
     } else {
-      setInvoices([]); // Reset invoices when no date is selected
+      setInvoices([]); // Reset invoices when no range is selected
     }
   };
 
@@ -67,7 +68,7 @@ const InvoicesList = ({ role }) => {
   return (
     <div style={{ padding: "20px" }}>
       <Title level={3}>{role} - Display Invoices</Title>
-      <DatePicker onChange={handleDateChange} style={{ marginBottom: "20px" }} />
+      <RangePicker onChange={handleDateChange} style={{ marginBottom: "20px" }} />
       <Table
         dataSource={invoices.map((invoice) => ({
           id: invoice.orderId,
@@ -86,7 +87,7 @@ const InvoicesList = ({ role }) => {
           },
         ]}
         rowKey="id"
-        locale={{ emptyText: "No invoices found for the selected date." }}
+        locale={{ emptyText: "No invoices found for the selected date range." }}
       />
     </div>
   );

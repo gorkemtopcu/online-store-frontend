@@ -14,13 +14,19 @@ const InvoiceService = {
     }
   },
 
-  fetchInvoices: async (date = null) => {
-    const url = date
-      ? `${ServiceConstants.INVOICES}?date=${date}`
-      : `${ServiceConstants.INVOICES}`;
+  fetchInvoices: async (startDate = null, endDate = null) => {
+    let url = ServiceConstants.INVOICES;
+
+    if (startDate || endDate) {
+      const params = [];
+      if (startDate) params.push(`startDate=${startDate}`);
+      if (endDate) params.push(`endDate=${endDate}`);
+      url = `${url}?${params.join("&")}`;
+    }
+
     try {
       const response = await axios.get(url);
-      return response.data; 
+      return response.data;
     } catch (error) {
       console.error("Error fetching invoices:", error);
       throw error;
