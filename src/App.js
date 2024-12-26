@@ -25,6 +25,7 @@ import Contact from "features/customer/contact/contact";
 import Dashboard from "features/admin/dashboard/Dashboard";
 import CommentManagementView from "features/admin/comment_management/CommentManagementView";
 import DisplayCommentView from "features/admin/display_comment/DisplayCommentView";
+import ManagePriceView from "features/admin/update_price/view/ManagePriceView";
 
 function App() {
   const { currentUser } = useUserStore();
@@ -74,7 +75,10 @@ function App() {
             path={AdminRoutePaths.ALL_COMMENTS}
             element={<DisplayCommentView />}
           />
-
+           <Route
+            path={AdminRoutePaths.MANAGE_PRICE}
+            element={<ManagePriceView/>}
+          />
           <Route path="*" element={<NotFoundView />} />
         </Route>
 

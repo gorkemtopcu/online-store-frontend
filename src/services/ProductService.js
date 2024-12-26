@@ -57,6 +57,15 @@ const ProductService = {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
+  },
+  updatePrice: async (id, price) => {
+    try {
+      return await axios.put(
+        ServiceConstants.PRODUCTS + ServiceConstants.CHANGE_PRICE + `/${id}/${price}`
+      );
+    } catch (error) {
+      console.error("Error updating price:", error);
+    }
   }
 };
 
