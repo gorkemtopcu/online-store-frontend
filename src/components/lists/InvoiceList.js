@@ -5,7 +5,7 @@ import InvoiceService from "services/InvoiceService";
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
 
-const InvoicesList = ({ role }) => {
+const InvoicesList = () => {
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -15,7 +15,10 @@ const InvoicesList = ({ role }) => {
     setError(null);
 
     try {
-      const data = await InvoiceService.fetchInvoicesByDateRange(startDate, endDate);
+      const data = await InvoiceService.fetchInvoicesByDateRange(
+        startDate,
+        endDate
+      );
       setInvoices(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error fetching invoices:", err);
@@ -27,7 +30,9 @@ const InvoicesList = ({ role }) => {
 
   const handleDateChange = (dates) => {
     if (dates && dates.length === 2) {
-      const [startDate, endDate] = dates.map((date) => date.format("YYYY-MM-DD"));
+      const [startDate, endDate] = dates.map((date) =>
+        date.format("YYYY-MM-DD")
+      );
       fetchInvoicesByDateRange(startDate, endDate);
     } else {
       setInvoices([]); // Reset invoices when no range is selected
@@ -67,8 +72,11 @@ const InvoicesList = ({ role }) => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <Title level={3}>{role} - Display Invoices</Title>
-      <RangePicker onChange={handleDateChange} style={{ marginBottom: "20px" }} />
+      <Title level={3}>Display Invoices</Title>
+      <RangePicker
+        onChange={handleDateChange}
+        style={{ marginBottom: "20px" }}
+      />
       <Table
         dataSource={invoices.map((invoice) => ({
           id: invoice.orderId,
@@ -82,7 +90,9 @@ const InvoicesList = ({ role }) => {
             title: "Actions",
             key: "actions",
             render: (_, invoice) => (
-              <Button onClick={() => printInvoice(invoice)}>Print as PDF</Button>
+              <Button onClick={() => printInvoice(invoice)}>
+                Print as PDF
+              </Button>
             ),
           },
         ]}

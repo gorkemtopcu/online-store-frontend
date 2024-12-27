@@ -1,7 +1,6 @@
 import ProtectedRoute from "components/routes/ProtectedRoute";
 import { AdminRoutePaths, CustomerRoutePaths } from "constants/route_paths";
 import InventoryManagementView from "features/admin/inventory_management/view/inventory_management_view";
-import NotFoundView from "features/common/not_found/view/not_found_view";
 import CollectionView from "features/customer/collection/view/CollectionView";
 import CreateProductView from "features/admin/create_product/view/create_product_view";
 import HomeView from "features/customer/home/view/home_view";
@@ -26,36 +25,12 @@ import Dashboard from "features/admin/dashboard/Dashboard";
 import CommentManagementView from "features/admin/comment_management/CommentManagementView";
 import DisplayCommentView from "features/admin/display_comment/DisplayCommentView";
 import ManagePriceView from "features/admin/update_price/view/ManagePriceView";
+import NotFoundView from "features/common/not_found/view/not_found_view";
+import DisplayInvoices from "features/admin/display_invoices/DisplayInvoices";
 
 function App() {
   const { currentUser } = useUserStore();
   const userRole = currentUser?.role;
-
-  const renderRoutes = (routes) =>
-    routes.map((route) => {
-      if (route.children) {
-        return route.children.map((child) => {
-          if (!child.component) {
-            return null;
-          }
-          return (
-            <Route
-              key={child.key}
-              path={child.key}
-              element={React.createElement(child.component)}
-            />
-          );
-        });
-      }
-
-      if (!route.component) {
-        return null;
-      }
-
-      return (
-        <Route key={route.key} path={route.key} element={<route.component />} />
-      );
-    });
 
   return (
     <BrowserRouter>
@@ -79,7 +54,6 @@ function App() {
             path={AdminRoutePaths.CREATE_PRODUCT}
             element={<CreateProductView />}
           />
-
           <Route
             path={AdminRoutePaths.EDIT_PRODUCT}
             element={<InventoryManagementView />}
@@ -107,6 +81,10 @@ function App() {
           <Route
             path={AdminRoutePaths.MANAGE_PRICE}
             element={<ManagePriceView />}
+          />
+          <Route
+            path={AdminRoutePaths.DISPLAY_INVOICES}
+            element={<DisplayInvoices />}
           />
 
           <Route path="*" element={<NotFoundView />} />
