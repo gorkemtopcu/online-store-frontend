@@ -11,6 +11,15 @@ const ProductService = {
       console.error("Error fetching data:", error);
     }
   },
+  getAllPriced: async () => {
+    try {
+      return await axios.get(
+        ServiceConstants.PRODUCTS + ServiceConstants.GET_ALL_PRICED
+      );
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  },
   deleteProduct: async (id) => {
     try {
       return await axios.delete(
@@ -56,6 +65,15 @@ const ProductService = {
       );
     } catch (error) {
       console.error("Error fetching data:", error);
+    }
+  },
+  updatePrice: async (id, price) => {
+    try {
+      return await axios.put(
+        ServiceConstants.PRODUCTS + ServiceConstants.CHANGE_PRICE + `/${id}/${price}`
+      );
+    } catch (error) {
+      console.error("Error updating price:", error);
     }
   }
 };
