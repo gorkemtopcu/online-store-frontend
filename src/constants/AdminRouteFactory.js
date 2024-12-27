@@ -9,20 +9,9 @@ import {
 } from "@ant-design/icons";
 import { AdminRoutePaths } from "./route_paths";
 import UserRoles from "./UserRoles";
-import SalesManagerInvoices from "features/admin/display_invoices/SalesManagerInvoices";
-import ProductManagerInvoices from "features/admin/display_invoices/ProductManagerInvoices";
+import ViewManageInvoice from "features/admin/display_invoices/ViewManageInvoice";
 
 const AdminRouteFactory = (role) => {
-
-  const getDisplayInvoicesComponent = () => {
-    if (role === UserRoles.SALES_MANAGER) {
-      return SalesManagerInvoices;
-    } else if (role === UserRoles.PRODUCT_MANAGER) {
-      return ProductManagerInvoices;
-    }
-    return null;
-  };
-  
 
   switch (role) {
     case UserRoles.SALES_MANAGER:
@@ -36,7 +25,7 @@ const AdminRouteFactory = (role) => {
               key: AdminRoutePaths.DISPLAY_INVOICES,
               label: "Display Invoices",
               icon: <FileTextOutlined />,
-              component: getDisplayInvoicesComponent(),
+              component: () => <ViewManageInvoice role="Sales Manager" />,
             },
             {
               key: AdminRoutePaths.REVENUE_CHART,
@@ -111,7 +100,7 @@ const AdminRouteFactory = (role) => {
               key: AdminRoutePaths.DISPLAY_INVOICES,
               label: "Display Invoices",
               icon: <FileTextOutlined />,
-              component: getDisplayInvoicesComponent(),
+              component: () => <ViewManageInvoice role="Product Manager" />,
             }
           ],
         },
