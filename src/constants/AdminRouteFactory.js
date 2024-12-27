@@ -10,7 +10,7 @@ import {
 import { AdminRoutePaths } from "./route_paths";
 import UserRoles from "./UserRoles";
 import ViewManageInvoice from "features/admin/display_invoices/ViewManageInvoice";
-
+import SetDiscountRate from "features/admin/set_discount_rate/SetDiscountRate";
 const AdminRouteFactory = (role) => {
 
   switch (role) {
@@ -41,6 +41,7 @@ const AdminRouteFactory = (role) => {
               key: AdminRoutePaths.SET_DISCOUNT_RATE,
               label: "Set Discount Rate",
               icon: <PercentageOutlined />,
+              component: SetDiscountRate,
             },
           ],
         },
