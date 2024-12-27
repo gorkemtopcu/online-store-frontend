@@ -25,12 +25,34 @@ import Contact from "features/customer/contact/contact";
 import Dashboard from "features/admin/dashboard/Dashboard";
 import CommentManagementView from "features/admin/comment_management/CommentManagementView";
 import DisplayCommentView from "features/admin/display_comment/DisplayCommentView";
-import SalesManagerInvoices from "features/admin/display_invoices/SalesManagerInvoices";
-import ProductManagerInvoices from "features/admin/display_invoices/ProductManagerInvoices";
+import AdminRouteFactory from "constants/AdminRouteFactory";
 
 function App() {
   const { currentUser } = useUserStore();
   const userRole = currentUser?.role;
+
+  const adminRoutes = AdminRouteFactory(userRole);
+
+  const renderRoutes = (routes) =>
+    routes.map((route) => {
+      if (route.children) {
+        return route.children.map((child) => {
+          if (!child.component) {
+            return null;
+          }
+          return <Route key={child.key} path={child.key} element={React.createElement(child.component)} />;
+        });
+      }
+  
+      if (!route.component) {
+        return null;
+      }
+
+
+      return (
+        <Route key={route.key} path={route.key} element={<route.component />} />
+      );
+    });
 
   return (
     <BrowserRouter>
@@ -46,6 +68,9 @@ function App() {
             />
           }
         >
+          {renderRoutes(adminRoutes)}
+
+
           <Route path={AdminRoutePaths.DASHBOARD} element={<Dashboard />} />
           <Route
             path={AdminRoutePaths.CREATE_PRODUCT}
@@ -76,26 +101,7 @@ function App() {
             path={AdminRoutePaths.ALL_COMMENTS}
             element={<DisplayCommentView />}
           />
-
-          <Route
-            path={AdminRoutePaths.DISPLAY_INVOICES}
-            element={
-              <ProtectedRoute
-                element={
-                  userRole === UserRoles.SALES_MANAGER ? (
-                    <SalesManagerInvoices />
-                  ) : (
-                    <ProductManagerInvoices />
-                  )
-                }
-                isAllowed={
-                  userRole === UserRoles.SALES_MANAGER || userRole === UserRoles.PRODUCT_MANAGER
-                }
-                redirectTo={CustomerRoutePaths.HOME}
-              />
-            }
-          />
-
+          
 
           <Route path="*" element={<NotFoundView />} />
         </Route>

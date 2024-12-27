@@ -13,6 +13,17 @@ import SalesManagerInvoices from "features/admin/display_invoices/SalesManagerIn
 import ProductManagerInvoices from "features/admin/display_invoices/ProductManagerInvoices";
 
 const AdminRouteFactory = (role) => {
+
+  const getDisplayInvoicesComponent = () => {
+    if (role === UserRoles.SALES_MANAGER) {
+      return SalesManagerInvoices;
+    } else if (role === UserRoles.PRODUCT_MANAGER) {
+      return ProductManagerInvoices;
+    }
+    return null;
+  };
+  
+
   switch (role) {
     case UserRoles.SALES_MANAGER:
       return [
@@ -25,7 +36,7 @@ const AdminRouteFactory = (role) => {
               key: AdminRoutePaths.DISPLAY_INVOICES,
               label: "Display Invoices",
               icon: <FileTextOutlined />,
-              component: SalesManagerInvoices,
+              component: getDisplayInvoicesComponent(),
             },
             {
               key: AdminRoutePaths.REVENUE_CHART,
@@ -100,7 +111,7 @@ const AdminRouteFactory = (role) => {
               key: AdminRoutePaths.DISPLAY_INVOICES,
               label: "Display Invoices",
               icon: <FileTextOutlined />,
-              component: ProductManagerInvoices,
+              component: getDisplayInvoicesComponent(),
             }
           ],
         },

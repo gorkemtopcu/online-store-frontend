@@ -2,7 +2,7 @@ import axios from "axios";
 import ServiceConstants from "constants/ServiceConstants";
 
 const InvoiceService = {
-  fetchInvoice: async (orderId) => {
+  fetchInvoiceByOrderId: async (orderId) => {
     const url = `${ServiceConstants.INVOICES}/${orderId}`;
     try {
       const response = await axios.get(url, { responseType: "blob" });
@@ -14,7 +14,7 @@ const InvoiceService = {
     }
   },
 
-  fetchInvoices: async (startDate = null, endDate = null) => {
+  fetchInvoicesByDateRange: async (startDate = null, endDate = null) => {
     let url = ServiceConstants.INVOICES;
 
     if (startDate || endDate) {

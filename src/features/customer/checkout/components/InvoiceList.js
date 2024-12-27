@@ -10,12 +10,12 @@ const InvoicesList = ({ role }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchInvoices = async (startDate, endDate) => {
+  const fetchInvoicesByDateRange = async (startDate, endDate) => {
     setLoading(true);
     setError(null);
 
     try {
-      const data = await InvoiceService.fetchInvoices(startDate, endDate);
+      const data = await InvoiceService.fetchInvoicesByDateRange(startDate, endDate);
       setInvoices(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error fetching invoices:", err);
@@ -28,7 +28,7 @@ const InvoicesList = ({ role }) => {
   const handleDateChange = (dates) => {
     if (dates && dates.length === 2) {
       const [startDate, endDate] = dates.map((date) => date.format("YYYY-MM-DD"));
-      fetchInvoices(startDate, endDate);
+      fetchInvoicesByDateRange(startDate, endDate);
     } else {
       setInvoices([]); // Reset invoices when no range is selected
     }
@@ -36,7 +36,7 @@ const InvoicesList = ({ role }) => {
 
   const printInvoice = async (invoice) => {
     try {
-      const url = await InvoiceService.fetchInvoice(invoice.id);
+      const url = await InvoiceService.fetchInvoiceByOrderId(invoice.id);
       const link = document.createElement("a");
       link.href = url;
       link.download = `Invoice_${invoice.id}.pdf`;
