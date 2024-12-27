@@ -32,6 +32,7 @@ const AdminRoutePaths = {
   // Comment
   MANAGE_COMMENT: "/admin/manage-comment",
   ALL_COMMENTS: "/admin/all-comments",
+  MANAGE_PRICE: "/admin/manage-price",
 
   // Delivery
   DELIVERY_LIST: "/admin/delivery-list",

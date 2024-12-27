@@ -25,13 +25,11 @@ import Contact from "features/customer/contact/contact";
 import Dashboard from "features/admin/dashboard/Dashboard";
 import CommentManagementView from "features/admin/comment_management/CommentManagementView";
 import DisplayCommentView from "features/admin/display_comment/DisplayCommentView";
-import AdminRouteFactory from "constants/AdminRouteFactory";
+import ManagePriceView from "features/admin/update_price/view/ManagePriceView";
 
 function App() {
   const { currentUser } = useUserStore();
   const userRole = currentUser?.role;
-
-  const adminRoutes = AdminRouteFactory(userRole);
 
   const renderRoutes = (routes) =>
     routes.map((route) => {
@@ -40,14 +38,19 @@ function App() {
           if (!child.component) {
             return null;
           }
-          return <Route key={child.key} path={child.key} element={React.createElement(child.component)} />;
+          return (
+            <Route
+              key={child.key}
+              path={child.key}
+              element={React.createElement(child.component)}
+            />
+          );
         });
       }
-  
+
       if (!route.component) {
         return null;
       }
-
 
       return (
         <Route key={route.key} path={route.key} element={<route.component />} />
@@ -63,14 +66,14 @@ function App() {
           element={
             <ProtectedRoute
               element={<AdminLayout />}
-              isAllowed={userRole === UserRoles.PRODUCT_MANAGER || userRole === UserRoles.SALES_MANAGER}
+              isAllowed={
+                userRole === UserRoles.PRODUCT_MANAGER ||
+                userRole === UserRoles.SALES_MANAGER
+              }
               redirectTo={CustomerRoutePaths.HOME}
             />
           }
         >
-          {renderRoutes(adminRoutes)}
-
-
           <Route path={AdminRoutePaths.DASHBOARD} element={<Dashboard />} />
           <Route
             path={AdminRoutePaths.CREATE_PRODUCT}
@@ -101,7 +104,10 @@ function App() {
             path={AdminRoutePaths.ALL_COMMENTS}
             element={<DisplayCommentView />}
           />
-          
+          <Route
+            path={AdminRoutePaths.MANAGE_PRICE}
+            element={<ManagePriceView />}
+          />
 
           <Route path="*" element={<NotFoundView />} />
         </Route>

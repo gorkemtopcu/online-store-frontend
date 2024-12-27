@@ -42,6 +42,12 @@ const AdminRouteFactory = (role) => {
               label: "Set Discount Rate",
               icon: <PercentageOutlined />,
             },
+            {
+              key: AdminRoutePaths.MANAGE_PRICE,
+              label: "Manage Price",
+              icon: <PercentageOutlined />,
+            },
+
           ],
         },
       ];

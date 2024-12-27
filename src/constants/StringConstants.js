@@ -59,7 +59,7 @@ const StringConstants = {
   QUANTITY: "Quantity in Stock",
   SERIAL_NUMBER: "Serial Number",
   MODEL_NUMBER: "Model Number",
-  PRODUCT_PRICE: "Product Price",
+  PRODUCTION_COST: "Production Cost",
   WARRANTY_STATUS: "Warranty Status",
   PRODUCT_IMAGE: "Product Image",
   PRODUCT_CATEGORY: "Product Category",
