@@ -25,6 +25,7 @@ import Contact from "features/customer/contact/contact";
 import Dashboard from "features/admin/dashboard/Dashboard";
 import CommentManagementView from "features/admin/comment_management/CommentManagementView";
 import DisplayCommentView from "features/admin/display_comment/DisplayCommentView";
+import RevenueChart from "./features/admin/revenue_chart/RevenueChart";
 
 function App() {
   const { currentUser } = useUserStore();
@@ -48,6 +49,9 @@ function App() {
           <Route
             path={AdminRoutePaths.CREATE_PRODUCT}
             element={<CreateProductView />}
+          />
+          <Route path={AdminRoutePaths.REVENUE_CHART} 
+          element={<RevenueChart />} 
           />
 
           <Route
