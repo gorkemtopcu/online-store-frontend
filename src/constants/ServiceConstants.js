@@ -9,6 +9,7 @@ const ServiceConstants = {
   INVOICES: "http://localhost:8081/api/invoices",
 
   GET_ALL: "/getAll",
+  GET_ALL_PRICED: "/getAllPriced",
   GET_BY_ID: "/getById",
   CREATE: "/create",
   GET_BY_USER_ID: "/getByUserId/",
@@ -22,6 +23,7 @@ const ServiceConstants = {
   BEST_SELLERS: "/getMostWishlisted",
   NEW_ARRIVALS: "/getNewArrivals",
   GET_PENDING: "/getAllPending",
+  CHANGE_PRICE: "/changePrice",
 };
 
 export default ServiceConstants;
