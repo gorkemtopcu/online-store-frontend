@@ -27,6 +27,7 @@ import DisplayCommentView from "features/admin/display_comment/DisplayCommentVie
 import ManagePriceView from "features/admin/update_price/view/ManagePriceView";
 import NotFoundView from "features/common/not_found/view/not_found_view";
 import DisplayInvoices from "features/admin/display_invoices/DisplayInvoices";
+import SetDiscountRate from "features/admin/set-discount-rate/SetDiscountRate";
 
 function App() {
   const { currentUser } = useUserStore();
@@ -86,6 +87,11 @@ function App() {
             path={AdminRoutePaths.DISPLAY_INVOICES}
             element={<DisplayInvoices />}
           />
+
+          <Route
+            path={AdminRoutePaths.SET_DISCOUNT_RATE}
+            element={<SetDiscountRate/>}
+          />;
 
           <Route path="*" element={<NotFoundView />} />
         </Route>
