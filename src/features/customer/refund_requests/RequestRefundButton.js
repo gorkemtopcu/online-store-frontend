@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Input, message } from "antd";
+import { message } from "antd";
 import useUserStore from "context/UserStore";
 import OrderService from "services/OrderService";
 import RefundService from "services/RefundService";
+import RefundModal from "./components/RefundModal";
+import RefundButton from "./components/RefundButton";
 
 const RequestRefundButton = ({ orderId, productId, order, onRequestRefund }) => {
   const [visible, setVisible] = useState(false);
@@ -63,43 +65,16 @@ const RequestRefundButton = ({ orderId, productId, order, onRequestRefund }) => 
     }
   };
 
-  const getButtonText = () => {
-    if (refundStatus === 'APPROVED') {
-      return 'Refund Approved';
-    } 
-    else if (refundStatus === 'REJECTED') {
-      return 'Refund Rejected'
-    }
-    else if (refundStatus) {
-      return 'Refund Requested';
-    } 
-    else {
-      return 'Request Refund';
-    }
-  };
-
   return (
     <>
-      <Button
-        style={{ width: '150px' }}
-        color="danger"
-        onClick={() => setVisible(true)}
-        disabled={refundStatus === 'APPROVED' || refundStatus === 'REJECTED' || refundStatus === 'REQUESTED'}
-      >
-        {getButtonText()}
-      </Button>
-      <Modal
-        title="Request Refund"
+      <RefundButton refundStatus={refundStatus} orderStatus={order.orderStatus} onClick={() => setVisible(true)} />
+      <RefundModal
         visible={visible}
+        reason={reason}
+        setReason={setReason}
         onOk={handleRequestRefund}
         onCancel={() => setVisible(false)}
-      >
-        <Input.TextArea
-          rows={4}
-          value={reason}
-          onChange={(e) => setReason(e.target.value)}
-        />
-      </Modal>
+      />
     </>
   );
 };

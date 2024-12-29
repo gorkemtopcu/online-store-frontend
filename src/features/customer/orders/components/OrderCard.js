@@ -5,8 +5,8 @@ import ExpandedOrderDetails from "./ExpandedOrderDetails";
 import StatusTag from "./StatusTag";
 import StringConstants from "constants/StringConstants";
 import ReviewModal from "./ReviewButton";
-import RequestRefundButton from "features/admin/refund_requests/components/RequestRefundButton";
-import handleRequestRefund from "features/admin/refund_requests/components/RequestRefundButton";
+import RequestRefundButton from "features/customer/refund_requests/RequestRefundButton";
+import handleRequestRefund from "features/customer/refund_requests/RequestRefundButton";
 import CancelOrderButton from "./CancelOrderButton";
 
 const { Text } = Typography;
