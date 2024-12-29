@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { DatePicker, Button, Spin, Row, Col } from "antd";
 import { Line } from "react-chartjs-2";
+import { Chart, registerables } from "chart.js";
 import { getRevenueReport } from "../../../services/revenueService";
+
+// Register Chart.js components
+Chart.register(...registerables);
 
 const RevenueChart = () => {
   const [startDate, setStartDate] = useState(null);
