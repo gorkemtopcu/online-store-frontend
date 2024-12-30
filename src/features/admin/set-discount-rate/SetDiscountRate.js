@@ -18,7 +18,9 @@ const SetDiscountRate = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:8081/admin/products/getAll");
+      const response = await fetch(
+        "http://localhost:8081/admin/products/getAll"
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -52,7 +54,9 @@ const SetDiscountRate = () => {
       const responseText = await response.text();
 
       if (!response.ok) {
-        throw new Error(responseText || `HTTP error! status: ${response.status}`);
+        throw new Error(
+          responseText || `HTTP error! status: ${response.status}`
+        );
       }
 
       setMessage(responseText);
@@ -71,14 +75,16 @@ const SetDiscountRate = () => {
   
     try {
       const response = await fetch(
-        `http://localhost:8081/admin/products/applyDiscount/${selectedProduct}?discount=0`,
+        `http://localhost:8081/admin/products/applyDiscount/${selectedProduct}?discount=${0}`,
         { method: "PUT" }
       );
   
       const responseText = await response.text();
   
       if (!response.ok) {
-        throw new Error(responseText || `HTTP error! status: ${response.status}`);
+        throw new Error(
+          responseText || `HTTP error! status: ${response.status}`
+        );
       }
   
       setMessage(responseText);

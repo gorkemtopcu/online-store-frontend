@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import OrderViewNavbar from "./components/OrderViewNavbar";
-import StringConstants from "constants/StringConstants";
+import React, { useEffect, useState } from "react";
 import OrderService from "services/OrderService";
 import useUserStore from "context/UserStore";
-import LoadingSpinner from "components/spinner/LoadingSpinner";
+import OrderViewNavbar from "./components/OrderViewNavbar";
 import OrderList from "./components/OrderList";
+import LoadingSpinner from "components/spinner/LoadingSpinner";
+import { message } from "antd";
+import StringConstants from "constants/StringConstants";
 
 const OrderView = () => {
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const { currentUser } = useUserStore();
 
   useEffect(() => {
@@ -18,6 +18,7 @@ const OrderView = () => {
       setLoading(false);
       return;
     }
+
     // Fetch orders when the component mounts
     OrderService.getOrders(currentUser.uid)
       .then((data) => {
@@ -43,7 +44,9 @@ const OrderView = () => {
       {loading ? (
         <LoadingSpinner message={StringConstants.LOADING} />
       ) : (
-        <OrderList orders={filteredOrders} />
+        <OrderList
+          orders={filteredOrders}
+        />
       )}
     </div>
   );

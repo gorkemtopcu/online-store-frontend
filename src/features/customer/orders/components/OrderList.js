@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Empty } from "antd";
-import StringConstants from "constants/StringConstants";
 import OrderCard from "./OrderCard";
+import StringConstants from "constants/StringConstants";
 
 const OrderList = ({ orders }) => {
   const sortedOrders = [...orders].sort((a, b) => {
