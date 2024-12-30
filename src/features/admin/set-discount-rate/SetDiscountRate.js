@@ -65,28 +65,29 @@ const SetDiscountRate = () => {
   const handleRemoveDiscount = async () => {
     resetState();
     if (!selectedProduct) {
-      setError("Please select a product to remove discount.");
+      setError("Please select a product to remove the discount.");
       return;
     }
-
+  
     try {
       const response = await fetch(
-        `http://localhost:8081/admin/products/removeDiscount/${selectedProduct}`,
+        `http://localhost:8081/admin/products/applyDiscount/${selectedProduct}?discount=0`,
         { method: "PUT" }
       );
-
+  
       const responseText = await response.text();
-
+  
       if (!response.ok) {
         throw new Error(responseText || `HTTP error! status: ${response.status}`);
       }
-
+  
       setMessage(responseText);
       fetchProducts();
     } catch (err) {
       setError(err.message || "An error occurred while removing the discount.");
     }
   };
+  
 
   if (loading) {
     return <div className="p-4 text-center">Loading products...</div>;

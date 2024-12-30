@@ -47,7 +47,7 @@ const CheckoutView = () => {
 
       if (orderId) {
         try {
-          await InvoiceService.fetchInvoice(orderId); 
+          await InvoiceService.fetchInvoiceByOrderId(orderId); 
           navigate(`/invoice/${orderId}`); 
         } catch (invoiceError) {
           console.error("Error fetching invoice:", invoiceError);
