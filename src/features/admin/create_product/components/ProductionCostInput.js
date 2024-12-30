@@ -3,14 +3,14 @@ import React from "react";
 import { Form, Input } from "antd";
 import StringConstants from "constants/StringConstants";
 
-const ProductPriceInput = () => (
+const ProductionCostInput = () => (
   <Form.Item
-    label={StringConstants.PRODUCT_PRICE}
-    name="productPrice"
-    rules={[{ required: true, message: "Please input the product price!" }]}
+    label={StringConstants.PRODUCTION_COST}
+    name="productionCost"
+    rules={[{ required: true, message: "Please input the production cost!" }]}
   >
     <Input type="number" />
   </Form.Item>
 );
 
-export default ProductPriceInput;
+export default ProductionCostInput;

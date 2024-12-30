@@ -22,7 +22,7 @@ const useProductsQuery = () => {
   const loadProducts = useCallback(async () => {
     setState(PRODUCT_STATES.LOADING);
     try {
-      const response = await ProductService.getAll();
+      const response = await ProductService.getAllPriced();
       if (response?.data) {
         setProducts(response.data);
         setState(PRODUCT_STATES.LOADED);

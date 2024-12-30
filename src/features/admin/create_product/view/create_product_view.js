@@ -22,6 +22,7 @@ const CreateProductPage = () => {
     });
 
     try {
+      console.log("Form data:", formData);
       await ProductService.addProduct(formData);
       message.success("Product created successfully!");
       form.resetFields();

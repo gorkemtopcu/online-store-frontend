@@ -10,7 +10,7 @@ import NumberOfPagesInput from "../components/NumberOfPagesInput";
 import PublicationDateInput from "../components/PublicationDateInput";
 import EditionInput from "../components/EditionInput";
 import ProductDescriptionInput from "../components/ProductDescriptionInput";
-import ProductPriceInput from "../components/ProductPriceInput";
+import ProductionCostInput from "../components/ProductionCostInput";
 import DistributorInformationInput from "../components/DistributorInformationInput";
 import StockQuantityInput from "../components/StockQuantityInput";
 import SerialNumberInput from "../components/SerialNumberInput";
@@ -31,7 +31,7 @@ const CreateProductFormConfig = [
     components: [<NumberOfPagesInput />, <PublicationDateInput />],
   },
   {
-    components: [<EditionInput />, <ProductPriceInput />],
+    components: [<EditionInput />, <ProductionCostInput />],
   },
   {
     components: [<DistributorInformationInput /> , <StockQuantityInput />],
