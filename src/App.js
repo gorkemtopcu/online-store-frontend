@@ -64,6 +64,10 @@ function App() {
             path={AdminRoutePaths.CREATE_CATEGORY}
             element={<CreateCategoryView />}
           />
+           <Route
+            path={AdminRoutePaths.DELIVERY_LIST}
+            element={<OrderManagementView />}
+          />
           <Route
             path={AdminRoutePaths.EDIT_CATEGORY}
             element={<EditCategoryView />}
