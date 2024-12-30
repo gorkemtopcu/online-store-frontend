@@ -5,12 +5,20 @@ import ExpandedOrderDetails from "./ExpandedOrderDetails";
 import StatusTag from "./StatusTag";
 import StringConstants from "constants/StringConstants";
 import ReviewModal from "./ReviewButton";
+import RequestRefundButton from "features/customer/refund_requests/RequestRefundButton";
+import handleRequestRefund from "features/customer/refund_requests/RequestRefundButton";
+import CancelOrderButton from "./CancelOrderButton";
 
 const { Text } = Typography;
 
 const OrderCard = ({ order }) => {
   const [expanded, setExpanded] = useState(false);
   const toggleExpand = () => setExpanded(!expanded);
+
+  const handleOrderCancelled = (orderId) => {
+    console.log(`Order ${orderId} cancelled`);
+    window.location.reload();
+  };
 
   return (
     <Card
@@ -79,6 +87,13 @@ const OrderCard = ({ order }) => {
                   </Text>
                 </Col>
                 <ReviewModal product={product}></ReviewModal>
+                <Col span={1}></Col>
+                <RequestRefundButton 
+                  orderId={order.orderId} 
+                  productId={product.productId} 
+                  order={order} 
+                  onRequestRefund={handleRequestRefund} 
+                />
               </Row>
             );
           })}
@@ -87,6 +102,8 @@ const OrderCard = ({ order }) => {
 
       {/* Expanded Order Details */}
       {expanded && <ExpandedOrderDetails order={order} />}
+      <div style={{ marginTop: "10px" }}></div>
+      <CancelOrderButton orderId={order.orderId} onCancelOrder={handleOrderCancelled} />
     </Card>
   );
 };
