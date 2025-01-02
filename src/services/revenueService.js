@@ -1,30 +1,23 @@
 import axios from "axios";
+import ServiceConstants from "constants/ServiceConstants";
 
-// Backend API'nin temel URL'si
-const API_BASE_URL = "http://localhost:8081"; // Eğer backend farklı bir domain veya portta çalışıyorsa bunu değiştirin
+const RevenueService = {
+  getRevenueReport: async (startDate, endDate) => {
+    try {
+      const response = await axios.post(
+        `${ServiceConstants.ADMIN}${ServiceConstants.REVENUE_REPORT}`,
+        {
+          startDate,
+          endDate,
+        }
+      );
 
-/**
- * Revenue Report API çağrısı
- * @param {string} startDate - Rapor başlangıç tarihi (YYYY-MM-DD formatında)
- * @param {string} endDate - Rapor bitiş tarihi (YYYY-MM-DD formatında)
- * @returns {Promise<Object>} Backend'den dönen revenue report verisi
- */
-export const getRevenueReport = async (startDate, endDate) => {
-  try {
-    // Backend'e POST isteği yapılıyor
-    const response = await axios.post(`${API_BASE_URL}/admin/revenue-report`, {
-      startDate,
-      endDate,
-    });
-
-    // API'den gelen veriyi döndürüyoruz
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching revenue report:", error);
-    throw error; // Hatanın üst katmanda ele alınabilmesi için tekrar fırlatılıyor
-  }
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching revenue report:", error);
+      throw error;
+    }
+  },
 };
 
-export default {
-  getRevenueReport,
-};
+export default RevenueService;

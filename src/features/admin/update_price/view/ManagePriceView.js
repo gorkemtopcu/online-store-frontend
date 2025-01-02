@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Table, message, Tag, InputNumber, Modal } from "antd";
+import { Button, Card, Table, message, InputNumber } from "antd";
 import ProductHeader from "components/headers/ProductHeader";
 import ProductService from "services/ProductService";
 import ConfirmPriceChangeModal from "./components/ConfirmPriceChangeModal";
@@ -38,7 +38,9 @@ const ManagePriceView = () => {
 
       // Update the product list
       const updatedProducts = products.map((product) =>
-        product.productId === editingProduct.productId ? { ...product, price: newPrice } : product
+        product.productId === editingProduct.productId
+          ? { ...product, price: newPrice }
+          : product
       );
       setProducts(updatedProducts);
     } catch (error) {
@@ -114,7 +116,9 @@ const ManagePriceView = () => {
   ];
 
   const filteredProducts = filterZeroPrices
-    ? products.filter((product) => product.price === 0 || product.productionCost === 0)
+    ? products.filter(
+        (product) => product.price === 0 || product.productionCost === 0
+      )
     : products;
 
   return (
@@ -123,7 +127,9 @@ const ManagePriceView = () => {
       <Card>
         <div style={{ marginBottom: "16px" }}>
           <Button onClick={toggleFilter}>
-            {filterZeroPrices ? "Show All Products" : "Show Products with Zero Values"}
+            {filterZeroPrices
+              ? "Show All Products"
+              : "Show Products with Zero Values"}
           </Button>
         </div>
         <Table

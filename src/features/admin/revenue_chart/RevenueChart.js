@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { DatePicker, Button, Spin, Row, Col } from "antd";
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
-import { getRevenueReport } from "../../../services/revenueService";
+import RevenueService from "services/RevenueService";
 
-// Register Chart.js components
 Chart.register(...registerables);
 
 const RevenueChart = () => {
@@ -12,7 +11,6 @@ const RevenueChart = () => {
   const [endDate, setEndDate] = useState(null);
   const [loading, setLoading] = useState(false);
   const [chartData, setChartData] = useState(null);
-
   const fetchRevenueData = async () => {
     if (!startDate || !endDate) {
       alert("Please select a valid date range.");
@@ -21,42 +19,38 @@ const RevenueChart = () => {
 
     setLoading(true);
     try {
-      const data = await getRevenueReport(
+      const data = await RevenueService.getRevenueReport(
         startDate.format("YYYY-MM-DD"),
         endDate.format("YYYY-MM-DD")
       );
 
-      // Process data for charts
-      const revenueLabels = Object.keys(data.revenueByDate);
-      const revenueValues = Object.values(data.revenueByDate);
-
-      const costLabels = Object.keys(data.costByDate);
-      const costValues = Object.values(data.costByDate);
-
-      const profitLabels = Object.keys(data.profitByDate);
-      const profitValues = Object.values(data.profitByDate);
+      // Process the response
+      const dates = Object.keys(data); // Extract the dates
+      const revenues = dates.map((date) => data[date].revenue);
+      const costs = dates.map((date) => data[date].cost);
+      const profits = dates.map((date) => data[date].profit);
 
       // Prepare chart data
       setChartData({
-        labels: revenueLabels, // Use revenue labels for x-axis
+        labels: dates, // Dates for x-axis
         datasets: [
           {
             label: "Revenue",
-            data: revenueValues,
+            data: revenues,
             backgroundColor: "rgba(75, 192, 192, 0.6)",
             borderColor: "rgba(75, 192, 192, 1)",
             borderWidth: 2,
           },
           {
             label: "Cost",
-            data: costValues,
+            data: costs,
             backgroundColor: "rgba(255, 99, 132, 0.6)",
             borderColor: "rgba(255, 99, 132, 1)",
             borderWidth: 2,
           },
           {
             label: "Profit",
-            data: profitValues,
+            data: profits,
             backgroundColor: "rgba(54, 162, 235, 0.6)",
             borderColor: "rgba(54, 162, 235, 1)",
             borderWidth: 2,

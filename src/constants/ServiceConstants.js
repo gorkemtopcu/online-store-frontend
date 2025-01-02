@@ -1,4 +1,5 @@
 const ServiceConstants = {
+  ADMIN: "http://localhost:8081/admin",
   PRODUCTS: "http://localhost:8081/admin/products",
   VERIFY: "http://localhost:8081/auth/verify",
   USER: "http://localhost:8081/user",
@@ -24,6 +25,7 @@ const ServiceConstants = {
   NEW_ARRIVALS: "/getNewArrivals",
   GET_PENDING: "/getAllPending",
   CHANGE_PRICE: "/changePrice",
+  REVENUE_REPORT: "/revenue-report",
 };
 
 export default ServiceConstants;
