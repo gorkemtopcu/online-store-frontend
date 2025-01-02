@@ -21,22 +21,32 @@ const ProductTable = ({ products, selectedProduct, setSelectedProduct }) => {
             <tr
               key={product.productId}
               className={`border-t border-gray-200 hover:bg-gray-50 transition-colors ${
-                selectedProduct === product.productId ? 'bg-blue-50 hover:bg-blue-100' : ''
+                selectedProduct === product.productId
+                  ? "bg-blue-50 hover:bg-blue-100"
+                  : ""
               }`}
               onClick={() => setSelectedProduct(product.productId)}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: "pointer" }}
             >
               <td className="p-3">{product.name}</td>
-              <td className="p-3">${product.price.toFixed(2)}</td>
+              <td className="p-3">
+                $
+                {(
+                  product.price -
+                  (product.price * product.discount) / 100
+                ).toFixed(2)}
+              </td>
               <td className="p-3">
                 <span
                   className={`px-2 py-1 rounded-full text-sm ${
-                    hasDiscount(product) ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                    hasDiscount(product)
+                      ? "bg-green-100 text-green-800"
+                      : "bg-red-100 text-red-800"
                   }`}
                 >
                   {hasDiscount(product)
                     ? `${calculateDiscountPercentage(product)}% OFF`
-                    : 'No discount'}
+                    : "No discount"}
                 </span>
               </td>
             </tr>

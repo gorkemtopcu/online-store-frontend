@@ -12,10 +12,10 @@ const InvoiceDisplay = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchInvoice = async () => {
+    const fetchInvoiceByOrderId = async () => {
       try {
         console.log("Fetching invoice for orderId:", orderId);
-        const url = await InvoiceService.fetchInvoice(orderId);
+        const url = await InvoiceService.fetchInvoiceByOrderId(orderId);
         setInvoiceUrl(url);
         console.log("Invoice URL created:", url);
       } catch (err) {
@@ -26,7 +26,7 @@ const InvoiceDisplay = () => {
       }
     };
 
-    fetchInvoice();
+    fetchInvoiceByOrderId();
   }, [orderId]);
 
   if (loading) {

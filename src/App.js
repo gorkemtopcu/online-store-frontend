@@ -27,6 +27,7 @@ import DisplayCommentView from "features/admin/display_comment/DisplayCommentVie
 import ManagePriceView from "features/admin/update_price/view/ManagePriceView";
 import NotFoundView from "features/common/not_found/view/not_found_view";
 import DisplayInvoices from "features/admin/display_invoices/DisplayInvoices";
+import EvaluateRefunds from "features/admin/refund_requests/EvaluateRefunds";
 import SetDiscountRate from "features/admin/set-discount-rate/SetDiscountRate";
 import RevenueChart from "./features/admin/revenue_chart/RevenueChart";
 
@@ -69,6 +70,10 @@ function App() {
             element={<CreateCategoryView />}
           />
           <Route
+            path={AdminRoutePaths.DELIVERY_LIST}
+            element={<OrderManagementView />}
+          />
+          <Route
             path={AdminRoutePaths.EDIT_CATEGORY}
             element={<EditCategoryView />}
           />
@@ -91,6 +96,10 @@ function App() {
           <Route
             path={AdminRoutePaths.DISPLAY_INVOICES}
             element={<DisplayInvoices />}
+          />
+          <Route
+            path={AdminRoutePaths.EVALUATE_REFUNDS}
+            element={<EvaluateRefunds />}
           />
           <Route
             path={AdminRoutePaths.SET_DISCOUNT_RATE}
