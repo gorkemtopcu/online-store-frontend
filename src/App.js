@@ -29,6 +29,7 @@ import NotFoundView from "features/common/not_found/view/not_found_view";
 import DisplayInvoices from "features/admin/display_invoices/DisplayInvoices";
 import EvaluateRefunds from "features/admin/refund_requests/EvaluateRefunds";
 import SetDiscountRate from "features/admin/set-discount-rate/SetDiscountRate";
+import RevenueChart from "./features/admin/revenue_chart/RevenueChart";
 
 function App() {
   const { currentUser } = useUserStore();
@@ -57,6 +58,10 @@ function App() {
             element={<CreateProductView />}
           />
           <Route
+            path={AdminRoutePaths.REVENUE_CHART}
+            element={<RevenueChart />}
+          />
+          <Route
             path={AdminRoutePaths.EDIT_PRODUCT}
             element={<InventoryManagementView />}
           />
@@ -64,7 +69,7 @@ function App() {
             path={AdminRoutePaths.CREATE_CATEGORY}
             element={<CreateCategoryView />}
           />
-           <Route
+          <Route
             path={AdminRoutePaths.DELIVERY_LIST}
             element={<OrderManagementView />}
           />
@@ -96,12 +101,11 @@ function App() {
             path={AdminRoutePaths.EVALUATE_REFUNDS}
             element={<EvaluateRefunds />}
           />
-
           <Route
             path={AdminRoutePaths.SET_DISCOUNT_RATE}
-            element={<SetDiscountRate/>}
-          />;
-
+            element={<SetDiscountRate />}
+          />
+          ;
           <Route path="*" element={<NotFoundView />} />
         </Route>
 

@@ -1,4 +1,5 @@
 const ServiceConstants = {
+  ADMIN: "http://localhost:8081/admin",
   PRODUCTS: "http://localhost:8081/admin/products",
   VERIFY: "http://localhost:8081/auth/verify",
   USER: "http://localhost:8081/user",
@@ -8,7 +9,7 @@ const ServiceConstants = {
   WISHLIST: "http://localhost:8081/wishlist",
   INVOICES: "http://localhost:8081/api/invoices",
   REFUNDS: "http://localhost:8081/api/orders/refundRequests",
-  
+
   GET_ALL: "/getAll",
   GET_ALL_PRICED: "/getAllPriced",
   GET_BY_ID: "/getById",
@@ -25,6 +26,7 @@ const ServiceConstants = {
   NEW_ARRIVALS: "/getNewArrivals",
   GET_PENDING: "/getAllPending",
   CHANGE_PRICE: "/changePrice",
+  REVENUE_REPORT: "/revenue-report",
   CANCEL: "/cancel",
 };
 
