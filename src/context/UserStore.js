@@ -42,7 +42,7 @@ const useUserStore = create((set, get) => ({
   },
 
   // Sign up a new user
-  signUp: async (name, email, password, role) => {
+  signUp: async (name, email, password, role, address, taxId) => {
     set({ userState: userStoreStates.LOADING, error: null }); // Loading userState with reset error
     try {
       const user = await authService.signUp(email, password);
@@ -57,6 +57,8 @@ const useUserStore = create((set, get) => ({
         email: email,
         role: role,
         uid: user.uid,
+        address: address,
+        taxId: taxId,
       });
 
       const userDoc = await userService.getUserById(user.uid);
