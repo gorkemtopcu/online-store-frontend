@@ -9,7 +9,6 @@ import {
 } from "@ant-design/icons";
 import { AdminRoutePaths } from "./route_paths";
 import UserRoles from "./UserRoles";
-import DisplayInvoices from "features/admin/display_invoices/DisplayInvoices";
 
 const AdminRouteFactory = (role) => {
   switch (role) {
