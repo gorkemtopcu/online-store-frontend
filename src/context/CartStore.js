@@ -62,11 +62,12 @@ const useCartStore = create((set, get) => ({
 
   getTotalPrice: () => {
     const state = get();
-    return Object.values(state.cart).reduce(
-      (total, { product, quantity }) => total + product.price * quantity,
-      0
-    );
-  },
+    return Object.values(state.cart).reduce((total, { product, quantity }) => {
+        const discount = product.discount;
+        const discountedPrice = product.price * (1 - discount / 100);
+        return total + discountedPrice * quantity;
+    }, 0);
+},
 
   getCartObjects: () => {
     const state = get();

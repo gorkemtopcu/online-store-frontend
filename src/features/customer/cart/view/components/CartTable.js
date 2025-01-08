@@ -56,7 +56,20 @@ const CartTable = () => {
       title: "Price",
       dataIndex: "product",
       key: "price",
-      render: (product) => <Text>${product.price}</Text>,
+      render: (product) => {
+        const discountedPrice =
+          product.price * (1 - (product.discount || 0) / 100);
+        return (
+          <Text>
+            ${discountedPrice.toFixed(2)}{" "}
+            {product.discount > 0 && (
+              <Text type="secondary" style={{ textDecoration: "line-through" }}>
+                ${product.price.toFixed(2)}
+              </Text>
+            )}
+          </Text>
+        );
+      },
     },
     {
       title: "Quantity",
@@ -76,9 +89,13 @@ const CartTable = () => {
     {
       title: "Total",
       key: "total",
-      render: (_, record) => (
-        <Text>${(record.product.price * record.quantity).toFixed(2)}</Text>
-      ),
+      render: (_, record) => {
+        const discountedPrice =
+          record.product.price * (1 - (record.product.discount || 0) / 100);
+        return (
+          <Text>${(discountedPrice * record.quantity).toFixed(2)}</Text>
+        );
+      },
     },
     {
       title: "Actions",
