@@ -52,6 +52,7 @@ const RequestRefundButton = ({ orderId, productId, order, onRequestRefund }) => 
       const result = await OrderService.requestRefund(refundRequest);
       if (result) {
         message.success("Refund request submitted successfully");
+        window.location.reload();
       } else {
         message.error("Failed to submit refund request");
       }
