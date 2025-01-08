@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DatePicker, Button, Spin, Row, Col } from "antd";
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
+import dayjs from "dayjs";
 import RevenueService from "services/revenueService";
 
 Chart.register(...registerables);
 
 const RevenueChart = () => {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  // Set default dates: one month ago as start date and today as end date
+  const defaultStartDate = dayjs().subtract(1, "month");
+  const defaultEndDate = dayjs();
+
+  const [startDate, setStartDate] = useState(defaultStartDate);
+  const [endDate, setEndDate] = useState(defaultEndDate);
   const [loading, setLoading] = useState(false);
   const [chartData, setChartData] = useState(null);
+
   const fetchRevenueData = async () => {
     if (!startDate || !endDate) {
       alert("Please select a valid date range.");
@@ -64,18 +70,25 @@ const RevenueChart = () => {
     }
   };
 
+  useEffect(() => {
+    // Automatically fetch data on mount with default dates
+    fetchRevenueData();
+  }, []);
+
   return (
     <div style={{ padding: "24px" }}>
       <h2>Revenue Chart</h2>
       <Row gutter={16}>
         <Col>
           <DatePicker
+            value={startDate}
             onChange={(date) => setStartDate(date)}
             placeholder="Start Date"
           />
         </Col>
         <Col>
           <DatePicker
+            value={endDate}
             onChange={(date) => setEndDate(date)}
             placeholder="End Date"
           />
