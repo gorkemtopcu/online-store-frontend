@@ -9,6 +9,7 @@ const InvoicesList = () => {
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [selectedDates, setSelectedDates] = useState(null); // State to store selected dates
 
   const fetchInvoicesByDateRange = async (startDate, endDate) => {
     setLoading(true);
@@ -29,6 +30,7 @@ const InvoicesList = () => {
   };
 
   const handleDateChange = (dates) => {
+    setSelectedDates(dates); // Update the selected dates state
     if (dates && dates.length === 2) {
       const [startDate, endDate] = dates.map((date) =>
         date.format("YYYY-MM-DD")
@@ -74,6 +76,7 @@ const InvoicesList = () => {
     <div style={{ padding: "20px" }}>
       <Title level={3}>Display Invoices</Title>
       <RangePicker
+        value={selectedDates} // Controlled by state
         onChange={handleDateChange}
         style={{ marginBottom: "20px" }}
       />

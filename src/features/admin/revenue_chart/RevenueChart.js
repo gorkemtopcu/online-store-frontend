@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DatePicker, Button, Spin, Row, Col } from "antd";
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
-import RevenueService from "services/RevenueService";
+import RevenueService from "services/revenueService";
 
 Chart.register(...registerables);
 
