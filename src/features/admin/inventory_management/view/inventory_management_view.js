@@ -41,21 +41,14 @@ const InventoryManagementView = () => {
   const handleDelete = async (productId) => {
     try {
       await ProductService.deleteProduct(productId);
-      setProducts(products.filter((product) => product.productId !== productId));
+      setProducts(
+        products.filter((product) => product.productId !== productId)
+      );
       message.success("Product deleted successfully");
     } catch (error) {
       console.error("Error deleting product:", error);
       message.error("Error deleting product");
     }
-  };
-
-  // Open edit modal and set product to be edited
-  const handleEdit = (product) => {
-    setEditingProduct(product);
-    setEditedFields({
-      ...product,
-    });
-    setIsEditModalVisible(true);
   };
 
   // Handle input change in the modal

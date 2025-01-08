@@ -24,8 +24,8 @@ const AuthenticationModal = ({ isOpen, onClose, onAuthSuccess = () => {} }) => {
   };
 
   const handleSignUp = async (values) => {
-    const { name, email, password, role } = values;
-    await signUp(name, email, password, role);
+    const { name, email, password, role, address, taxId } = values;
+    await signUp(name, email, password, role, address, taxId);
     const updatedCurrentUser = useUserStore.getState().currentUser;
     if (updatedCurrentUser) {
       onAuthSuccess();

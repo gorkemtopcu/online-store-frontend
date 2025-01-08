@@ -8,13 +8,15 @@ const StringConstants = {
   EMAIL: "Email",
   PASSWORD: "Password",
   CONFIRM_PASSWORD: "Confirm Password",
+  TAX_ID: "Tax ID",
+  ADDRESS: "Address",
   CREATE_PRODUCT: "Create Product",
   CONTINUE_SHOPPING: "Continue Shopping",
   CATEGORIES: "Categories",
   FILTERS: "Filters",
   EDIT: "Edit",
   DELETE: "Delete",
-  APPROVE: "Approve", 
+  APPROVE: "Approve",
   DECLINE: "Decline",
 
   //Navbar

@@ -14,7 +14,10 @@ class RefundService {
 
   async updateRefundStatus(refundRequest) {
     try {
-      const response = await axios.put(`${ServiceConstants.ORDERS}/updateRefundStatus`, refundRequest);
+      const response = await axios.put(
+        `${ServiceConstants.ORDERS}/updateRefundStatus`,
+        refundRequest
+      );
       return response.data;
     } catch (error) {
       console.error("Error updating refund status:", error);
@@ -22,5 +25,5 @@ class RefundService {
     }
   }
 }
-
-export default new RefundService();
+const refundService = new RefundService();
+export default refundService;

@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import {
-  ShoppingCartOutlined,
-  SearchOutlined,
-  MenuOutlined,
-} from "@ant-design/icons";
+import { ShoppingCartOutlined, MenuOutlined } from "@ant-design/icons";
 import logo from "../../assets/images/logo.png";
 import { CustomerRoutePaths } from "constants/route_paths";
 import UserMenu from "components/menu/UserMenu";

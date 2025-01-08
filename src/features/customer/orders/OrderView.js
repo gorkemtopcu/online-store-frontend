@@ -4,7 +4,6 @@ import useUserStore from "context/UserStore";
 import OrderViewNavbar from "./components/OrderViewNavbar";
 import OrderList from "./components/OrderList";
 import LoadingSpinner from "components/spinner/LoadingSpinner";
-import { message } from "antd";
 import StringConstants from "constants/StringConstants";
 
 const OrderView = () => {
@@ -44,9 +43,7 @@ const OrderView = () => {
       {loading ? (
         <LoadingSpinner message={StringConstants.LOADING} />
       ) : (
-        <OrderList
-          orders={filteredOrders}
-        />
+        <OrderList orders={filteredOrders} />
       )}
     </div>
   );
