@@ -22,7 +22,7 @@ const RefundButton = ({ refundStatus, orderStatus, onClick }) => {
       style={{ width: '150px' }}
       color="danger"
       onClick={onClick}
-      disabled={refundStatus === 'APPROVED' || refundStatus === 'REJECTED' || refundStatus === 'REQUESTED' || orderStatus === 'CANCELLED' || orderStatus === 'DELIVERED'}
+      disabled={refundStatus === 'APPROVED' || refundStatus === 'PENDING' || refundStatus === 'REJECTED' || refundStatus === 'REQUESTED' || orderStatus === 'CANCELLED' || orderStatus === 'DELIVERED'}
     >
       {getButtonText()}
     </Button>
