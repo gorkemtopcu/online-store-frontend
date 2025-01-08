@@ -40,19 +40,50 @@ const AuthorPublisherRow = ({ author, publisher }) => (
   </div>
 );
 
-const Price = ({ price }) => (
-  <Text
-    style={{
-      textAlign: "left",
-      marginBottom: "5px",
-      fontSize: "34px",
-      fontWeight: "bold",
-      display: "block",
-    }}
-  >
-    ${price}
-  </Text>
-);
+const Price = ({ price, discount }) => {
+  // Calculate discounted price
+  const discountedPrice = discount ? price * (1 - discount / 100) : price;
+
+  return (
+    <div style={{ textAlign: "left", marginBottom: "5px" }}>
+      {discount > 0 && (
+        <div style={{ display: "flex", alignItems: "baseline" }}>
+          <Text
+            style={{
+              textDecoration: "line-through",
+              color: "gray",
+              fontSize: "18px",
+              marginRight: "10px",
+            }}
+          >
+            ${price.toFixed(2)}
+          </Text>
+          <Text
+            style={{
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: "#5CB338",
+            }}
+          >
+            {`(%${Math.round(discount)} OFF)`}
+          </Text>
+        </div>
+      )}
+      <Text
+        style={{
+          fontSize: "34px",
+          fontWeight: "bold",
+          color: discount > 0 ? "#5CB338" : "inherit",
+          marginTop: discount > 0 ? "5px" : "0",
+        }}
+      >
+        ${discountedPrice.toFixed(2)}
+      </Text>
+    </div>
+  );
+};
+
+
 
 const AddToCartButton = ({ handleAddToCart, isProductAvailable }) => (
   <Button
@@ -131,6 +162,7 @@ const ProductCard = ({
   publicationDate,
   edition,
   numOfWishlist,
+  discount
 }) => (
   <Card
     style={{
@@ -141,7 +173,7 @@ const ProductCard = ({
   >
     <ProductTitle name={name} />
     <AuthorPublisherRow author={author} publisher={publisher} />
-    <Price price={price} />
+    <Price price={price} discount={discount} />
     <AddToCartButton
       handleAddToCart={handleAddToCart}
       isProductAvailable={isProductAvailable}

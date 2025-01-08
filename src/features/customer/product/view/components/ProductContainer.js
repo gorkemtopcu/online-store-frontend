@@ -35,6 +35,7 @@ const ProductContainer = ({
         publicationDate={product.publicationDate}
         edition={product.edition}
         numOfWishlist={product.numOfWishlists}
+        discount={product.discount}
       />
     </Col>
   </Row>
