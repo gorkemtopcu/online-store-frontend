@@ -31,7 +31,9 @@ const CheckoutView = () => {
       name: item.product?.name || null,
       quantity: item.quantity,
       imageURL: item.product?.imageURL[0] || null,
-      price: item.product?.price || null,
+      price: item.product
+      ? item.product.price * (1 - (item.product.discount || 0) / 100)
+      : null,
     }));
 
     try {

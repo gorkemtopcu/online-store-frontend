@@ -11,32 +11,46 @@ const Checkout = () => {
 
   return (
     <div>
-      {products.map((item) => (
-        <Card key={item.product.productId} style={{ marginBottom: "20px" }}>
-          <Row gutter={16}>
-            <Col span={4}>
-              <img
-                src={item.product.imageURL[0]}
-                alt={item.product.name}
-                style={{
-                  width: 60,
-                  height: 60,
-                  borderRadius: 8,
-                  marginRight: 16,
-                  objectFit: "contain",
-                }}
-              />
-            </Col>
-            <Col span={16}>
-              <Text strong>{item.product.name}</Text>
-              <br />
-              <Text>Price: ${item.product.price}</Text>
-              <br />
-              <Text>Quantity: {item.quantity}</Text>
-            </Col>
-          </Row>
-        </Card>
-      ))}
+      {products.map((item) => {
+        const discountedPrice =
+          item.product.price * (1 - (item.product.discount || 0) / 100); // Apply discount to the price
+        return (
+          <Card key={item.product.productId} style={{ marginBottom: "20px" }}>
+            <Row gutter={16}>
+              <Col span={4}>
+                <img
+                  src={item.product.imageURL[0]}
+                  alt={item.product.name}
+                  style={{
+                    width: 60,
+                    height: 60,
+                    borderRadius: 8,
+                    marginRight: 16,
+                    objectFit: "contain",
+                  }}
+                />
+              </Col>
+              <Col span={16}>
+                <Text strong>{item.product.name}</Text>
+                <br />
+                <Text>
+                  Price: ${discountedPrice.toFixed(2)}{" "}
+                  {item.product.discount > 0 && (
+                    <Text
+                      type="secondary"
+                      style={{ textDecoration: "line-through", marginLeft: 8 }}
+                    >
+                      ${item.product.price.toFixed(2)}
+                    </Text>
+                  )}
+                </Text>
+                <br />
+                <Text>Quantity: {item.quantity}</Text>
+              </Col>
+            </Row>
+          </Card>
+        );
+      })}
 
       <Row>
         <Col span={24} style={{ textAlign: "center" }}>
