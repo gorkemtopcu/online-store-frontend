@@ -18,14 +18,14 @@ const InvoicesList = () => {
 
   const fetchInvoicesByCurrentDateRange = async () => {
     const today = dayjs();
-    const startDate = today.startOf("month"); 
-    const endDate = today.endOf("month"); 
-  
+    const startDate = today.startOf("month");
+    const endDate = today.endOf("month");
+
     await fetchInvoicesByDateRange(
       startDate.format("YYYY-MM-DD"),
       endDate.format("YYYY-MM-DD")
     );
-  
+
     setSelectedDates([startDate, endDate]);
   };
 
@@ -59,7 +59,7 @@ const InvoicesList = () => {
     }
   };
 
-  const printInvoice = async (invoice) => {
+  const downloadInvoice = async (invoice) => {
     try {
       const url = await InvoiceService.fetchInvoiceByOrderId(invoice.id);
       const link = document.createElement("a");
@@ -111,9 +111,7 @@ const InvoicesList = () => {
             title: "Actions",
             key: "actions",
             render: (_, invoice) => (
-              <Button onClick={() => printInvoice(invoice)}>
-                Print as PDF
-              </Button>
+              <Button onClick={() => downloadInvoice(invoice)}>Download</Button>
             ),
           },
         ]}

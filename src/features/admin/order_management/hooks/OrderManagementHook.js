@@ -12,7 +12,10 @@ const useOrderManagement = () => {
     const fetchDeliveries = async () => {
       try {
         const data = await OrderService.getAllOrders();
-        setOrders(data);
+        const sortedData = data.sort((a, b) =>
+          b.orderDate.localeCompare(a.orderDate)
+        );
+        setOrders(sortedData);
       } catch (error) {
         console.error("Error fetching deliveries:", error);
         message.error("Failed to load deliveries.");
