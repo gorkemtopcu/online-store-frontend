@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DatePicker, Table, Button, Spin, Alert, Typography } from "antd";
 import InvoiceService from "services/InvoiceService";
+import dayjs from "dayjs";
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
@@ -10,6 +11,23 @@ const InvoicesList = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedDates, setSelectedDates] = useState(null); // State to store selected dates
+
+  useEffect(() => {
+    fetchInvoicesByCurrentDateRange();
+  }, []);
+
+  const fetchInvoicesByCurrentDateRange = async () => {
+    const today = dayjs();
+    const startDate = today.startOf("month"); 
+    const endDate = today.endOf("month"); 
+  
+    await fetchInvoicesByDateRange(
+      startDate.format("YYYY-MM-DD"),
+      endDate.format("YYYY-MM-DD")
+    );
+  
+    setSelectedDates([startDate, endDate]);
+  };
 
   const fetchInvoicesByDateRange = async (startDate, endDate) => {
     setLoading(true);

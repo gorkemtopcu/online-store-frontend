@@ -26,6 +26,7 @@ const ServiceConstants = {
   NEW_ARRIVALS: "/getNewArrivals",
   GET_PENDING: "/getAllPending",
   CHANGE_PRICE: "/changePrice",
+  CHANGE_STOCK: "/changeStock",
   REVENUE_REPORT: "/revenue-report",
   CANCEL: "/cancel",
 };

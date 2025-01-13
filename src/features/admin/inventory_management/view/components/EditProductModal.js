@@ -10,39 +10,14 @@ const EditProductModal = ({
 }) => {
     return (
         <Modal
-            title="Edit Product"
+            title="Change Stock"
             open={visible}
             onOk={onSave}
             onCancel={onCancel}
         >
             <Input
-                value={editedFields.name}
-                onChange={(e) => onFieldChange('name', e.target.value)}
-                placeholder="Product Name"
-                style={{ marginBottom: 8 }}
-            />
-            <Input
-                value={editedFields.brand}
-                onChange={(e) => onFieldChange('brand', e.target.value)}
-                placeholder="Brand"
-                style={{ marginBottom: 8 }}
-            />
-            <Input
-                value={editedFields.description}
-                onChange={(e) => onFieldChange('description', e.target.value)}
-                placeholder="Description"
-                style={{ marginBottom: 8 }}
-            />
-            <Input
-                value={editedFields.price}
-                onChange={(e) => onFieldChange('price', e.target.value)}
-                placeholder="Price"
-                style={{ marginBottom: 8 }}
-                type="number"
-            />
-            <Input
                 value={editedFields.stock}
-                onChange={(e) => onFieldChange('stock', e.target.value)}
+                onChange={(e) => onFieldChange('quantityInStock', e.target.value)}
                 placeholder="Stock"
                 style={{ marginBottom: 8 }}
                 type="number"

@@ -6,18 +6,29 @@ import StatusTag from "./StatusTag";
 import StringConstants from "constants/StringConstants";
 import ReviewModal from "./ReviewButton";
 import RequestRefundButton from "features/customer/refund_requests/RequestRefundButton";
-import handleRequestRefund from "features/customer/refund_requests/RequestRefundButton";
 import CancelOrderButton from "./CancelOrderButton";
 
 const { Text } = Typography;
 
 const OrderCard = ({ order }) => {
   const [expanded, setExpanded] = useState(false);
+  const [orderState, setOrderState] = useState(order);
+
   const toggleExpand = () => setExpanded(!expanded);
 
-  const handleOrderCancelled = (orderId) => {
-    console.log(`Order ${orderId} cancelled`);
-    window.location.reload();
+  const handleOrderCancelled = (orderId, newStatus) => {
+    if (orderId === orderState.orderId) {
+      setOrderState({ ...orderState, orderStatus: newStatus });
+    }
+  };
+
+  const handleRequestRefundSuccess = (orderId, productId, newStatus) => {
+    const updatedProducts = orderState.products.map((product) =>
+      product.productId === productId
+        ? { ...product, refundStatus: newStatus }
+        : product
+    );
+    setOrderState({ ...orderState, products: updatedProducts });
   };
 
   return (
@@ -34,17 +45,18 @@ const OrderCard = ({ order }) => {
       <Row align="middle">
         <Col flex="auto">
           <Text strong style={{ color: "#0d47a1", fontSize: "16px" }}>
-            {StringConstants.ORDER_NO + order.orderId}
+            {StringConstants.ORDER_NO + orderState.orderId}
           </Text>
           <br />
-          <StatusTag status={order.orderStatus} />
+          {/* Updated to use orderState */}
+          <StatusTag status={orderState.orderStatus} />
           <br />
           <Text style={{ color: "#616161", fontSize: "14px" }}>
-            {order.orderDate}
+            {orderState.orderDate}
           </Text>
           <br />
           <Text strong style={{ color: "#1b5e20", fontSize: "16px" }}>
-            {order.orderTotal.toFixed(2)} $
+            {orderState.orderTotal.toFixed(2)} $
           </Text>
         </Col>
 
@@ -61,7 +73,7 @@ const OrderCard = ({ order }) => {
       {/* Display products */}
       {expanded && (
         <div style={{ marginTop: "10px" }}>
-          {order.products.map((product, index) => {
+          {orderState.products.map((product, index) => {
             const totalCost = product.quantity * product.price;
             return (
               <Row key={index} style={{ marginBottom: "10px" }} align="middle">
@@ -88,11 +100,11 @@ const OrderCard = ({ order }) => {
                 </Col>
                 <ReviewModal product={product}></ReviewModal>
                 <Col span={1}></Col>
-                <RequestRefundButton 
-                  orderId={order.orderId} 
-                  productId={product.productId} 
-                  order={order} 
-                  onRequestRefund={handleRequestRefund} 
+                <RequestRefundButton
+                  orderId={orderState.orderId}
+                  productId={product.productId}
+                  order={orderState}
+                  onRequestRefundSuccess={handleRequestRefundSuccess}
                 />
               </Row>
             );
@@ -101,9 +113,12 @@ const OrderCard = ({ order }) => {
       )}
 
       {/* Expanded Order Details */}
-      {expanded && <ExpandedOrderDetails order={order} />}
+      {expanded && <ExpandedOrderDetails order={orderState} />}
       <div style={{ marginTop: "10px" }}></div>
-      <CancelOrderButton orderId={order.orderId} onCancelOrder={handleOrderCancelled} />
+      <CancelOrderButton
+        orderId={orderState.orderId}
+        onCancelOrder={handleOrderCancelled}
+      />
     </Card>
   );
 };

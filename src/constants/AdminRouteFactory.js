@@ -64,11 +64,6 @@ const AdminRouteFactory = (role) => {
               label: "Edit Product",
               icon: <EditOutlined />,
             },
-            {
-              key: AdminRoutePaths.MANAGE_STOCKS,
-              label: "Manage Stocks",
-              icon: <EditOutlined />,
-            },
           ],
         },
         {
