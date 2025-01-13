@@ -68,7 +68,7 @@ const RequestRefundButton = ({ orderId, productId, order, onRequestRefund }) => 
 
   return (
     <>
-      <RefundButton refundStatus={refundStatus} orderStatus={order.orderStatus} onClick={() => setVisible(true)} />
+      <RefundButton refundStatus={refundStatus} orderStatus={order.orderStatus} orderDate={order.orderDate} onClick={() => setVisible(true)} />
       <RefundModal
         visible={visible}
         reason={reason}
