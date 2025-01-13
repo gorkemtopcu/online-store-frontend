@@ -75,6 +75,15 @@ const ProductService = {
     } catch (error) {
       console.error("Error updating price:", error);
     }
+  },
+  updateStock: async (id, quantityInStock) => {
+    try {
+      return await axios.put(
+        ServiceConstants.PRODUCTS + ServiceConstants.CHANGE_STOCK + `/${id}/${quantityInStock}`
+      );
+    } catch (error) {
+      console.error("Error updating stock:", error);
+    }
   }
 };
 

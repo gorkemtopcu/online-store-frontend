@@ -3,6 +3,7 @@ import { Table, Button, Card, message } from "antd";
 import ProductHeader from "components/headers/ProductHeader";
 import EditProductModal from "./components/EditProductModal";
 import ProductService from "services/ProductService";
+import { Title } from "chart.js";
 
 const InventoryManagementView = () => {
   const [products, setProducts] = useState([]);
@@ -10,23 +11,7 @@ const InventoryManagementView = () => {
   const [editingProduct, setEditingProduct] = useState(null);
   const [editedFields, setEditedFields] = useState({
     productId: "",
-    name: "",
-    description: "",
-    imageURL: [],
-    price: "",
     quantityInStock: "",
-    categoryId: "",
-    numOfWishlists: 0,
-    serialNumber: "",
-    distributorInformation: "",
-    warrantyStatus: "",
-    author: "",
-    publisher: "",
-    isbn: "",
-    language: "",
-    numberOfPages: "",
-    publicationDate: "",
-    edition: "",
   });
 
   useEffect(() => {
@@ -60,20 +45,33 @@ const InventoryManagementView = () => {
   };
 
   // Save edited product fields
-  const handleSaveEdit = () => {
-    setProducts(
-      products.map((product) =>
-        product.productId === editingProduct.productId
-          ? { ...product, ...editedFields }
-          : product
-      )
-    );
-    setIsEditModalVisible(false);
-    setEditingProduct(null);
-    message.success("Product updated successfully");
+  const handleSaveEdit = async () => {
+    const { productId, quantityInStock } = editedFields;
+    console.log("editedFields", editedFields);
+    try {
+      await ProductService.updateStock(productId, quantityInStock);
+      setProducts(
+        products.map((product) =>
+          product.productId === editingProduct.productId
+            ? { ...product, ...editedFields }
+            : product
+        )
+      );
+      setIsEditModalVisible(false);
+      setEditingProduct(null);
+      message.success("Product updated successfully");
+    } catch (error) {
+      console.error("Error updating product:", error);
+      message.error("Error updating product");
+    }
   };
 
   const columns = [
+    {
+      itle: "Product ID",
+      dataIndex: "productId",
+      key: "productId",
+    },
     {
       title: "Product Name",
       dataIndex: "name",
@@ -128,10 +126,22 @@ const InventoryManagementView = () => {
       title: "Action",
       key: "action",
       render: (text, record) => (
-        <Button.Group>
+        <Button.Group style={{ display: "flex", gap: "5px" }}>
+          <Button
+            type="primary"
+            style={{ width: "100px" }}
+            onClick={() => {
+              setIsEditModalVisible(true);
+              setEditingProduct(record);
+              setEditedFields(record);
+            }}
+          >
+            Change Stock
+          </Button>
           <Button
             type="primary"
             danger
+            style={{ width: "100px" }}
             onClick={() => handleDelete(record.productId)}
           >
             Delete
