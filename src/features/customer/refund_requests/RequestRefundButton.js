@@ -6,7 +6,7 @@ import RefundService from "services/RefundService";
 import RefundModal from "./components/RefundModal";
 import RefundButton from "./components/RefundButton";
 
-const RequestRefundButton = ({ orderId, productId, order, onRequestRefund }) => {
+const RequestRefundButton = ({ orderId, productId, order, onRequestRefundSuccess }) => {
   const [visible, setVisible] = useState(false);
   const [reason, setReason] = useState("");
   const [refundStatus, setRefundStatus] = useState(null);
@@ -52,7 +52,8 @@ const RequestRefundButton = ({ orderId, productId, order, onRequestRefund }) => 
       const result = await OrderService.requestRefund(refundRequest);
       if (result) {
         message.success("Refund request submitted successfully");
-        window.location.reload();
+        setRefundStatus("PENDING"); // Update refund status locally
+        onRequestRefundSuccess(orderId, productId, "PENDING"); // Notify parent
       } else {
         message.error("Failed to submit refund request");
       }
