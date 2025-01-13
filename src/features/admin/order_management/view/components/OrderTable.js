@@ -1,5 +1,6 @@
 import React from "react";
 import { Table, Button } from "antd";
+import { render } from "@testing-library/react";
 
 const OrderTable = ({ orders, onEdit }) => {
   const columns = [
@@ -9,10 +10,33 @@ const OrderTable = ({ orders, onEdit }) => {
       key: "orderId",
     },
     {
+      title: "Customer ID",
+      dataIndex: "uid",
+      key: "uid",
+    },
+
+    {
       title: "Customer",
       dataIndex: "firstName",
       key: "firstName",
       render: (text, record) => `${record.payment.cardholderName}`,
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      render: (text, record) => `${record.address.address}`,
+    },
+    {
+      title: "Quantity",
+      dataIndex: "quantity",
+      key: "quantity",
+      render: (text, record) => record.products.reduce((total, product) => total + product.quantity, 0),
+    },
+    {
+      title: "Order Total",
+      dataIndex: "orderTotal",
+      key: "orderTotal",
     },
     {
       title: "Status",
