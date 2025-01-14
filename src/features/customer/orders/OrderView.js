@@ -21,8 +21,11 @@ const OrderView = () => {
     // Fetch orders when the component mounts
     OrderService.getOrders(currentUser.uid)
       .then((data) => {
-        setOrders(data);
-        setFilteredOrders(data); // Initialize filtered orders with all orders
+        const sortedData = data.sort((a, b) =>
+          b.orderDate.localeCompare(a.orderDate)
+        );
+        setOrders(sortedData);
+        setFilteredOrders(sortedData); // Initialize filtered orders with all orders
         setLoading(false);
       })
       .catch((error) => {

@@ -38,7 +38,8 @@ const InvoicesList = () => {
         startDate,
         endDate
       );
-      setInvoices(Array.isArray(data) ? data : []);
+      const sortedData = data.sort((a, b) => b.date.localeCompare(a.date));
+      setInvoices(Array.isArray(sortedData) ? sortedData : []);
     } catch (err) {
       console.error("Error fetching invoices:", err);
       setError("An error occurred while fetching invoices.");

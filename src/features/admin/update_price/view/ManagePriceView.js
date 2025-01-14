@@ -3,13 +3,16 @@ import { Button, Card, Table, message, InputNumber } from "antd";
 import ProductHeader from "components/headers/ProductHeader";
 import ProductService from "services/ProductService";
 import ConfirmPriceChangeModal from "./components/ConfirmPriceChangeModal";
+import SearchInput from "components/input/SearchInput";
 
 const ManagePriceView = () => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filterZeroPrices, setFilterZeroPrices] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [newPrice, setNewPrice] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -17,6 +20,7 @@ const ManagePriceView = () => {
       try {
         const response = await ProductService.getAll();
         setProducts(response.data);
+        setFilteredProducts(response.data); // Initialize filteredProducts
       } catch (error) {
         message.error("Failed to fetch products");
       }
@@ -43,6 +47,7 @@ const ManagePriceView = () => {
           : product
       );
       setProducts(updatedProducts);
+      setFilteredProducts(updatedProducts); // Update filtered products
     } catch (error) {
       message.error("Failed to update price");
     }
@@ -58,6 +63,17 @@ const ManagePriceView = () => {
 
   const toggleFilter = () => {
     setFilterZeroPrices(!filterZeroPrices);
+  };
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+    const lowerCaseTerm = term.toLowerCase();
+    const searchResults = products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(lowerCaseTerm) ||
+        product.productId.toString().includes(term)
+    );
+    setFilteredProducts(searchResults);
   };
 
   const columns = [
@@ -115,17 +131,24 @@ const ManagePriceView = () => {
     },
   ];
 
-  const filteredProducts = filterZeroPrices
-    ? products.filter(
-        (product) => product.price === 0 || product.productionCost === 0
-      )
-    : products;
+  const zeroFilteredProducts = filterZeroPrices
+    ? filteredProducts.filter((product) => product.price === 0)
+    : filteredProducts;
 
   return (
     <div>
-      <ProductHeader title="Manage Price" />
+      {/* Add the SearchInput component */}
+      <SearchInput
+        placeholder="Search products"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        onSearch={handleSearch}
+      />
+      {/* Add spacing between the search input and the table */}
+      <div style={{ marginBottom: "20px" }}></div>{" "}
+      {/* Adjust the spacing as needed */}
       <Card>
-        <div style={{ marginBottom: "16px" }}>
+        <div style={{ marginBottom: "16px", display: "flex", gap: "16px" }}>
           <Button onClick={toggleFilter}>
             {filterZeroPrices
               ? "Show All Products"
@@ -133,7 +156,7 @@ const ManagePriceView = () => {
           </Button>
         </div>
         <Table
-          dataSource={filteredProducts}
+          dataSource={zeroFilteredProducts}
           columns={columns}
           rowKey="productId"
           loading={loading}
