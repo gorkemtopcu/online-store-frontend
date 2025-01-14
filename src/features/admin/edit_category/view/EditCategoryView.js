@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { Button, Card, Table, message } from 'antd';
-import ProductHeader from 'components/headers/ProductHeader';
-import CategoryService from 'services/CategoryService';
-import StringConstants from 'constants/StringConstants';
+import React, { useEffect, useState, useCallback } from "react";
+import { Button, Card, Table, message } from "antd";
+import ProductHeader from "components/headers/ProductHeader";
+import CategoryService from "services/CategoryService";
+import StringConstants from "constants/StringConstants";
 
 // Refactored EditCategoryView component
 const EditCategoryView = () => {
@@ -27,7 +27,6 @@ const EditCategoryView = () => {
     fetchCategories();
   }, [fetchCategories]);
 
-
   const handleDelete = async (id) => {
     try {
       await CategoryService.deleteCategory(id);
@@ -42,21 +41,21 @@ const EditCategoryView = () => {
   // todo improve column system
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: 'Description',
-      dataIndex: 'description',
-      key: 'description',
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
     },
     {
-      title: 'Action',
-      key: 'action',
+      title: "Action",
+      key: "action",
       render: (text, record) => (
         <Button type="primary" danger onClick={() => handleDelete(record.id)}>
-            {StringConstants.DELETE}
+          {StringConstants.DELETE}
         </Button>
       ),
     },
@@ -64,7 +63,6 @@ const EditCategoryView = () => {
 
   return (
     <div>
-      <ProductHeader title="Inventory Management" />
       <Card>
         <Table
           dataSource={categories}
